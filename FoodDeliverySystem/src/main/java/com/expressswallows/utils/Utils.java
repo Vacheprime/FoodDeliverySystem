@@ -8,7 +8,9 @@ import java.time.LocalDate;
 import java.time.Period;
 
 /**
- *
+ * Utils class used to contain static functions that could be used in many
+ * classes throughout the application.
+ * 
  * @author Danat
  */
 public class Utils {
