@@ -5,6 +5,7 @@
 package com.expressswallows;
 
 import com.expressswallows.utils.Utils;
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -17,7 +18,7 @@ public abstract class Person {
     private String lastName;
     private String email;
     private String password;
-    private final Date dob;
+    private final LocalDate dob;
     private String phoneNumber;
     
     /**
@@ -30,7 +31,7 @@ public abstract class Person {
      * @param dob the date of birth of the person.
      * @param phoneNumber the phone number of the person.
      */
-    public Person(String firstName, String lastName, String email, String password, Date dob, String phoneNumber) {
+    public Person(String firstName, String lastName, String email, String password, LocalDate dob, String phoneNumber) {
         // Make sure no argument is null
         if (firstName == null || this.lastName == null || email == null || 
                 password == null || dob == null || phoneNumber == null) {
@@ -56,7 +57,7 @@ public abstract class Person {
      * Getter for the date of birth.
      * @return the date of birth of the person.
      */
-    public Date getDob() {
+    public LocalDate getDob() {
         return dob;
     }
 
