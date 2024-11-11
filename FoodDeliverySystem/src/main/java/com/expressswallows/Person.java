@@ -6,7 +6,6 @@ package com.expressswallows;
 
 import com.expressswallows.utils.Utils;
 import java.time.LocalDate;
-import java.util.Date;
 
 /**
  * Person abstract class represents a user of the application, whether client
