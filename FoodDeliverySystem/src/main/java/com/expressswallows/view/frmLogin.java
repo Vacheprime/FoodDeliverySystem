@@ -2,8 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.expressswallows;
+package com.expressswallows.view;
 
+import com.expressswallows.Client;
+import com.expressswallows.Employee;
 import javax.swing.JOptionPane;
 
 /**
@@ -173,11 +175,11 @@ public class frmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelBtnActionPerformed
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
-       if(emailTB.getText().equals(Employee.email)&& passwordTB.getText().equals(Employee.password))
+       if(emailTB.getText().equals(Employee.email) && passwordTB.getText().equals(Employee.password))
         {
          setVisible(false);
          new frmEmployeeMainMenu().setVisible(true);
-        } else if (emailTB.getText().equals(Client.email)&& passwordTB.getText().equals(Client.password)){
+        } else if (emailTB.getText().equals(Client.email) && passwordTB.getText().equals(Client.password)){
             setVisible(false);
             new frmClientMainMenu().setVisible(true);
         } else {

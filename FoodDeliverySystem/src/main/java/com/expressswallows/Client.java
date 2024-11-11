@@ -22,7 +22,6 @@ public class Client extends Person{
         this.address = address;
     }
 
-    @Override
     public boolean validateAge(Date date) {
         return false; 
     }
