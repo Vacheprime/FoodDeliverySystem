@@ -28,7 +28,7 @@ public abstract class Person {
      */
     public Person(String firstName, String lastName, String email, String password, LocalDate dob, String phoneNumber) {
         // Make sure no argument is null
-        if (firstName == null || this.lastName == null || email == null || 
+        if (firstName == null || lastName == null || email == null || 
                 password == null || dob == null || phoneNumber == null) {
             throw new IllegalArgumentException("The person's personal information cannot be null.");
         }
