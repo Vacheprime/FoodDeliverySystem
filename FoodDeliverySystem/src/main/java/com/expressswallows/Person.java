@@ -170,8 +170,8 @@ public abstract class Person {
 
     @Override
     public String toString() {
-        return "Person{" + "firstName=" + firstName + ", lastName=" + lastName +
-                ", email=" + email + ", password=" + password + ", dob=" + dob +
-                ", phoneNumber=" + phoneNumber + '}';
+        return String.format("Person{FirstName: %s, LastName: %s, "
+                + "Email: %s, Dob: %s, Phone: %s}", firstName, lastName, email, 
+                dob, phoneNumber);
     }
 }

@@ -88,6 +88,8 @@ public class Client extends Person{
 
     @Override
     public String toString() {
-        return "Client{" + "clientId=" + clientId + ", address=" + address + '}';
+        return String.format("Client{ID: %d, FirstName: %s, LastName: %s, "
+                + "Email: %s, Dob: %s, Phone: %s}", clientId, getFirstName(), 
+                getLastName(), getEmail(), getDob(), getPhoneNumber());
     }
 }
