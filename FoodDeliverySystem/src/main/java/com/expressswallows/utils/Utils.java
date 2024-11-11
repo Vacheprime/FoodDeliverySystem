@@ -12,6 +12,22 @@ import java.time.Period;
 public class Utils {
     
     /**
+     * Determine whether a zip code follows the following format:
+     * A1A B2B
+     * The method checks if the string matches the following regex:
+     * ^[A-Z][0-9][A-Z] [0-9][A-Z][0-9]$
+     * 
+     * @param postalCode
+     * @return 
+     */
+    public static boolean validatePostalCode(String postalCode) {
+        if (postalCode == null) {
+            throw new IllegalArgumentException("The zip code cannot be null.");
+        }
+        return postalCode.matches("^[A-Z][0-9][A-Z] [0-9][A-Z][0-9]$");
+    }
+    
+    /**
      * Determine whether a phone number follows the following format:
      * (123) 456-7890
      * The method checks if the string matches the following regex:
