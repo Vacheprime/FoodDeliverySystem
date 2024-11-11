@@ -1,9 +1,9 @@
 package com.expressswallows;
 
+import com.expressswallows.model.restaurant.users.Employee;
+import com.expressswallows.utils.Utils;
 import com.expressswallows.view.frmLogin;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * Main entry point for the Delivery System Application.
@@ -11,16 +11,15 @@ import java.util.Date;
  */
 public class Main 
 {
-    public static void main( String[] args ) throws ParseException
+    public static void main( String[] args )
     {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new frmLogin().setVisible(true);
             }
         });
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date d1 = sdf.parse("2005-11-07");
-        
-        Employee e1 = new Employee("Andrew","Shahini","andrewshahini@gmail.com","123456",d1,"123-123-1234");
+        LocalDate d1 = LocalDate.of(2005, 03, 15);
+        System.out.println(d1);
+        Employee e1 = new Employee("Andrew","Shahini","andrewshahini@gmail.com","123456",d1,"(123) 123-1234");
     }
 }

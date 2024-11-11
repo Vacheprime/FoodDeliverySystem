@@ -1,4 +1,4 @@
-package com.expressswallows;
+package com.expressswallows.model.restaurant.users;
 
 import com.expressswallows.utils.Utils;
 import java.time.LocalDate;

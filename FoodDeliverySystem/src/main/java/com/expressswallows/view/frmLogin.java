@@ -4,8 +4,8 @@
  */
 package com.expressswallows.view;
 
-import com.expressswallows.Client;
-import com.expressswallows.Employee;
+import com.expressswallows.model.restaurant.users.Client;
+import com.expressswallows.model.restaurant.users.Employee;
 import javax.swing.JOptionPane;
 
 /**
@@ -175,16 +175,16 @@ public class frmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelBtnActionPerformed
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
-       if(emailTB.getText().equals(Employee.email) && passwordTB.getText().equals(Employee.password))
-        {
-         setVisible(false);
-         new frmEmployeeMainMenu().setVisible(true);
-        } else if (emailTB.getText().equals(Client.email) && passwordTB.getText().equals(Client.password)){
-            setVisible(false);
-            new frmClientMainMenu().setVisible(true);
-        } else {
-        errorLbl.setVisible(true); //shows the incorrect message
-        }
+//       if(emailTB.getText().equals(Employee.email) && passwordTB.getText().equals(Employee.password))
+//        {
+//         setVisible(false);
+//         new frmEmployeeMainMenu().setVisible(true);
+//        } else if (emailTB.getText().equals(Client.email) && passwordTB.getText().equals(Client.password)){
+//            setVisible(false);
+//            new frmClientMainMenu().setVisible(true);
+//        } else {
+//        errorLbl.setVisible(true); //shows the incorrect message
+//        }
     }//GEN-LAST:event_loginBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
