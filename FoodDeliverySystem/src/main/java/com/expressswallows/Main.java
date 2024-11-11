@@ -11,7 +11,7 @@ import java.time.LocalDate;
  */
 public class Main 
 {
-    public static void main( String[] args )
+    public static void main(String[] args )
     {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
