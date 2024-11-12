@@ -4,17 +4,36 @@
  */
 package com.expressswallows.view;
 
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author shahi
  */
 public class frmClientMainMenu extends javax.swing.JFrame {
 
+    ImageIcon burgerImage = new ImageIcon("burger.jpg");
+    ImageIcon pizzaImage = new ImageIcon("pizza.jpg");
+    ImageIcon hotdogImage = new ImageIcon("hotdog.jpg");
+    ImageIcon friesImage = new ImageIcon("fries.jpg");
+    ImageIcon drinksImage = new ImageIcon("drinks.jpg");
+    
     /**
-     * Creates new form ClientMainMenu
+     * Creates new form frmClientMainMenu
      */
     public frmClientMainMenu() {
         initComponents();
+        burgerLbl.setText("");
+        burgerLbl.setIcon(burgerImage);
+        pizzaLbl.setText("");
+        pizzaLbl.setIcon(pizzaImage);
+        hotdogLbl.setText("");
+        hotdogLbl.setIcon(hotdogImage);
+        friesLbl.setText("");
+        friesLbl.setIcon(friesImage);
+        drinksLbl.setText("");
+        drinksLbl.setIcon(drinksImage);
     }
 
     /**
@@ -26,45 +45,215 @@ public class frmClientMainMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        titleLbl = new javax.swing.JLabel();
+        langBtn = new javax.swing.JButton();
+        logoutBtn = new javax.swing.JButton();
+        burgerLbl = new javax.swing.JLabel();
+        burgerBtn = new javax.swing.JButton();
+        pizzaLbl = new javax.swing.JLabel();
+        pizzaBtn = new javax.swing.JButton();
+        hotdogLbl = new javax.swing.JLabel();
+        hotdogBtn = new javax.swing.JButton();
+        friesLbl = new javax.swing.JLabel();
+        friesBtn = new javax.swing.JButton();
+        drinksLbl = new javax.swing.JLabel();
+        drinksBtn = new javax.swing.JButton();
+        viewCartBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setText("Express Swallows");
+        titleLbl.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        titleLbl.setText("Express Swallows");
 
-        jLabel2.setText("jLabel2");
+        langBtn.setText("jButton1");
+        langBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                langBtnActionPerformed(evt);
+            }
+        });
+
+        logoutBtn.setText("jButton1");
+        logoutBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutBtnActionPerformed(evt);
+            }
+        });
+
+        burgerLbl.setText("jLabel1");
+
+        burgerBtn.setText("jButton1");
+        burgerBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                burgerBtnActionPerformed(evt);
+            }
+        });
+
+        pizzaLbl.setText("jLabel1");
+
+        pizzaBtn.setText("jButton1");
+        pizzaBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pizzaBtnActionPerformed(evt);
+            }
+        });
+
+        hotdogLbl.setText("jLabel1");
+
+        hotdogBtn.setText("jButton1");
+        hotdogBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hotdogBtnActionPerformed(evt);
+            }
+        });
+
+        friesLbl.setText("jLabel1");
+
+        friesBtn.setText("jButton1");
+        friesBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                friesBtnActionPerformed(evt);
+            }
+        });
+
+        drinksLbl.setText("jLabel1");
+
+        drinksBtn.setText("jButton1");
+        drinksBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                drinksBtnActionPerformed(evt);
+            }
+        });
+
+        viewCartBtn.setText("jButton1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(langBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(75, 75, 75)
+                        .addComponent(titleLbl)
+                        .addGap(84, 84, 84)
+                        .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(121, 121, 121)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(friesLbl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+                                .addComponent(burgerLbl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(83, 83, 83)
+                                .addComponent(burgerBtn)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(pizzaBtn)
+                                .addGap(93, 93, 93))
+                            .addComponent(hotdogLbl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+                            .addComponent(pizzaLbl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jLabel2)))
-                .addContainerGap(108, Short.MAX_VALUE))
+                        .addComponent(drinksLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(drinksBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(82, 82, 82))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(137, 137, 137)
+                .addComponent(friesBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(hotdogBtn)
+                .addGap(175, 175, 175))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(viewCartBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(116, 116, 116))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addComponent(jLabel2)
-                .addContainerGap(251, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(titleLbl)
+                    .addComponent(langBtn)
+                    .addComponent(logoutBtn))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(burgerLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pizzaLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(burgerBtn)
+                    .addComponent(pizzaBtn))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(friesLbl)
+                    .addComponent(hotdogLbl))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(friesBtn)
+                    .addComponent(hotdogBtn))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(drinksLbl)
+                    .addComponent(drinksBtn)
+                    .addComponent(viewCartBtn))
+                .addContainerGap(674, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-/*
-    public static void main(String[] args) {
-        // Set the Nimbus look and feel (optional)
+
+    private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
+        int a = JOptionPane.showConfirmDialog(null, "Do you want to log out the application","Select",JOptionPane.YES_NO_OPTION);
+        if(a == 0){
+            this.dispose();
+            new frmLogin().setVisible(true);
+        }
+    }//GEN-LAST:event_logoutBtnActionPerformed
+
+    private void burgerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_burgerBtnActionPerformed
+        this.dispose();
+        new frmBurgerMenu().setVisible(true);
+    }//GEN-LAST:event_burgerBtnActionPerformed
+
+    private void pizzaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pizzaBtnActionPerformed
+        this.dispose();
+        new frmPizzaMenu().setVisible(true);
+    }//GEN-LAST:event_pizzaBtnActionPerformed
+
+    private void hotdogBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hotdogBtnActionPerformed
+        this.dispose();
+        new frmHotDogMenu().setVisible(true);
+    }//GEN-LAST:event_hotdogBtnActionPerformed
+
+    private void friesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_friesBtnActionPerformed
+        this.dispose();
+        new frmFriesMenu().setVisible(true);
+    }//GEN-LAST:event_friesBtnActionPerformed
+
+    private void drinksBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drinksBtnActionPerformed
+        this.dispose();
+        new frmDrinksMenu().setVisible(true);
+    }//GEN-LAST:event_drinksBtnActionPerformed
+
+    private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_langBtnActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -72,20 +261,39 @@ public class frmClientMainMenu extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(frmClientMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(frmClientMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(frmClientMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(frmClientMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
 
-        // Create and display the form
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new frmClientMainMenu().setVisible(true);
             }
         });
     }
-*/
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton burgerBtn;
+    private javax.swing.JLabel burgerLbl;
+    private javax.swing.JButton drinksBtn;
+    private javax.swing.JLabel drinksLbl;
+    private javax.swing.JButton friesBtn;
+    private javax.swing.JLabel friesLbl;
+    private javax.swing.JButton hotdogBtn;
+    private javax.swing.JLabel hotdogLbl;
+    private javax.swing.JButton langBtn;
+    private javax.swing.JButton logoutBtn;
+    private javax.swing.JButton pizzaBtn;
+    private javax.swing.JLabel pizzaLbl;
+    private javax.swing.JLabel titleLbl;
+    private javax.swing.JButton viewCartBtn;
     // End of variables declaration//GEN-END:variables
 }
