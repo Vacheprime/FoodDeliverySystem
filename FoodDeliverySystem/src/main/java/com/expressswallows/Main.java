@@ -1,5 +1,7 @@
 package com.expressswallows;
 
+import com.expressswallows.model.restaurant.users.Address;
+import com.expressswallows.model.restaurant.users.Client;
 import com.expressswallows.model.restaurant.users.Employee;
 import com.expressswallows.utils.Utils;
 import com.expressswallows.view.frmLogin;
@@ -17,9 +19,6 @@ public class Main
             public void run() {
                 new frmLogin().setVisible(true);
             }
-        });
-        LocalDate d1 = LocalDate.of(2005, 03, 15);
-        System.out.println(d1);
-        Employee e1 = new Employee("Andrew","Shahini","andrewshahini@gmail.com","123456",d1,"(123) 123-1234");
+        });  
     }
 }

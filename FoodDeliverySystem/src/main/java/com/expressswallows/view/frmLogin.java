@@ -4,8 +4,13 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.model.restaurant.users.Address;
 import com.expressswallows.model.restaurant.users.Client;
 import com.expressswallows.model.restaurant.users.Employee;
+import com.expressswallows.model.restaurant.users.Person;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,12 +18,19 @@ import javax.swing.JOptionPane;
  * @author shahi
  */
 public class frmLogin extends javax.swing.JFrame {
+    LocalDate d1 = LocalDate.of(2005, 03, 15);
+    Employee e1 = new Employee("Andrew","Shahini","andrewshahini@gmail.com","123456",d1,"(123) 123-1234");
+    Employee e2 = new Employee("Danat","Muradov","danatmuradov@gmail.com","123456",d1,"(123) 123-1234");
 
+    List<Client> clients = new ArrayList<Client>();
+    
     /**
      * Creates new form frmLogin
      */
     public frmLogin() {
         initComponents();
+        clients.add(new Client("Andy", "Shah", "andrew@gmail.com", "123456", d1, "(123) 122-1323", new Address("Street", "122", "H2R 2B1", Address.City.Montreal)));
+
         errorLbl.setVisible(false);
     }
 
@@ -174,16 +186,21 @@ public class frmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelBtnActionPerformed
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
-//       if(emailTB.getText().equals(Employee.email) && passwordTB.getText().equals(Employee.password))
-//        {
-//         setVisible(false);
-//         new frmEmployeeMainMenu().setVisible(true);
-//        } else if (emailTB.getText().equals(Client.email) && passwordTB.getText().equals(Client.password)){
-//            setVisible(false);
-//            new frmClientMainMenu().setVisible(true);
-//        } else {
-//        errorLbl.setVisible(true); //shows the incorrect message
-//        }
+      if (emailTB.getText().equals(e1.getEmail()) && passwordTB.getText().equals(e1.getPassword()) ||
+              emailTB.getText().equals(e2.getEmail()) && passwordTB.getText().equals(e2.getPassword())) {
+        setVisible(false);
+        new frmEmployeeMainMenu().setVisible(true);
+        return;
+    }
+    for (Client client : clients) {
+        if (emailTB.getText().equals(client.getEmail()) && passwordTB.getText().equals(client.getPassword())) {
+            setVisible(false);
+            new frmClientMainMenu().setVisible(true);
+            return;
+        }
+    }
+
+    errorLbl.setVisible(true);
     }//GEN-LAST:event_loginBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
