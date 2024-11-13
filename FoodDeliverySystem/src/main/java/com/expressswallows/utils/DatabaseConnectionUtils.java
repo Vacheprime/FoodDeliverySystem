@@ -291,10 +291,17 @@ public class DatabaseConnectionUtils {
         }
     }
     
+    /**
+     * Create the food table.
+     * 
+     * @throws DatabaseInitializationException exception thrown when the 
+     * employee table could not be created.
+     */
     private void createFoodTable() throws DatabaseInitializationException {
         final String SQL = """
                            CREATE TABLE IF NOT EXISTS food (
                                 FoodID INTEGER PRIMARY KEY,
+                                Type TEXT NOT NULL UNIQUE,
                                 CookTime INTEGER NOT NULL,
                                 Price REAL NOT NULL,
                                 Size TEXT,
@@ -302,9 +309,64 @@ public class DatabaseConnectionUtils {
                                 Bun TEXT,
                                 Spiciness INTEGER,
                                 Sauce TEXT,
-                                CONSTRAINT 
+                                CONSTRAINT chk_CookTime CHECK (CookTime > 0),
+                                CONSTRAINT chk_Price CHECK (Price > 0),
+                                CONSTRAINT chk_Size CHECK (Size IN ('S', 'M', 'L')),
+                                CONSTRAINT chk_SugarContent CHECK (SugarContent >= 0),
+                                CONSTRAINT chk_Bun CHECK (Bun IN 'Soggy', 'White', 'WholeWheat'),
+                                CONSTRAINT chk_Spiciness CHECK (Spiciness BETWEEN 1 AND 5)
                            );
                            """;
+        try {
+            executeSQL(SQL);
+        } catch (SQLException e) {
+            throw new DatabaseInitializationException("Error: could not create"
+                    + " the orderfood table: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Create the foodtopping table.
+     * 
+     * @throws DatabaseInitializationException exception thrown when the 
+     * employee table could not be created.
+     */
+    private void createFoodTopping() throws DatabaseInitializationException {
+        final String SQL = """
+                           CREATE TABLE IF NOT EXISTS foodtopping (
+                                ToppingID INTEGER NOT NULL,
+                                FoodID INTEGER NOT NULL,
+                                CONSTRAINT fk_ToppingID FOREIGN KEY (ForeignID) REFERENCES topping(ToppingID),
+                                CONSTRAINT fk_FoodID FOREIGN KEY (FoodID) REFERENCES food(FoodID)
+                           );
+                           """;
+        try {
+            executeSQL(SQL);
+        } catch (SQLException e) {
+            throw new DatabaseInitializationException("Error: could not create"
+                    + " the orderfood table: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Create the topping table.
+     * 
+     * @throws DatabaseInitializationException exception thrown when the 
+     * employee table could not be created.
+     */
+    private void createToppingTable() throws DatabaseInitializationException {
+        final String SQL = """
+                           CREATE TABLE IF NOT EXISTS topping (
+                                ToppingID INTEGER PRIMARY KEY,
+                                Name TEXT NOT NULL UNIQUE
+                           );
+                           """;
+        try {
+            executeSQL(SQL);
+        } catch (SQLException e) {
+            throw new DatabaseInitializationException("Error: could not create"
+                    + " the orderfood table: " + e.getMessage());
+        }
     }
     
     /**
@@ -323,5 +385,4 @@ public class DatabaseConnectionUtils {
             throw e;
         }
     }
-    
 }
