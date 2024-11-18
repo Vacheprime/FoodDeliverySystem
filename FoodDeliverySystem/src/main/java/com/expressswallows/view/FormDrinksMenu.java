@@ -4,17 +4,22 @@
  */
 package com.expressswallows.view;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author shahi
  */
 public class FormDrinksMenu extends javax.swing.JFrame {
 
+    ImageIcon drink = new ImageIcon("drinks.jpg");
     /**
      * Creates new form frmDrinksMenu
      */
     public FormDrinksMenu() {
         initComponents();
+        drinkImg.setText("");
+        drinkImg.setIcon(drink);
     }
 
     /**
@@ -29,6 +34,10 @@ public class FormDrinksMenu extends javax.swing.JFrame {
         backBtn = new javax.swing.JButton();
         langBtn = new javax.swing.JButton();
         drinksMenuLbl = new javax.swing.JLabel();
+        drinkImg = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        orderBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,6 +58,14 @@ public class FormDrinksMenu extends javax.swing.JFrame {
         drinksMenuLbl.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         drinksMenuLbl.setText("Drinks Menu");
 
+        drinkImg.setText("jLabel1");
+
+        jLabel1.setText("Size");
+
+        jLabel2.setText("Type");
+
+        orderBtn.setText("Add to cart");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -56,11 +73,24 @@ public class FormDrinksMenu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(backBtn)
-                .addGap(18, 18, 18)
-                .addComponent(drinksMenuLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(langBtn)
+                .addGap(49, 49, 49)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(drinksMenuLbl)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                        .addComponent(langBtn))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(orderBtn)
+                            .addComponent(drinkImg, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(75, 75, 75)
+                .addComponent(jLabel2)
+                .addGap(133, 133, 133)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -70,7 +100,15 @@ public class FormDrinksMenu extends javax.swing.JFrame {
                     .addComponent(drinksMenuLbl)
                     .addComponent(langBtn)
                     .addComponent(backBtn))
-                .addContainerGap(262, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(drinkImg)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addGap(86, 86, 86)
+                .addComponent(orderBtn)
+                .addGap(55, 55, 55))
         );
 
         pack();
@@ -123,7 +161,11 @@ public class FormDrinksMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
+    private javax.swing.JLabel drinkImg;
     private javax.swing.JLabel drinksMenuLbl;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JButton langBtn;
+    private javax.swing.JButton orderBtn;
     // End of variables declaration//GEN-END:variables
 }
