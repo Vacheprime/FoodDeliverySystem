@@ -86,7 +86,8 @@ public class FormViewCart extends javax.swing.JFrame {
     }//GEN-LAST:event_payBtnActionPerformed
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
-        // TODO add your handling code here:
+        dispose();
+        new FormClientMainMenu().setVisible(true);
     }//GEN-LAST:event_backBtnActionPerformed
 
     /**
