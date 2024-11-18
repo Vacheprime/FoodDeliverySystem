@@ -8,12 +8,12 @@ package com.expressswallows.view;
  *
  * @author shahi
  */
-public class frmHotDogMenu extends javax.swing.JFrame {
+public class FormHotDogMenu extends javax.swing.JFrame {
 
     /**
      * Creates new form frmHotDogMenu
      */
-    public frmHotDogMenu() {
+    public FormHotDogMenu() {
         initComponents();
     }
 
@@ -32,14 +32,14 @@ public class frmHotDogMenu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        backBtn.setText("jButton1");
+        backBtn.setText("Back");
         backBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backBtnActionPerformed(evt);
             }
         });
 
-        langBtn.setText("jButton2");
+        langBtn.setText("French");
         langBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 langBtnActionPerformed(evt);
@@ -47,7 +47,7 @@ public class frmHotDogMenu extends javax.swing.JFrame {
         });
 
         hotdogMenuLbl.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        hotdogMenuLbl.setText("jLabel1");
+        hotdogMenuLbl.setText("HotDog Menu");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -57,7 +57,7 @@ public class frmHotDogMenu extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(backBtn)
                 .addGap(18, 18, 18)
-                .addComponent(hotdogMenuLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                .addComponent(hotdogMenuLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(langBtn)
                 .addContainerGap())
@@ -78,7 +78,7 @@ public class frmHotDogMenu extends javax.swing.JFrame {
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         this.dispose();
-        new frmClientMainMenu().setVisible(true);
+        new FormClientMainMenu().setVisible(true);
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
@@ -102,20 +102,21 @@ public class frmHotDogMenu extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmHotDogMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormHotDogMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmHotDogMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormHotDogMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmHotDogMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormHotDogMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmHotDogMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormHotDogMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmHotDogMenu().setVisible(true);
+                new FormHotDogMenu().setVisible(true);
             }
         });
     }

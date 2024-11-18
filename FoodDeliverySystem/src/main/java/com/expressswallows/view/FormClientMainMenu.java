@@ -4,6 +4,7 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.model.restaurant.users.Client;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -11,7 +12,7 @@ import javax.swing.JOptionPane;
  *
  * @author shahi
  */
-public class frmClientMainMenu extends javax.swing.JFrame {
+public class FormClientMainMenu extends javax.swing.JFrame {
 
     ImageIcon burgerImage = new ImageIcon("burger.jpg");
     ImageIcon pizzaImage = new ImageIcon("pizza.jpg");
@@ -22,7 +23,7 @@ public class frmClientMainMenu extends javax.swing.JFrame {
     /**
      * Creates new form frmClientMainMenu
      */
-    public frmClientMainMenu() {
+    public FormClientMainMenu() {
         initComponents();
         burgerLbl.setText("");
         burgerLbl.setIcon(burgerImage);
@@ -66,14 +67,14 @@ public class frmClientMainMenu extends javax.swing.JFrame {
         titleLbl.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         titleLbl.setText("Express Swallows");
 
-        langBtn.setText("jButton1");
+        langBtn.setText("French");
         langBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 langBtnActionPerformed(evt);
             }
         });
 
-        logoutBtn.setText("jButton1");
+        logoutBtn.setText("Log Out");
         logoutBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 logoutBtnActionPerformed(evt);
@@ -82,7 +83,7 @@ public class frmClientMainMenu extends javax.swing.JFrame {
 
         burgerLbl.setText("jLabel1");
 
-        burgerBtn.setText("jButton1");
+        burgerBtn.setText("Burger Menu");
         burgerBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 burgerBtnActionPerformed(evt);
@@ -91,7 +92,7 @@ public class frmClientMainMenu extends javax.swing.JFrame {
 
         pizzaLbl.setText("jLabel1");
 
-        pizzaBtn.setText("jButton1");
+        pizzaBtn.setText("Pizza Menu");
         pizzaBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pizzaBtnActionPerformed(evt);
@@ -100,7 +101,7 @@ public class frmClientMainMenu extends javax.swing.JFrame {
 
         hotdogLbl.setText("jLabel1");
 
-        hotdogBtn.setText("jButton1");
+        hotdogBtn.setText("Hotdog Menu");
         hotdogBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 hotdogBtnActionPerformed(evt);
@@ -109,7 +110,7 @@ public class frmClientMainMenu extends javax.swing.JFrame {
 
         friesLbl.setText("jLabel1");
 
-        friesBtn.setText("jButton1");
+        friesBtn.setText("Fries Menu");
         friesBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 friesBtnActionPerformed(evt);
@@ -118,14 +119,14 @@ public class frmClientMainMenu extends javax.swing.JFrame {
 
         drinksLbl.setText("jLabel1");
 
-        drinksBtn.setText("jButton1");
+        drinksBtn.setText("Drinks Menu");
         drinksBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 drinksBtnActionPerformed(evt);
             }
         });
 
-        viewCartBtn.setText("jButton1");
+        viewCartBtn.setText("View Cart");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -160,7 +161,9 @@ public class frmClientMainMenu extends javax.swing.JFrame {
                         .addComponent(drinksLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(drinksBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(viewCartBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)))
                 .addGap(82, 82, 82))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(137, 137, 137)
@@ -168,10 +171,6 @@ public class frmClientMainMenu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(hotdogBtn)
                 .addGap(175, 175, 175))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(viewCartBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(116, 116, 116))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,9 +185,9 @@ public class frmClientMainMenu extends javax.swing.JFrame {
                     .addComponent(burgerLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pizzaLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(burgerBtn)
-                    .addComponent(pizzaBtn))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pizzaBtn)
+                    .addComponent(burgerBtn))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(friesLbl)
@@ -212,33 +211,33 @@ public class frmClientMainMenu extends javax.swing.JFrame {
         int a = JOptionPane.showConfirmDialog(null, "Do you want to log out the application","Select",JOptionPane.YES_NO_OPTION);
         if(a == 0){
             this.dispose();
-            new frmLogin().setVisible(true);
+            new FormLogin().setVisible(true);
         }
     }//GEN-LAST:event_logoutBtnActionPerformed
 
     private void burgerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_burgerBtnActionPerformed
         this.dispose();
-        new frmBurgerMenu().setVisible(true);
+        new FormBurgerMenu().setVisible(true);
     }//GEN-LAST:event_burgerBtnActionPerformed
 
     private void pizzaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pizzaBtnActionPerformed
         this.dispose();
-        new frmPizzaMenu().setVisible(true);
+        new FormPizzaMenu().setVisible(true);
     }//GEN-LAST:event_pizzaBtnActionPerformed
 
     private void hotdogBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hotdogBtnActionPerformed
         this.dispose();
-        new frmHotDogMenu().setVisible(true);
+        new FormHotDogMenu().setVisible(true);
     }//GEN-LAST:event_hotdogBtnActionPerformed
 
     private void friesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_friesBtnActionPerformed
         this.dispose();
-        new frmFriesMenu().setVisible(true);
+        new FormFriesMenu().setVisible(true);
     }//GEN-LAST:event_friesBtnActionPerformed
 
     private void drinksBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drinksBtnActionPerformed
         this.dispose();
-        new frmDrinksMenu().setVisible(true);
+        new FormDrinksMenu().setVisible(true);
     }//GEN-LAST:event_drinksBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
@@ -262,20 +261,21 @@ public class frmClientMainMenu extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmClientMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormClientMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmClientMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormClientMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmClientMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormClientMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmClientMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormClientMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmClientMainMenu().setVisible(true);
+                new FormClientMainMenu().setVisible(true);
             }
         });
     }

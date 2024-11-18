@@ -26,28 +26,68 @@
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="150" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="lastNameLbl" min="-2" pref="66" max="-2" attributes="0"/>
+                              <Component id="firstNameLbl" min="-2" pref="59" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="firstNameTB" min="-2" pref="121" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="langBtn" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                   <Group type="102" alignment="1" attributes="0">
-                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <EmptySpace min="-2" pref="160" max="-2" attributes="0"/>
+                                      <Component id="backBtn" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
+                                      <Component id="signUpBtn" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="streetNumLbl" min="-2" pref="90" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                                      <Component id="streetNumTB" min="-2" pref="155" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="streetNameLbl" min="-2" pref="104" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="streetNameTB" min="-2" pref="147" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="160" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
                                           <Group type="102" attributes="0">
-                                              <Component id="phoneNumberLbl" min="-2" pref="59" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                                              <Component id="emailLbl" min="-2" pref="53" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                                           </Group>
-                                          <Group type="102" attributes="0">
-                                              <Component id="dobLbl" max="32767" attributes="0"/>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Component id="passwordLbl" min="-2" pref="70" max="-2" attributes="0"/>
                                               <EmptySpace type="separate" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="dobTB" pref="146" max="32767" attributes="0"/>
-                                          <Component id="phoneNumberTB" max="32767" attributes="0"/>
+                                          <Component id="passwordTB" max="32767" attributes="0"/>
+                                          <Component id="passwordBox" alignment="0" min="-2" pref="131" max="-2" attributes="0"/>
+                                          <Component id="emailTB" alignment="1" min="-2" pref="137" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="postalCodeLbl" min="-2" pref="64" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="postalCodeTB" min="-2" pref="137" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="150" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="241" max="-2" attributes="0"/>
+                              <Component id="lastNameLbl" min="-2" pref="66" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="lastNameTB" min="-2" pref="123" max="-2" attributes="0"/>
                           </Group>
@@ -58,61 +98,24 @@
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="firstNameLbl" min="-2" pref="59" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="firstNameTB" min="-2" pref="121" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="langBtn" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="backBtn" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
-                                          <Component id="signUpBtn" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Component id="streetNumLbl" min="-2" pref="100" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="165" max="-2" attributes="0"/>
-                                          <Component id="streetNameLbl" min="-2" pref="104" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="streetNameTB" min="-2" pref="147" max="-2" attributes="0"/>
-                              </Group>
+                      <EmptySpace min="-2" pref="167" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="phoneNumberLbl" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="emailLbl" max="32767" attributes="0"/>
-                                          <Component id="passwordLbl" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="passwordTB" max="32767" attributes="0"/>
-                                          <Component id="passwordBox" alignment="0" min="-2" pref="131" max="-2" attributes="0"/>
-                                          <Component id="emailTB" alignment="1" pref="137" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="streetNumTB" min="-2" pref="129" max="-2" attributes="0"/>
-                                          <Component id="postalCodeLbl" min="-2" pref="64" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="postalCodeTB" min="-2" pref="137" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace min="-2" pref="176" max="-2" attributes="0"/>
+                              <Component id="dobLbl" min="-2" pref="75" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                           </Group>
+                      </Group>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="dobTB" max="32767" attributes="0"/>
+                          <Component id="phoneNumberTB" min="-2" pref="160" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="48" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -131,7 +134,7 @@
                   <Component id="lastNameLbl" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lastNameTB" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="phoneNumberLbl" min="-2" pref="29" max="-2" attributes="0"/>
                   <Component id="phoneNumberTB" min="-2" max="-2" attributes="0"/>
@@ -141,14 +144,14 @@
                   <Component id="dobTB" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="dobLbl" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="streetNameLbl" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="streetNameTB" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="streetNumTB" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="streetNumLbl" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="postalCodeLbl" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="postalCodeTB" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -165,7 +168,7 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="passwordBox" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="backBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="signUpBtn" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -186,14 +189,14 @@
     </Component>
     <Component class="javax.swing.JLabel" name="firstNameLbl">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jLabel1"/>
+        <Property name="text" type="java.lang.String" value="First name:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="firstNameTB">
     </Component>
     <Component class="javax.swing.JButton" name="langBtn">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jButton1"/>
+        <Property name="text" type="java.lang.String" value="French"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="langBtnActionPerformed"/>
@@ -201,7 +204,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lastNameLbl">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jLabel1"/>
+        <Property name="text" type="java.lang.String" value="Last name:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="lastNameTB">
@@ -211,14 +214,17 @@
     </Component>
     <Component class="javax.swing.JLabel" name="phoneNumberLbl">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jLabel1"/>
+        <Property name="text" type="java.lang.String" value="Phone number:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="phoneNumberTB">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="phoneNumberTBActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="emailLbl">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jLabel1"/>
+        <Property name="text" type="java.lang.String" value="Email:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="emailTB">
@@ -230,12 +236,12 @@
     </Component>
     <Component class="javax.swing.JLabel" name="passwordLbl">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jLabel1"/>
+        <Property name="text" type="java.lang.String" value="Password:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="streetNameLbl">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jLabel1"/>
+        <Property name="text" type="java.lang.String" value="Street name:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="streetNameTB">
@@ -245,14 +251,14 @@
     </Component>
     <Component class="javax.swing.JLabel" name="postalCodeLbl">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jLabel1"/>
+        <Property name="text" type="java.lang.String" value="Postal code:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="postalCodeTB">
     </Component>
     <Component class="javax.swing.JButton" name="backBtn">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jButton1"/>
+        <Property name="text" type="java.lang.String" value="Back"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="backBtnActionPerformed"/>
@@ -260,7 +266,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="signUpBtn">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jButton2"/>
+        <Property name="text" type="java.lang.String" value="Sign Up"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="signUpBtnActionPerformed"/>
@@ -268,24 +274,27 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="passwordBox">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jCheckBox1"/>
+        <Property name="text" type="java.lang.String" value="Show password"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="passwordBoxActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="streetNumTB">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="streetNumTBActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="streetNumLbl">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jLabel1"/>
+        <Property name="text" type="java.lang.String" value="Street Number:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="dobTB">
     </Component>
     <Component class="javax.swing.JLabel" name="dobLbl">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jLabel1"/>
+        <Property name="text" type="java.lang.String" value="Date of birth:"/>
       </Properties>
     </Component>
   </SubComponents>

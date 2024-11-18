@@ -8,12 +8,12 @@ package com.expressswallows.view;
  *
  * @author shahi
  */
-public class frmFriesMenu extends javax.swing.JFrame {
+public class FormFriesMenu extends javax.swing.JFrame {
 
     /**
      * Creates new form frmFriesMenu
      */
-    public frmFriesMenu() {
+    public FormFriesMenu() {
         initComponents();
     }
 
@@ -32,7 +32,7 @@ public class frmFriesMenu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        backBtn.setText("jButton1");
+        backBtn.setText("Back");
         backBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backBtnActionPerformed(evt);
@@ -40,9 +40,9 @@ public class frmFriesMenu extends javax.swing.JFrame {
         });
 
         friesMenuLbl.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        friesMenuLbl.setText("jLabel1");
+        friesMenuLbl.setText("Fries Menu");
 
-        langBtn.setText("jButton2");
+        langBtn.setText("French");
         langBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 langBtnActionPerformed(evt);
@@ -58,7 +58,7 @@ public class frmFriesMenu extends javax.swing.JFrame {
                 .addComponent(backBtn)
                 .addGap(18, 18, 18)
                 .addComponent(friesMenuLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addComponent(langBtn)
                 .addContainerGap())
         );
@@ -82,7 +82,7 @@ public class frmFriesMenu extends javax.swing.JFrame {
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         this.dispose();
-        new frmClientMainMenu().setVisible(true);
+        new FormClientMainMenu().setVisible(true);
     }//GEN-LAST:event_backBtnActionPerformed
 
     /**
@@ -102,20 +102,21 @@ public class frmFriesMenu extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmFriesMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormFriesMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmFriesMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormFriesMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmFriesMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormFriesMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmFriesMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormFriesMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmFriesMenu().setVisible(true);
+                new FormFriesMenu().setVisible(true);
             }
         });
     }

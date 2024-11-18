@@ -8,12 +8,12 @@ package com.expressswallows.view;
  *
  * @author shahi
  */
-public class frmEmployeeMainMenu extends javax.swing.JFrame {
+public class FormEmployeeMainMenu extends javax.swing.JFrame {
 
     /**
      * Creates new form frmEmployeeMainMenu
      */
-    public frmEmployeeMainMenu() {
+    public FormEmployeeMainMenu() {
         initComponents();
     }
 

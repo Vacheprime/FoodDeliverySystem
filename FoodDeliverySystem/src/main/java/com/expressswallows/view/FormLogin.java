@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  *
  * @author shahi
  */
-public class frmLogin extends javax.swing.JFrame {
+public class FormLogin extends javax.swing.JFrame {
     LocalDate d1 = LocalDate.of(2005, 03, 15);
     Employee e1 = new Employee("Andrew","Shahini","andrewshahini@gmail.com","123456",d1,"(123) 123-1234");
     Employee e2 = new Employee("Danat","Muradov","danatmuradov@gmail.com","123456",d1,"(123) 123-1234");
@@ -27,7 +27,7 @@ public class frmLogin extends javax.swing.JFrame {
     /**
      * Creates new form frmLogin
      */
-    public frmLogin() {
+    public FormLogin() {
         initComponents();
         clients.add(new Client("Andy", "Shah", "andrew@gmail.com", "123456", d1, "(123) 122-1323", new Address("Street", "122", "H2R 2B1", Address.City.Montreal)));
 
@@ -50,7 +50,7 @@ public class frmLogin extends javax.swing.JFrame {
         passwordLbl = new javax.swing.JLabel();
         langBtn = new javax.swing.JButton();
         passwordBox = new javax.swing.JCheckBox();
-        cancelBtn = new javax.swing.JButton();
+        logoutBtn = new javax.swing.JButton();
         signupBtn = new javax.swing.JButton();
         loginBtn = new javax.swing.JButton();
         passwordTB = new javax.swing.JPasswordField();
@@ -60,45 +60,51 @@ public class frmLogin extends javax.swing.JFrame {
         loginLbl.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         loginLbl.setText("LOGIN");
 
-        emailLbl.setText("jLabel1");
+        emailLbl.setText("email:");
 
         errorLbl.setForeground(new java.awt.Color(255, 51, 51));
-        errorLbl.setText("jLabel1");
+        errorLbl.setText("Incorrect email or password!");
 
-        passwordLbl.setText("jLabel1");
+        passwordLbl.setText("password:");
 
-        langBtn.setText("jButton1");
+        langBtn.setText("French");
         langBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 langBtnActionPerformed(evt);
             }
         });
 
-        passwordBox.setText("jCheckBox1");
+        passwordBox.setText("Show password");
         passwordBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passwordBoxActionPerformed(evt);
             }
         });
 
-        cancelBtn.setText("jButton4");
-        cancelBtn.addActionListener(new java.awt.event.ActionListener() {
+        logoutBtn.setText("Log Out");
+        logoutBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelBtnActionPerformed(evt);
+                logoutBtnActionPerformed(evt);
             }
         });
 
-        signupBtn.setText("jButton2");
+        signupBtn.setText("Sign Up");
         signupBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 signupBtnActionPerformed(evt);
             }
         });
 
-        loginBtn.setText("jButton3");
+        loginBtn.setText("Login");
         loginBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginBtnActionPerformed(evt);
+            }
+        });
+
+        passwordTB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passwordTBActionPerformed(evt);
             }
         });
 
@@ -107,15 +113,10 @@ public class frmLogin extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(58, Short.MAX_VALUE)
+                .addContainerGap(62, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(passwordLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
-                                    .addComponent(emailLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(20, 20, 20))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(signupBtn)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
@@ -126,14 +127,20 @@ public class frmLogin extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(loginLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(27, 27, 27)
-                                .addComponent(cancelBtn))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(errorLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(emailTB, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
-                                .addComponent(passwordTB))
+                                .addComponent(logoutBtn))
                             .addComponent(passwordBox, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(loginBtn))
-                .addContainerGap(76, Short.MAX_VALUE))
+                    .addComponent(loginBtn)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(passwordLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+                            .addComponent(emailLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(emailTB, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(passwordTB, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(errorLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(39, 39, 39)))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,7 +154,7 @@ public class frmLogin extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(15, 15, 15)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cancelBtn)
+                                    .addComponent(logoutBtn)
                                     .addComponent(langBtn))))
                         .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -158,13 +165,13 @@ public class frmLogin extends javax.swing.JFrame {
                         .addComponent(passwordTB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(passwordLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addComponent(errorLbl)
-                .addGap(24, 24, 24)
+                .addGap(18, 18, 18)
                 .addComponent(passwordBox)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(loginBtn)
                     .addComponent(signupBtn))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         pack();
@@ -178,24 +185,24 @@ public class frmLogin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_passwordBoxActionPerformed
 
-    private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
+    private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
         int a = JOptionPane.showConfirmDialog(null, "Do you want to exit the application","Select",JOptionPane.YES_NO_OPTION);
         if(a == 0){
             System.exit(0); //exits
         }
-    }//GEN-LAST:event_cancelBtnActionPerformed
+    }//GEN-LAST:event_logoutBtnActionPerformed
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
       if (emailTB.getText().equals(e1.getEmail()) && passwordTB.getText().equals(e1.getPassword()) ||
               emailTB.getText().equals(e2.getEmail()) && passwordTB.getText().equals(e2.getPassword())) {
         setVisible(false);
-        new frmEmployeeMainMenu().setVisible(true);
+        new FormEmployeeMainMenu().setVisible(true);
         return;
     }
     for (Client client : clients) {
         if (emailTB.getText().equals(client.getEmail()) && passwordTB.getText().equals(client.getPassword())) {
             setVisible(false);
-            new frmClientMainMenu().setVisible(true);
+            new FormClientMainMenu().setVisible(true);
             return;
         }
     }
@@ -209,17 +216,21 @@ public class frmLogin extends javax.swing.JFrame {
 
     private void signupBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signupBtnActionPerformed
         setVisible(false);
-        new frmSignup().setVisible(true);
+        new FormSignup().setVisible(true);
     }//GEN-LAST:event_signupBtnActionPerformed
 
+    private void passwordTBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordTBActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passwordTBActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton cancelBtn;
     private javax.swing.JLabel emailLbl;
     private javax.swing.JTextField emailTB;
     private javax.swing.JLabel errorLbl;
     private javax.swing.JButton langBtn;
     private javax.swing.JButton loginBtn;
     private javax.swing.JLabel loginLbl;
+    private javax.swing.JButton logoutBtn;
     private javax.swing.JCheckBox passwordBox;
     private javax.swing.JLabel passwordLbl;
     private javax.swing.JPasswordField passwordTB;
