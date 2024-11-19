@@ -127,6 +127,11 @@ public class FormClientMainMenu extends javax.swing.JFrame {
         });
 
         viewCartBtn.setText("View Cart");
+        viewCartBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewCartBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -243,6 +248,11 @@ public class FormClientMainMenu extends javax.swing.JFrame {
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_langBtnActionPerformed
+
+    private void viewCartBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewCartBtnActionPerformed
+        dispose();
+        new FormViewCart().setVisible(true);
+    }//GEN-LAST:event_viewCartBtnActionPerformed
 
     /**
      * @param args the command line arguments

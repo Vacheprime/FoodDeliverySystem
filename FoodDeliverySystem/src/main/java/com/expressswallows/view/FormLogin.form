@@ -53,10 +53,10 @@
                           <Component id="emailLbl" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="emailTB" min="-2" pref="179" max="-2" attributes="0"/>
-                          <Component id="passwordTB" min="-2" pref="179" max="-2" attributes="0"/>
-                          <Component id="errorLbl" alignment="0" min="-2" pref="165" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="emailTB" pref="179" max="32767" attributes="0"/>
+                          <Component id="passwordTB" pref="179" max="32767" attributes="0"/>
+                          <Component id="errorLbl" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                   </Group>

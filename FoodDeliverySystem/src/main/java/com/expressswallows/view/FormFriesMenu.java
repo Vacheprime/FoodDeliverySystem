@@ -4,17 +4,23 @@
  */
 package com.expressswallows.view;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author shahi
  */
 public class FormFriesMenu extends javax.swing.JFrame {
 
+    ImageIcon friesI = new ImageIcon("fries.jpg");
+    
     /**
      * Creates new form frmFriesMenu
      */
     public FormFriesMenu() {
         initComponents();
+        friesImg.setText("");
+        friesImg.setIcon(friesI);
     }
 
     /**
@@ -29,6 +35,9 @@ public class FormFriesMenu extends javax.swing.JFrame {
         backBtn = new javax.swing.JButton();
         friesMenuLbl = new javax.swing.JLabel();
         langBtn = new javax.swing.JButton();
+        friesImg = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,6 +58,12 @@ public class FormFriesMenu extends javax.swing.JFrame {
             }
         });
 
+        friesImg.setText("jLabel1");
+
+        jButton1.setText("Add to cart");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Small", "Medium", "Large" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -56,11 +71,23 @@ public class FormFriesMenu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(backBtn)
-                .addGap(18, 18, 18)
-                .addComponent(friesMenuLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                .addComponent(langBtn)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(friesImg, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(57, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(friesMenuLbl)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(langBtn)
+                        .addContainerGap())))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(152, 152, 152)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -70,7 +97,13 @@ public class FormFriesMenu extends javax.swing.JFrame {
                     .addComponent(backBtn)
                     .addComponent(friesMenuLbl)
                     .addComponent(langBtn))
-                .addContainerGap(261, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(friesImg, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(jButton1)
+                .addGap(23, 23, 23))
         );
 
         pack();
@@ -123,7 +156,10 @@ public class FormFriesMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
+    private javax.swing.JLabel friesImg;
     private javax.swing.JLabel friesMenuLbl;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JButton langBtn;
     // End of variables declaration//GEN-END:variables
 }
