@@ -94,9 +94,19 @@ public class DatabaseConnectionUtils {
             // Create the database file
             Path path = Paths.get(DATABASE_FILENAME);
             Files.createFile(path);
-            
             // Connect to the database
             connect();
+            // Create the tables
+            createEmployeeTable();
+            createAddressTable();
+            createClientTable();
+            createRestaurantTable();
+            createPaymentTable();
+            createOrderTable();
+            createFoodTable();
+            createOrderFoodTable();
+            createToppingTable();
+            createFoodToppingTable();
         } catch (IOException e) {
             throw new DatabaseInitializationException("Error: could not initialize database '"
                     + DATABASE_FILENAME + "': " + e.getMessage());
@@ -111,7 +121,7 @@ public class DatabaseConnectionUtils {
      */
     private void createClientTable() throws DatabaseInitializationException {
         final String SQL = """
-                     CREATE TABLE IF NOT EXISTS clients (
+                     CREATE TABLE IF NOT EXISTS client (
                         ClientID INTEGER PRIMARY KEY,
                         FirstName TEXT NOT NULL,
                         LastName TEXT NOT NULL,
@@ -172,7 +182,7 @@ public class DatabaseConnectionUtils {
                                 LastName TEXT NOT NULL,
                                 Email TEXT UNIQUE NOT NULL,
                                 Password TEXT NOT NULL,
-                                DateOfBirth TEXT NOT NULL
+                                DateOfBirth TEXT NOT NULL,
                                 PhoneNumber TEXT NOT NULL,
                                 CONSTRAINT chk_Email CHECK (Email LIKE '%_@__%.__%'),
                                 CONSTRAINT chk_DateOfBirth CHECK (DateOfBirth LIKE '____-__-__'),
@@ -198,7 +208,7 @@ public class DatabaseConnectionUtils {
                            CREATE TABLE IF NOT EXISTS payment (
                                 PaymentID INTEGER PRIMARY KEY,
                                 PaymentAmount REAL NOT NULL,
-                                PaymentMethod TEXT NOT NULL
+                                PaymentMethod TEXT NOT NULL,
                                 ClientID INTEGER NOT NULL,
                                 RestaurantID INTEGER NOT NULL,
                                 CONSTRAINT positive_PaymentAmount CHECK (PaymentAmount > 0),
@@ -248,7 +258,7 @@ public class DatabaseConnectionUtils {
      */
     private void createOrderTable() throws DatabaseInitializationException {
         final String SQL = """
-                           CREATE TABLE IF NOT EXISTS order (
+                           CREATE TABLE IF NOT EXISTS "order" (
                                 OrderID INTEGER PRIMARY KEY,
                                 OrderTime TEXT NOT NULL,
                                 Status TEXT NOT NULL,
@@ -279,7 +289,7 @@ public class DatabaseConnectionUtils {
                            CREATE TABLE IF NOT EXISTS orderfood (
                                 OrderID INTEGER NOT NULL,
                                 FoodID INTEGER NOT NULL,
-                                CONSTRAINT fk_OrderID FOREIGN KEY (OrderID) REFERENCES order(OrderID),
+                                CONSTRAINT fk_OrderID FOREIGN KEY (OrderID) REFERENCES "order"(OrderID),
                                 CONSTRAINT fk_FoodID FOREIGN KEY (FoodID) REFERENCES food(FoodID)
                            );
                            """;
@@ -313,7 +323,7 @@ public class DatabaseConnectionUtils {
                                 CONSTRAINT chk_Price CHECK (Price > 0),
                                 CONSTRAINT chk_Size CHECK (Size IN ('S', 'M', 'L')),
                                 CONSTRAINT chk_SugarContent CHECK (SugarContent >= 0),
-                                CONSTRAINT chk_Bun CHECK (Bun IN 'Soggy', 'White', 'WholeWheat'),
+                                CONSTRAINT chk_Bun CHECK (Bun IN ('Soggy', 'White', 'WholeWheat')),
                                 CONSTRAINT chk_Spiciness CHECK (Spiciness BETWEEN 1 AND 5)
                            );
                            """;
@@ -331,12 +341,12 @@ public class DatabaseConnectionUtils {
      * @throws DatabaseInitializationException exception thrown when the 
      * employee table could not be created.
      */
-    private void createFoodTopping() throws DatabaseInitializationException {
+    private void createFoodToppingTable() throws DatabaseInitializationException {
         final String SQL = """
                            CREATE TABLE IF NOT EXISTS foodtopping (
                                 ToppingID INTEGER NOT NULL,
                                 FoodID INTEGER NOT NULL,
-                                CONSTRAINT fk_ToppingID FOREIGN KEY (ForeignID) REFERENCES topping(ToppingID),
+                                CONSTRAINT fk_ToppingID FOREIGN KEY (ToppingID) REFERENCES topping(ToppingID),
                                 CONSTRAINT fk_FoodID FOREIGN KEY (FoodID) REFERENCES food(FoodID)
                            );
                            """;
