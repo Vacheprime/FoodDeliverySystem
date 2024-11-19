@@ -9,5 +9,5 @@ package com.expressswallows.model.restaurant;
  * @author shahi
  */
 public class Order {
-    
+
 }

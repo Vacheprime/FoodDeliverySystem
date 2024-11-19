@@ -4,6 +4,7 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.users.Client;
 
 /**
@@ -12,12 +13,14 @@ import com.expressswallows.model.restaurant.users.Client;
  */
 public class FormPayment extends javax.swing.JFrame {
     Client client;
+    Order order;
     /**
      * Creates new form FormPayment
      */
-    public FormPayment(Client client) {
+    public FormPayment(Client client, Order order) {
         initComponents();
         this.client = client;
+        this.order = order;
         amountLbl.setText("Amount: $");
     }
 
@@ -146,7 +149,7 @@ public class FormPayment extends javax.swing.JFrame {
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         this.dispose();
-        new FormViewCart(client).setVisible(true);
+        new FormViewCart(client, order).setVisible(true);
     }//GEN-LAST:event_backBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
