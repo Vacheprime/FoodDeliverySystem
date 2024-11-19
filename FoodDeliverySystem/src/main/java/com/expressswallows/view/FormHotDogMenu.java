@@ -4,17 +4,27 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.model.restaurant.users.Client;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author shahi
  */
 public class FormHotDogMenu extends javax.swing.JFrame {
-
+    Client client;
+    ImageIcon glizzyImg = new ImageIcon("glizzy.jpg");
+    ImageIcon millimeter = new ImageIcon("millimeter.jpg");
     /**
      * Creates new form frmHotDogMenu
      */
-    public FormHotDogMenu() {
+    public FormHotDogMenu(Client client) {
         initComponents();
+        this.client = client;
+        glizzyLblImg.setText("");
+        glizzyLblImg.setIcon(glizzyImg);
+        millimeterLblImg.setText("");
+        millimeterLblImg.setIcon(millimeter);
     }
 
     /**
@@ -29,6 +39,12 @@ public class FormHotDogMenu extends javax.swing.JFrame {
         backBtn = new javax.swing.JButton();
         langBtn = new javax.swing.JButton();
         hotdogMenuLbl = new javax.swing.JLabel();
+        glizzyGobblerLbl = new javax.swing.JLabel();
+        glizzyLblImg = new javax.swing.JLabel();
+        millimeterDefeaterLbl = new javax.swing.JLabel();
+        millimeterLblImg = new javax.swing.JLabel();
+        glizzyBtn = new javax.swing.JButton();
+        millimeterBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,18 +65,57 @@ public class FormHotDogMenu extends javax.swing.JFrame {
         hotdogMenuLbl.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         hotdogMenuLbl.setText("HotDog Menu");
 
+        glizzyGobblerLbl.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        glizzyGobblerLbl.setText("Glizzy Gobbler");
+
+        glizzyLblImg.setText("jLabel2");
+
+        millimeterDefeaterLbl.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        millimeterDefeaterLbl.setText("Millimeter Defeater");
+
+        millimeterLblImg.setText("jLabel4");
+
+        glizzyBtn.setText("Add to cart");
+
+        millimeterBtn.setText("Add to cart");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(backBtn)
-                .addGap(30, 30, 30)
-                .addComponent(hotdogMenuLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(langBtn)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(78, 78, 78)
+                                .addComponent(glizzyGobblerLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE))
+                            .addComponent(glizzyLblImg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addComponent(millimeterLblImg, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(millimeterDefeaterLbl)
+                                .addGap(127, 127, 127))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(backBtn)
+                        .addGap(30, 30, 30)
+                        .addComponent(hotdogMenuLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(langBtn)
+                        .addGap(117, 117, 117))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(102, 102, 102)
+                .addComponent(glizzyBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(millimeterBtn)
+                .addGap(151, 151, 151))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -70,7 +125,19 @@ public class FormHotDogMenu extends javax.swing.JFrame {
                     .addComponent(backBtn)
                     .addComponent(langBtn)
                     .addComponent(hotdogMenuLbl))
-                .addContainerGap(261, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(glizzyGobblerLbl)
+                    .addComponent(millimeterDefeaterLbl))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(millimeterLblImg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(glizzyLblImg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(glizzyBtn)
+                    .addComponent(millimeterBtn))
+                .addGap(408, 408, 408))
         );
 
         pack();
@@ -78,52 +145,22 @@ public class FormHotDogMenu extends javax.swing.JFrame {
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         this.dispose();
-        new FormClientMainMenu().setVisible(true);
+        new FormClientMainMenu(client).setVisible(true);
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_langBtnActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormHotDogMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormHotDogMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormHotDogMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormHotDogMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FormHotDogMenu().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
+    private javax.swing.JButton glizzyBtn;
+    private javax.swing.JLabel glizzyGobblerLbl;
+    private javax.swing.JLabel glizzyLblImg;
     private javax.swing.JLabel hotdogMenuLbl;
     private javax.swing.JButton langBtn;
+    private javax.swing.JButton millimeterBtn;
+    private javax.swing.JLabel millimeterDefeaterLbl;
+    private javax.swing.JLabel millimeterLblImg;
     // End of variables declaration//GEN-END:variables
 }
