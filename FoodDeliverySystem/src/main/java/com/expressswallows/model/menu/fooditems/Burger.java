@@ -10,7 +10,7 @@ package com.expressswallows.model.menu.fooditems;
  */
 public abstract class Burger extends Food{
 
-    public Burger(String cookTime, int productId, double price) {
+    public Burger(int cookTime, int productId, double price) {
         super(cookTime, productId, price);
     }
 

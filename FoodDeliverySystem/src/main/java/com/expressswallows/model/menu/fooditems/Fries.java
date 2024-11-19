@@ -18,7 +18,7 @@ public class Fries extends Food {
         Large
     }
 
-    public Fries(String cookTime, int productId, double price) {
+    public Fries(int cookTime, int productId, double price) {
         super(cookTime, productId, price);
     }
        
@@ -27,11 +27,11 @@ public class Fries extends Food {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    public String getCookTime() {
+    public int getCookTime() {
         return cookTime;
     }
 
-    public void setCookTime(String cookTime) {
+    public void setCookTime(int cookTime) {
         this.cookTime = cookTime;
     }
 

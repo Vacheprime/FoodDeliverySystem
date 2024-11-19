@@ -20,7 +20,7 @@ public class Drinks extends Food {
     private Type type; 
     private Size size;
 
-    public Drinks(String cookTime, int productId, double price, Type type, Size size) {
+    public Drinks(int cookTime, int productId, double price, Type type, Size size) {
         super(cookTime, productId, price); 
         this.type = type;
         this.size = size;

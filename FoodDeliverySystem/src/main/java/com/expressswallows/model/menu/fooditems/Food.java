@@ -9,21 +9,21 @@ package com.expressswallows.model.menu.fooditems;
  * @author shahi
  */
 public abstract class Food {
-    protected String cookTime;
+    protected int cookTime;
     protected int productId;
     protected double price;
 
-    public Food(String cookTime, int productId, double price) {
+    public Food(int cookTime, int productId, double price) {
         this.cookTime = cookTime;
         this.productId = productId;
         this.price = price;
     }
 
-    public String getCookTime() {
+    public int getCookTime() {
         return cookTime;
     }
 
-    public void setCookTime(String cookTime) {
+    public void setCookTime(int cookTime) {
         this.cookTime = cookTime;
     }
 
