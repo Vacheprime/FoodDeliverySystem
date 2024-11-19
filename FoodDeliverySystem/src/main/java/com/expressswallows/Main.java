@@ -6,7 +6,7 @@ import com.expressswallows.model.restaurant.users.Client;
 import com.expressswallows.model.restaurant.users.Employee;
 import com.expressswallows.utils.DatabaseConnectionUtils;
 import com.expressswallows.utils.Utils;
-import com.expressswallows.view.frmLogin;
+import com.expressswallows.view.FormLogin;
 import java.time.LocalDate;
 
 /**
