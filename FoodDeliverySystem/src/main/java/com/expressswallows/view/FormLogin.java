@@ -24,6 +24,7 @@ public class FormLogin extends javax.swing.JFrame {
 
     List<Client> clients = new ArrayList<Client>();
     
+    
     /**
      * Creates new form frmLogin
      */

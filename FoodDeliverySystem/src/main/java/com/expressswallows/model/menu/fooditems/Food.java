@@ -18,6 +18,32 @@ public abstract class Food {
         this.productId = productId;
         this.price = price;
     }
+
+    public String getCookTime() {
+        return cookTime;
+    }
+
+    public void setCookTime(String cookTime) {
+        this.cookTime = cookTime;
+    }
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+    
+    
     
     public abstract Food prepare(Food food);
     
