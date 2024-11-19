@@ -10,13 +10,8 @@ package com.expressswallows.model.menu.fooditems;
  */
 public abstract class Burger extends Food{
 
-    public Burger(String cookTime, int productId, double price) {
-        super(cookTime, productId, price);
-    }
-
-    @Override
-    public Food prepare(Food food) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Burger(int cookTime, int productId, double price) {
+        super(cookTime, price);
     }
     
 }

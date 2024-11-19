@@ -62,4 +62,39 @@ public abstract class Food {
      * values.
      */
     public abstract Food prepare();
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 37 * hash + this.productId;
+        hash = 37 * hash + this.cookTime;
+        hash = 37 * hash + (int) (Double.doubleToLongBits(this.price) ^ (Double.doubleToLongBits(this.price) >>> 32));
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Food other = (Food) obj;
+        if (this.productId != other.productId) {
+            return false;
+        }
+        if (this.cookTime != other.cookTime) {
+            return false;
+        }
+        return Double.doubleToLongBits(this.price) == Double.doubleToLongBits(other.price);
+    }
+
+    @Override
+    public String toString() {
+        return "Food{" + "productId=" + productId + ", cookTime=" + cookTime + ", price=" + price + '}';
+    }
 }

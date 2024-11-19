@@ -10,7 +10,7 @@ import com.expressswallows.model.menu.fooditems.Food;
  *
  * @author shahi
  */
-public class Fries extends Food {
+public abstract class Fries extends Food {
 
     enum size {
         Small,
@@ -18,40 +18,7 @@ public class Fries extends Food {
         Large
     }
 
-    public Fries(String cookTime, int productId, double price) {
-        super(cookTime, productId, price);
+    public Fries(int cookTime, int productId, double price) {
+        super(cookTime, price);
     }
-       
-    @Override
-    public Food prepare(Food food) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public String getCookTime() {
-        return cookTime;
-    }
-
-    public void setCookTime(String cookTime) {
-        this.cookTime = cookTime;
-    }
-
-    public int getProductId() {
-        return productId;
-    }
-
-    public void setProductId(int productId) {
-        this.productId = productId;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-    
-    
-    
-    
 }
