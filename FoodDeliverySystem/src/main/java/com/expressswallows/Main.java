@@ -23,5 +23,6 @@ public class Main
 //            }
 //        }); 
         DatabaseConnectionUtils database = DatabaseConnectionUtils.getInstance();
+        database.disconnect();
     }
 }
