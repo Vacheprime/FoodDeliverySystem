@@ -17,7 +17,7 @@ public class Payment {
      * 
      * @param paymentAmount the payment amount.
      * @param paymentMethod the payment method.
-     * @param client the client that made the payment.
+     * @param payedBy the client that made the payment.
      */
     public Payment(double paymentAmount, String paymentMethod, Client payedBy) {
         // Validate the arguments
