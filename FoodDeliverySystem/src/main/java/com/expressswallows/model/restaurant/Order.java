@@ -19,34 +19,40 @@ public class Order {
 
     /**
      * All argument constructor for a client's Order.
-     * 
-     * @param orderedBy the client that ordered the food items.
+     *
+     * @param orderedBy  the client that ordered the food items.
      * @param assignedTo the restaurant charged with completing the order.
      */
     public Order(Client orderedBy, Restaurant assignedTo) {
         // Validate the arguments
-        if (foods == null || orderedBy == null || assignedTo == null) {
+        if (orderedBy == null || assignedTo == null) {
             throw new IllegalArgumentException("The arguments cannot be null.");
-        }
-        if (foods.isEmpty()) {
-            throw new IllegalArgumentException("The order must contain food items.");
         }
         this.foods = new ArrayList<>();
         this.orderedBy = orderedBy;
         this.assignedTo = assignedTo;
         this.orderDateTime = LocalDateTime.now();
     }
-    
+
+    public Order(Client orderedBy) {
+        this.foods = new ArrayList<>();
+        this.orderedBy = orderedBy;
+        this.assignedTo = null;
+        this.orderDateTime = null;
+    }
+
     /**
      * Calculate the total price of the order.
+     *
      * @return the total price of the order.
      */
     public double calculateTotalPrice() {
         return foods.stream().mapToDouble(f -> f.getPrice()).sum();
     }
-    
+
     /**
      * Calculate the total cook time of the order.
+     *
      * @return the total cook time of the order.
      */
     public int calculateTotalCookTime() {
@@ -55,14 +61,16 @@ public class Order {
 
     /**
      * Getter for the list of food items that make up the order.
+     *
      * @return the list of food items that make up the order.
      */
     public List<Food> getFoods() {
         return foods;
     }
-    
+
     /**
      * Add a food item to the order.
+     *
      * @param food the food item to add.
      */
     public void addFoodToOrder(Food food) {
@@ -74,6 +82,7 @@ public class Order {
 
     /**
      * Getter for the client that made the order.
+     *
      * @return the client that made the order.
      */
     public Client getOrderedBy() {
@@ -82,6 +91,7 @@ public class Order {
 
     /**
      * Getter for the restaurant that is responsible for completing the order.
+     *
      * @return the restaurant responsible for completing the order.
      */
     public Restaurant getAssignedTo() {
@@ -90,6 +100,7 @@ public class Order {
 
     /**
      * Setter for the assigned restaurant,
+     *
      * @param assignedTo the new restaurant in charge of the order.
      */
     public void setAssignedTo(Restaurant assignedTo) {
@@ -98,6 +109,7 @@ public class Order {
 
     /**
      * Getter for the date and time the order was placed.
+     *
      * @return the date and time the order was placed.
      */
     public LocalDateTime getOrderDateTime() {

@@ -4,6 +4,7 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.users.Client;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -13,20 +14,21 @@ import javax.swing.JOptionPane;
  * @author shahi
  */
 public class FormClientMainMenu extends javax.swing.JFrame {
-
+    Order order;
     Client client;
-    ImageIcon burgerImage = new ImageIcon("burger.jpg");
-    ImageIcon pizzaImage = new ImageIcon("pizza.jpg");
-    ImageIcon hotdogImage = new ImageIcon("hotdog.jpg");
-    ImageIcon friesImage = new ImageIcon("fries.jpg");
-    ImageIcon drinksImage = new ImageIcon("drinks.jpg");
+    ImageIcon burgerImage = new ImageIcon("FoodDeliverySystem/burger.jpg");
+    ImageIcon pizzaImage = new ImageIcon("FoodDeliverySystem/pizza.jpg");
+    ImageIcon hotdogImage = new ImageIcon("FoodDeliverySystem/hotdog.jpg");
+    ImageIcon friesImage = new ImageIcon("FoodDeliverySystem/fries.jpg");
+    ImageIcon drinksImage = new ImageIcon("FoodDeliverySystem/drinks.jpg");
     
     /**
      * Creates new form frmClientMainMenu
      */
-    public FormClientMainMenu(Client client) {
+    public FormClientMainMenu(Client client, Order order) {
         initComponents();
         this.client=client;
+        this.order=order;
         burgerLbl.setText("");
         burgerLbl.setIcon(burgerImage);
         pizzaLbl.setText("");
@@ -224,27 +226,27 @@ public class FormClientMainMenu extends javax.swing.JFrame {
 
     private void burgerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_burgerBtnActionPerformed
         this.dispose();
-        new FormBurgerMenu(client).setVisible(true);
+        new FormBurgerMenu(client, order).setVisible(true);
     }//GEN-LAST:event_burgerBtnActionPerformed
 
     private void pizzaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pizzaBtnActionPerformed
         this.dispose();
-        new FormPizzaMenu(client).setVisible(true);
+        new FormPizzaMenu(client,order).setVisible(true);
     }//GEN-LAST:event_pizzaBtnActionPerformed
 
     private void hotdogBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hotdogBtnActionPerformed
         this.dispose();
-        new FormHotDogMenu(client).setVisible(true);
+        new FormHotDogMenu(client,order).setVisible(true);
     }//GEN-LAST:event_hotdogBtnActionPerformed
 
     private void friesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_friesBtnActionPerformed
         this.dispose();
-        new FormFriesMenu(client).setVisible(true);
+        new FormFriesMenu(client,order).setVisible(true);
     }//GEN-LAST:event_friesBtnActionPerformed
 
     private void drinksBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drinksBtnActionPerformed
         this.dispose();
-        new FormDrinksMenu(client).setVisible(true);
+        new FormDrinksMenu(client,order).setVisible(true);
     }//GEN-LAST:event_drinksBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
@@ -253,7 +255,7 @@ public class FormClientMainMenu extends javax.swing.JFrame {
 
     private void viewCartBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewCartBtnActionPerformed
         dispose();
-        new FormViewCart(client).setVisible(true);
+        new FormViewCart(client,order).setVisible(true);
     }//GEN-LAST:event_viewCartBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

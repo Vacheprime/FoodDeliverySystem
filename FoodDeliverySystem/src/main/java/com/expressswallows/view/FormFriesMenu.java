@@ -4,6 +4,7 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.users.Client;
 import javax.swing.ImageIcon;
 
@@ -14,14 +15,16 @@ import javax.swing.ImageIcon;
 public class FormFriesMenu extends javax.swing.JFrame {
 
     Client client;
-    ImageIcon friesI = new ImageIcon("fries.jpg");
+    Order order;
+    ImageIcon friesI = new ImageIcon("FoodDeliverySystem/fries.jpg");
     
     /**
      * Creates new form frmFriesMenu
      */
-    public FormFriesMenu(Client client) {
+    public FormFriesMenu(Client client, Order order) {
         initComponents();
         this.client = client;
+        this.order = order;
         friesImg.setText("");
         friesImg.setIcon(friesI);
     }
@@ -118,7 +121,7 @@ public class FormFriesMenu extends javax.swing.JFrame {
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         this.dispose();
-        new FormClientMainMenu(client).setVisible(true);
+        new FormClientMainMenu(client, order).setVisible(true);
     }//GEN-LAST:event_backBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

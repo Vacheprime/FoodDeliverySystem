@@ -4,6 +4,7 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.users.Client;
 import javax.swing.ImageIcon;
 
@@ -12,15 +13,18 @@ import javax.swing.ImageIcon;
  * @author shahi
  */
 public class FormHotDogMenu extends javax.swing.JFrame {
+
     Client client;
-    ImageIcon glizzyImg = new ImageIcon("glizzy.jpg");
-    ImageIcon millimeter = new ImageIcon("millimeter.jpg");
+    Order order;
+    ImageIcon glizzyImg = new ImageIcon("FoodDeliverySystem/glizzy.jpg");
+    ImageIcon millimeter = new ImageIcon("FoodDeliverySystem/millimeter.jpg");
     /**
      * Creates new form frmHotDogMenu
      */
-    public FormHotDogMenu(Client client) {
+    public FormHotDogMenu(Client client, Order order) {
         initComponents();
         this.client = client;
+        this.order = order;
         glizzyLblImg.setText("");
         glizzyLblImg.setIcon(glizzyImg);
         millimeterLblImg.setText("");
@@ -145,7 +149,7 @@ public class FormHotDogMenu extends javax.swing.JFrame {
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         this.dispose();
-        new FormClientMainMenu(client).setVisible(true);
+        new FormClientMainMenu(client, order).setVisible(true);
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed

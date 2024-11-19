@@ -28,6 +28,11 @@ public abstract class Food {
         return cookTime;
     }
 
+
+    public void setCookTime(int cookTime) {
+        this.cookTime = cookTime;
+    }
+
     /**
      * Getter for the product ID.
      * @return the product ID.

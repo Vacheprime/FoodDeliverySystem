@@ -13,5 +13,4 @@ public abstract class Burger extends Food{
     public Burger(int cookTime, int productId, double price) {
         super(cookTime, price);
     }
-    
 }

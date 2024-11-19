@@ -4,6 +4,7 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.users.Client;
 import javax.swing.ImageIcon;
 
@@ -14,18 +15,20 @@ import javax.swing.ImageIcon;
 public class FormBurgerMenu extends javax.swing.JFrame {
 
     Client client;
-    ImageIcon bigFatty = new ImageIcon("bigfatty.jpg");
-    ImageIcon greenBush = new ImageIcon("greenbush.jpg");
-    ImageIcon skinnyPity = new ImageIcon("skinnypity.jpg");
+    Order order;
+    ImageIcon bigFatty = new ImageIcon("FoodDeliverySystem/bigfatty.jpg");
+    ImageIcon greenBush = new ImageIcon("FoodDeliverySystem/greenbush.jpg");
+    ImageIcon skinnyPity = new ImageIcon("FoodDeliverySystem/skinnypity.jpg");
     
     
     
     /**
      * Creates new form frmBurgerMenu
      */
-    public FormBurgerMenu(Client client) {
+    public FormBurgerMenu(Client client,Order order) {
         initComponents();
         this.client = client;
+        this.order = order;
         bigFattyImg.setText("");
         bigFattyImg.setIcon(bigFatty);
         greenBushImg.setText("");
@@ -195,7 +198,7 @@ public class FormBurgerMenu extends javax.swing.JFrame {
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         this.dispose();
-        new FormClientMainMenu(client).setVisible(true);
+        new FormClientMainMenu(client, order).setVisible(true);
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed

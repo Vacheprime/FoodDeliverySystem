@@ -4,6 +4,7 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.users.Address;
 import com.expressswallows.model.restaurant.users.Client;
 import com.expressswallows.model.restaurant.users.Employee;
@@ -103,12 +104,6 @@ public class FormLogin extends javax.swing.JFrame {
             }
         });
 
-        passwordTB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passwordTBActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -203,7 +198,10 @@ public class FormLogin extends javax.swing.JFrame {
     for (Client client : clients) {
         if (emailTB.getText().equals(client.getEmail()) && passwordTB.getText().equals(client.getPassword())) {
             setVisible(false);
-            new FormClientMainMenu(client).setVisible(true);
+
+            Order order = new Order(client);
+
+            new FormClientMainMenu(client,order).setVisible(true);
             return;
         }
     }
@@ -219,10 +217,6 @@ public class FormLogin extends javax.swing.JFrame {
         setVisible(false);
         new FormSignup().setVisible(true);
     }//GEN-LAST:event_signupBtnActionPerformed
-
-    private void passwordTBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordTBActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_passwordTBActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel emailLbl;
