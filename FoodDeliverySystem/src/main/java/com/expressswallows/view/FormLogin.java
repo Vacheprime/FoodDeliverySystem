@@ -194,7 +194,7 @@ public class FormLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutBtnActionPerformed
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
-      if (emailTB.getText().equals(e1.getEmail()) && passwordTB.getText().equals(e1.getPassword()) ||
+          if (emailTB.getText().equals(e1.getEmail()) && passwordTB.getText().equals(e1.getPassword()) ||
               emailTB.getText().equals(e2.getEmail()) && passwordTB.getText().equals(e2.getPassword())) {
         setVisible(false);
         new FormEmployeeMainMenu().setVisible(true);
@@ -203,7 +203,7 @@ public class FormLogin extends javax.swing.JFrame {
     for (Client client : clients) {
         if (emailTB.getText().equals(client.getEmail()) && passwordTB.getText().equals(client.getPassword())) {
             setVisible(false);
-            new FormClientMainMenu().setVisible(true);
+            new FormClientMainMenu(client).setVisible(true);
             return;
         }
     }

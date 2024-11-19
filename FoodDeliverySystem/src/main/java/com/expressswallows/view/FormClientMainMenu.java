@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
  */
 public class FormClientMainMenu extends javax.swing.JFrame {
 
+    Client client;
     ImageIcon burgerImage = new ImageIcon("burger.jpg");
     ImageIcon pizzaImage = new ImageIcon("pizza.jpg");
     ImageIcon hotdogImage = new ImageIcon("hotdog.jpg");
@@ -23,8 +24,9 @@ public class FormClientMainMenu extends javax.swing.JFrame {
     /**
      * Creates new form frmClientMainMenu
      */
-    public FormClientMainMenu() {
+    public FormClientMainMenu(Client client) {
         initComponents();
+        this.client=client;
         burgerLbl.setText("");
         burgerLbl.setIcon(burgerImage);
         pizzaLbl.setText("");
@@ -222,27 +224,27 @@ public class FormClientMainMenu extends javax.swing.JFrame {
 
     private void burgerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_burgerBtnActionPerformed
         this.dispose();
-        new FormBurgerMenu().setVisible(true);
+        new FormBurgerMenu(client).setVisible(true);
     }//GEN-LAST:event_burgerBtnActionPerformed
 
     private void pizzaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pizzaBtnActionPerformed
         this.dispose();
-        new FormPizzaMenu().setVisible(true);
+        new FormPizzaMenu(client).setVisible(true);
     }//GEN-LAST:event_pizzaBtnActionPerformed
 
     private void hotdogBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hotdogBtnActionPerformed
         this.dispose();
-        new FormHotDogMenu().setVisible(true);
+        new FormHotDogMenu(client).setVisible(true);
     }//GEN-LAST:event_hotdogBtnActionPerformed
 
     private void friesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_friesBtnActionPerformed
         this.dispose();
-        new FormFriesMenu().setVisible(true);
+        new FormFriesMenu(client).setVisible(true);
     }//GEN-LAST:event_friesBtnActionPerformed
 
     private void drinksBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drinksBtnActionPerformed
         this.dispose();
-        new FormDrinksMenu().setVisible(true);
+        new FormDrinksMenu(client).setVisible(true);
     }//GEN-LAST:event_drinksBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
@@ -251,44 +253,8 @@ public class FormClientMainMenu extends javax.swing.JFrame {
 
     private void viewCartBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewCartBtnActionPerformed
         dispose();
-        new FormViewCart().setVisible(true);
+        new FormViewCart(client).setVisible(true);
     }//GEN-LAST:event_viewCartBtnActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormClientMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormClientMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormClientMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormClientMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FormClientMainMenu().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton burgerBtn;
