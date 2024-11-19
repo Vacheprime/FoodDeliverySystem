@@ -3,7 +3,7 @@ package com.expressswallows.model.menu.fooditems;
 import java.util.Objects;
 
 /**
- * Drink class is used to represent 
+ * Drink class is used to represent the food items that are drinks.
  * @author Andrew and Danat
  */
 public abstract class Drink extends Food {
