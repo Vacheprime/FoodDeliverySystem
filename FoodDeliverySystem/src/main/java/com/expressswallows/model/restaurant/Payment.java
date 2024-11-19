@@ -27,8 +27,11 @@ public class Payment {
         if (paymentAmount <= 0) {
             throw new IllegalArgumentException("The payment amount must be greater than zero.");
         }
+        if (!paymentMethod.equalsIgnoreCase("credit")) {
+            throw new IllegalArgumentException("The payment method must be 'credit'.");
+        }
         this.paymentAmount = paymentAmount;
-        this.paymentMethod = paymentMethod;
+        this.paymentMethod = paymentMethod.toLowerCase();
         this.payedBy = payedBy;
     }
 
