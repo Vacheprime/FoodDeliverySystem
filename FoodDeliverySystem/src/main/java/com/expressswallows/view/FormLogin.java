@@ -4,6 +4,7 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.users.Address;
 import com.expressswallows.model.restaurant.users.Client;
 import com.expressswallows.model.restaurant.users.Employee;
@@ -103,12 +104,6 @@ public class FormLogin extends javax.swing.JFrame {
             }
         });
 
-        passwordTB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passwordTBActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -136,10 +131,10 @@ public class FormLogin extends javax.swing.JFrame {
                             .addComponent(passwordLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
                             .addComponent(emailLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(emailTB, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(passwordTB, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(errorLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(emailTB, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+                            .addComponent(passwordTB, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+                            .addComponent(errorLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(39, 39, 39)))
                 .addContainerGap(77, Short.MAX_VALUE))
         );
@@ -194,7 +189,7 @@ public class FormLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutBtnActionPerformed
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
-      if (emailTB.getText().equals(e1.getEmail()) && passwordTB.getText().equals(e1.getPassword()) ||
+          if (emailTB.getText().equals(e1.getEmail()) && passwordTB.getText().equals(e1.getPassword()) ||
               emailTB.getText().equals(e2.getEmail()) && passwordTB.getText().equals(e2.getPassword())) {
         setVisible(false);
         new FormEmployeeMainMenu().setVisible(true);
@@ -203,7 +198,10 @@ public class FormLogin extends javax.swing.JFrame {
     for (Client client : clients) {
         if (emailTB.getText().equals(client.getEmail()) && passwordTB.getText().equals(client.getPassword())) {
             setVisible(false);
-            new FormClientMainMenu().setVisible(true);
+
+            Order order = new Order(client);
+
+            new FormClientMainMenu(client,order).setVisible(true);
             return;
         }
     }
@@ -219,10 +217,6 @@ public class FormLogin extends javax.swing.JFrame {
         setVisible(false);
         new FormSignup().setVisible(true);
     }//GEN-LAST:event_signupBtnActionPerformed
-
-    private void passwordTBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordTBActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_passwordTBActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel emailLbl;

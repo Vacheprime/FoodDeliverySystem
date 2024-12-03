@@ -4,6 +4,7 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.users.Client;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -13,18 +14,21 @@ import javax.swing.JOptionPane;
  * @author shahi
  */
 public class FormClientMainMenu extends javax.swing.JFrame {
-
-    ImageIcon burgerImage = new ImageIcon("burger.jpg");
-    ImageIcon pizzaImage = new ImageIcon("pizza.jpg");
-    ImageIcon hotdogImage = new ImageIcon("hotdog.jpg");
-    ImageIcon friesImage = new ImageIcon("fries.jpg");
-    ImageIcon drinksImage = new ImageIcon("drinks.jpg");
+    Order order;
+    Client client;
+    ImageIcon burgerImage = new ImageIcon("FoodDeliverySystem/burger.jpg");
+    ImageIcon pizzaImage = new ImageIcon("FoodDeliverySystem/pizza.jpg");
+    ImageIcon hotdogImage = new ImageIcon("FoodDeliverySystem/hotdog.jpg");
+    ImageIcon friesImage = new ImageIcon("FoodDeliverySystem/fries.jpg");
+    ImageIcon drinksImage = new ImageIcon("FoodDeliverySystem/drinks.jpg");
     
     /**
      * Creates new form frmClientMainMenu
      */
-    public FormClientMainMenu() {
+    public FormClientMainMenu(Client client, Order order) {
         initComponents();
+        this.client=client;
+        this.order=order;
         burgerLbl.setText("");
         burgerLbl.setIcon(burgerImage);
         pizzaLbl.setText("");
@@ -127,6 +131,11 @@ public class FormClientMainMenu extends javax.swing.JFrame {
         });
 
         viewCartBtn.setText("View Cart");
+        viewCartBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewCartBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -217,68 +226,37 @@ public class FormClientMainMenu extends javax.swing.JFrame {
 
     private void burgerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_burgerBtnActionPerformed
         this.dispose();
-        new FormBurgerMenu().setVisible(true);
+        new FormBurgerMenu(client, order).setVisible(true);
     }//GEN-LAST:event_burgerBtnActionPerformed
 
     private void pizzaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pizzaBtnActionPerformed
         this.dispose();
-        new FormPizzaMenu().setVisible(true);
+        new FormPizzaMenu(client,order).setVisible(true);
     }//GEN-LAST:event_pizzaBtnActionPerformed
 
     private void hotdogBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hotdogBtnActionPerformed
         this.dispose();
-        new FormHotDogMenu().setVisible(true);
+        new FormHotDogMenu(client,order).setVisible(true);
     }//GEN-LAST:event_hotdogBtnActionPerformed
 
     private void friesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_friesBtnActionPerformed
         this.dispose();
-        new FormFriesMenu().setVisible(true);
+        new FormFriesMenu(client,order).setVisible(true);
     }//GEN-LAST:event_friesBtnActionPerformed
 
     private void drinksBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drinksBtnActionPerformed
         this.dispose();
-        new FormDrinksMenu().setVisible(true);
+        new FormDrinksMenu(client,order).setVisible(true);
     }//GEN-LAST:event_drinksBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_langBtnActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormClientMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormClientMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormClientMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormClientMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FormClientMainMenu().setVisible(true);
-            }
-        });
-    }
+    private void viewCartBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewCartBtnActionPerformed
+        dispose();
+        new FormViewCart(client,order).setVisible(true);
+    }//GEN-LAST:event_viewCartBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton burgerBtn;
