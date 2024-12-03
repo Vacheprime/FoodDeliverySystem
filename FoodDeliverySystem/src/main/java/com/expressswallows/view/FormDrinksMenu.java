@@ -16,6 +16,9 @@ public class FormDrinksMenu extends javax.swing.JFrame {
     Order order;
     Client client;
     ImageIcon drink = new ImageIcon("FoodDeliverySystem/drinks.jpg");
+    private final double SMALL = 3.99;
+    private final double MEDIUM = 4.99;
+    private final double LARGE = 5.49;   
     /**
      * Creates new form frmDrinksMenu
      */
@@ -25,6 +28,8 @@ public class FormDrinksMenu extends javax.swing.JFrame {
         this.order = order;
         drinkImg.setText("");
         drinkImg.setIcon(drink);
+        priceLbl.setText("priceLabel" + " " + SMALL);
+
     }
 
     /**
@@ -40,11 +45,12 @@ public class FormDrinksMenu extends javax.swing.JFrame {
         langBtn = new javax.swing.JButton();
         drinksMenuLbl = new javax.swing.JLabel();
         drinkImg = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        sizeLbl = new javax.swing.JLabel();
+        typesLbl = new javax.swing.JLabel();
         orderBtn = new javax.swing.JButton();
         typeBox = new javax.swing.JComboBox<>();
         sizeBox = new javax.swing.JComboBox<>();
+        priceLbl = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,15 +73,32 @@ public class FormDrinksMenu extends javax.swing.JFrame {
 
         drinkImg.setText("jLabel1");
 
-        jLabel1.setText("Size");
+        sizeLbl.setText("Size");
 
-        jLabel2.setText("Type");
+        typesLbl.setText("Types");
 
         orderBtn.setText("Add to cart");
+        orderBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                orderBtnActionPerformed(evt);
+            }
+        });
 
         typeBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Water", "Coke", "7up" }));
+        typeBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                typeBoxActionPerformed(evt);
+            }
+        });
 
         sizeBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Small", "Medium", "Large" }));
+        sizeBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sizeBoxActionPerformed(evt);
+            }
+        });
+
+        priceLbl.setText("Price:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -84,9 +107,9 @@ public class FormDrinksMenu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(backBtn)
-                .addGap(49, 49, 49)
+                .addGap(67, 67, 67)
                 .addComponent(drinksMenuLbl)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(langBtn)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -95,19 +118,19 @@ public class FormDrinksMenu extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(105, 105, 105)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(typeBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(86, 86, 86)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(sizeBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(71, 71, 71)
-                        .addComponent(orderBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(typeBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(typesLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(86, 86, 86)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(sizeBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(sizeLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(116, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(175, 175, 175)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(orderBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(priceLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -122,15 +145,17 @@ public class FormDrinksMenu extends javax.swing.JFrame {
                 .addComponent(drinkImg, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                    .addComponent(sizeLbl)
+                    .addComponent(typesLbl))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(typeBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(sizeBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addComponent(priceLbl)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(orderBtn)
-                .addGap(30, 30, 30))
+                .addGap(20, 20, 20))
         );
 
         pack();
@@ -145,15 +170,37 @@ public class FormDrinksMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_langBtnActionPerformed
 
+    private void orderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_orderBtnActionPerformed
+
+    private void typeBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typeBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_typeBoxActionPerformed
+
+    private void sizeBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sizeBoxActionPerformed
+        int selectedSize = sizeBox.getSelectedIndex();
+            double price = 0;
+    
+            switch (selectedSize) {
+                case 0 -> price = SMALL;
+                case 1 -> price = MEDIUM;
+                case 2 -> price = LARGE;
+            }
+    
+        priceLbl.setText("priceLabel" + " " + String.format("%.2f", price));
+    }//GEN-LAST:event_sizeBoxActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
     private javax.swing.JLabel drinkImg;
     private javax.swing.JLabel drinksMenuLbl;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JButton langBtn;
     private javax.swing.JButton orderBtn;
+    private javax.swing.JLabel priceLbl;
     private javax.swing.JComboBox<String> sizeBox;
+    private javax.swing.JLabel sizeLbl;
     private javax.swing.JComboBox<String> typeBox;
+    private javax.swing.JLabel typesLbl;
     // End of variables declaration//GEN-END:variables
 }

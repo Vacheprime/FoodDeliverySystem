@@ -181,7 +181,7 @@ public class FormPizzaMenu extends javax.swing.JFrame {
                             .addComponent(cheeseLbl)
                             .addComponent(pepperoniLbl))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cheeseBtn)
                     .addComponent(pepperoniBtn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

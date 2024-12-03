@@ -4,6 +4,7 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.model.menu.fooditems.Fries;
 import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.users.Client;
 import javax.swing.ImageIcon;
@@ -18,6 +19,10 @@ public class FormFriesMenu extends javax.swing.JFrame {
     Order order;
     ImageIcon friesI = new ImageIcon("FoodDeliverySystem/fries.jpg");
     
+    private final double SMALL_PRICE = 2.99;
+    private final double MEDIUM_PRICE = 3.49;
+    private final double LARGE_PRICE = 4.99;
+    
     /**
      * Creates new form frmFriesMenu
      */
@@ -27,6 +32,7 @@ public class FormFriesMenu extends javax.swing.JFrame {
         this.order = order;
         friesImg.setText("");
         friesImg.setIcon(friesI);
+        priceLbl.setText("priceLabel" + " " + SMALL_PRICE);
     }
 
     /**
@@ -42,8 +48,9 @@ public class FormFriesMenu extends javax.swing.JFrame {
         friesMenuLbl = new javax.swing.JLabel();
         langBtn = new javax.swing.JButton();
         friesImg = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        addToCartBtn = new javax.swing.JButton();
+        sizeBox = new javax.swing.JComboBox<>();
+        priceLbl = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,9 +73,21 @@ public class FormFriesMenu extends javax.swing.JFrame {
 
         friesImg.setText("jLabel1");
 
-        jButton1.setText("Add to cart");
+        addToCartBtn.setText("Add to cart");
+        addToCartBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addToCartBtnActionPerformed(evt);
+            }
+        });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Small", "Medium", "Large" }));
+        sizeBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Small", "Medium", "Large" }));
+        sizeBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sizeBoxActionPerformed(evt);
+            }
+        });
+
+        priceLbl.setText("Price:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -91,8 +110,9 @@ public class FormFriesMenu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(152, 152, 152)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(addToCartBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(sizeBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(priceLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -103,13 +123,19 @@ public class FormFriesMenu extends javax.swing.JFrame {
                     .addComponent(backBtn)
                     .addComponent(friesMenuLbl)
                     .addComponent(langBtn))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(friesImg, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+                        .addGap(38, 38, 38))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(sizeBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
+                .addComponent(priceLbl)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(friesImg, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
-                .addComponent(jButton1)
-                .addGap(23, 23, 23))
+                .addComponent(addToCartBtn)
+                .addGap(15, 15, 15))
         );
 
         pack();
@@ -124,12 +150,31 @@ public class FormFriesMenu extends javax.swing.JFrame {
         new FormClientMainMenu(client, order).setVisible(true);
     }//GEN-LAST:event_backBtnActionPerformed
 
+    private void sizeBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sizeBoxActionPerformed
+    int selectedSize = sizeBox.getSelectedIndex();
+    double price = 0;
+    
+    switch (selectedSize) {
+        case 0 -> price = SMALL_PRICE;
+        case 1 -> price = MEDIUM_PRICE;
+        case 2 -> price = LARGE_PRICE;
+    }
+    
+    priceLbl.setText("priceLabel" + " " + String.format("%.2f", price));
+
+    }//GEN-LAST:event_sizeBoxActionPerformed
+
+    private void addToCartBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToCartBtnActionPerformed
+    
+    }//GEN-LAST:event_addToCartBtnActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addToCartBtn;
     private javax.swing.JButton backBtn;
     private javax.swing.JLabel friesImg;
     private javax.swing.JLabel friesMenuLbl;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JButton langBtn;
+    private javax.swing.JLabel priceLbl;
+    private javax.swing.JComboBox<String> sizeBox;
     // End of variables declaration//GEN-END:variables
 }

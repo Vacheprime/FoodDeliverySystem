@@ -145,6 +145,11 @@ public class FormPayment extends javax.swing.JFrame {
 
     private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
         // TODO add your handling code here:
+        
+        
+        //make sure to clear the order
+        this.dispose();
+        new FormOrderDetails(client, order).setVisible(true);
     }//GEN-LAST:event_confirmBtnActionPerformed
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
