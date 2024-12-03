@@ -99,6 +99,17 @@ public class Utils {
         // Validate the age: must be at least 16 years of age
         return getDateDifferenceInYears(dob) >= 18;
     }
+
+    /**
+     * Determine whether a spiciness level is valid.
+     * The spiciness level is in range of 0 to 10 inclusively.
+     * @param spiciness the spiciness level to validate.
+     * @return a boolean indicating whether the spiciness
+     * level is valid.
+     */
+    public static boolean validateSpicinessLevel(int spiciness) {
+        return spiciness >= 0 && spiciness <= 10;
+    }
     
     /**
      * Calculate the difference in years between two LocalDates.
