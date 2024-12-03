@@ -96,12 +96,6 @@ public abstract class Drink extends Food {
     }
 
     @Override
-    public void prepare() {
-        this.setPrice(this.size.getPrice());
-        this.setCookTime(this.size.getCookTime());
-    }
-
-    @Override
     public int hashCode() {
         int hash = 5;
         hash = 71 * hash + Objects.hashCode(this.size);
