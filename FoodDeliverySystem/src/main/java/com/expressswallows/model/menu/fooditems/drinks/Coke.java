@@ -15,7 +15,7 @@ public class Coke extends Drink {
     }
 
     /**
-     * Initialize the Coke drink.
+     * Prepare the Coke.
      */
     @Override
     public void prepare() {
