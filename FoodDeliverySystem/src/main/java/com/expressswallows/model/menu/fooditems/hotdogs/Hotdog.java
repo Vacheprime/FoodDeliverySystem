@@ -43,18 +43,13 @@ public abstract class Hotdog extends Food {
      * @param cookTime the cook time of the wiener.
      * @param price the price of the wiener.
      * @param bun the bun type of the wiener.
-     * @param spiciness the spiciness level of the wiener.
      */
-    public Hotdog(int cookTime, double price, HotdogBun bun, int spiciness) {
+    public Hotdog(int cookTime, double price, HotdogBun bun) {
         super(cookTime, price);
         if (bun == null) {
             throw new IllegalArgumentException("The bun argument cannot be null.");
         }
-        if (!Utils.validateSpicinessLevel(spiciness)) {
-            throw new IllegalArgumentException("The spiciness level must be between 0 and 10.");
-        }
         this.bun = bun;
-        this.spiciness = spiciness;
     }
 
     /**
