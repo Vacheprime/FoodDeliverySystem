@@ -1,4 +1,6 @@
-package com.expressswallows.model.menu.fooditems;
+package com.expressswallows.model.menu.fooditems.pizzas;
+
+import com.expressswallows.model.menu.fooditems.Food;
 
 import java.util.ArrayList;
 import java.util.List;

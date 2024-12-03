@@ -1,5 +1,6 @@
-package com.expressswallows.model.menu.fooditems;
+package com.expressswallows.model.menu.fooditems.hotdogs;
 
+import com.expressswallows.model.menu.fooditems.Food;
 import com.expressswallows.utils.Utils;
 import java.util.Objects;
 
