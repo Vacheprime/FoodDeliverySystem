@@ -10,7 +10,7 @@ import java.util.Objects;
  * Burger class is used to represent all food items that are burgers.
  * @author shahi
  */
-public abstract class Burger extends Food{
+public abstract class Burger extends Food {
     private BurgerSauce sauce;
 
     /**
@@ -18,16 +18,37 @@ public abstract class Burger extends Food{
      * sauces.
      */
     public enum BurgerSauce {
-        SOGGY,
-        WHITE
+        CLASSIC(0),
+        SPICY(0.99);
+
+        // Store the price of sauce type
+        private final double price;
+
+        /**
+         * Constructor for a sauce type.
+         * @param price the price of the sauce.
+         */
+        BurgerSauce(double price) {
+            this.price = price;
+        }
+
+        /**
+         * Getter for the sauce price.
+         * @return the sauce price.
+         */
+        public double getPrice() {
+            return price;
+        }
     }
 
     /**
      * All argument constructor for a new burger.
-     * @param sauce the sauce type.
+     * @param cookTime the cook time of the burger.
+     * @param price the price of the burger.
+     * @param sauce the sauce type of the burger
      */
-    public Burger(BurgerSauce sauce) {
-        super();
+    public Burger(int cookTime, double price, BurgerSauce sauce) {
+        super(cookTime, price);
         if (sauce == null) {
             throw new IllegalArgumentException("The sauce argument cannot be null.");
         }
