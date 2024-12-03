@@ -14,9 +14,39 @@ public abstract class Drink extends Food {
      * Size enum represents the different sizes of Drinks available.
      */
     public enum Size {
-        SMALL,
-        MEDIUM,
-        LARGE
+        SMALL(3.99, 1),
+        MEDIUM(4.99, 2),
+        LARGE(5.49, 3);
+
+        // Store the price and cook time of each drink size
+        private final double price;
+        private final int cookTime;
+
+        /**
+         * Constructor for drink size.
+         * @param price the price of the size.
+         * @param cookTime the cook time of the size.
+         */
+        Size(double price, int cookTime) {
+            this.price = price;
+            this.cookTime = cookTime;
+        }
+
+        /**
+         * Getter for the size price.
+         * @return the price of the size.
+         */
+        public double getPrice() {
+            return price;
+        }
+
+        /**
+         * Getter for the size cook time.
+         * @return the size cook time.
+         */
+        public int getCookTime() {
+            return cookTime;
+        }
     }
 
     /**
@@ -63,6 +93,12 @@ public abstract class Drink extends Food {
      */
     public void setSugarContent(int sugarContent) {
         this.sugarContent = sugarContent;
+    }
+
+    @Override
+    public void prepare() {
+        this.setPrice(this.size.getPrice());
+        this.setCookTime(this.size.getCookTime());
     }
 
     @Override

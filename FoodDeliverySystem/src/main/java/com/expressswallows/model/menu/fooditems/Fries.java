@@ -17,9 +17,39 @@ public class Fries extends Food {
      * FriesSize enum is used to represent the available portion sizes for fries.
      */
     public enum FriesSize {
-        SMALL,
-        MEDIUM,
-        LARGE
+        SMALL(2.99, 2),
+        MEDIUM(3.49, 3),
+        LARGE (4.99, 4);
+
+        // Store the price and cook time for each frie size
+        private final double price;
+        private final int cookTime;
+
+        /**
+         * Constructor for frie size enum
+         * @param price the price of the size.
+         * @param cookTime the cook time of the size.
+         */
+        FriesSize(double price, int cookTime) {
+            this.price = price;
+            this.cookTime = cookTime;
+        }
+
+        /**
+         * Getter for the size price.
+         * @return
+         */
+        public double getPrice() {
+            return price;
+        }
+
+        /**
+         * Getter for the enum cook time.
+         * @return
+         */
+        public int getCookTime() {
+            return cookTime;
+        }
     }
 
     /**
@@ -47,20 +77,8 @@ public class Fries extends Food {
      */
     @Override
     public void prepare() {
-        switch (size) {
-            case SMALL -> {
-                setCookTime(2);
-                setPrice(2.99);
-            }
-            case MEDIUM -> {
-                setCookTime(3);
-                setPrice(3.49);
-            }
-            case LARGE -> {
-                setCookTime(4);
-                setPrice(4.99);
-            }
-        }
+        this.setPrice(this.size.getPrice());
+        this.setCookTime(this.size.getCookTime());
     }
     
     @Override
