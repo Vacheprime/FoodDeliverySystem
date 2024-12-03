@@ -5,6 +5,7 @@
 package com.expressswallows.model.menu.fooditems.burgers;
 
 import com.expressswallows.model.menu.fooditems.Food;
+import com.expressswallows.utils.Utils;
 
 import java.util.Objects;
 
@@ -14,6 +15,7 @@ import java.util.Objects;
  */
 public abstract class Burger extends Food {
     private BurgerSauce sauce;
+    private int spiciness;
 
     /**
      * BurgerSauce enum is used to represent all possible burger
@@ -74,6 +76,25 @@ public abstract class Burger extends Food {
             throw new IllegalArgumentException("The sauce argument cannot be null.");
         }
         this.sauce = sauce;
+    }
+
+    /**
+     * Getter for the spiciness level.
+     * @return the spiciness level.
+     */
+    public int getSpiciness() {
+        return spiciness;
+    }
+
+    /**
+     * Setter for the spiciness level.
+     * @param spiciness the spiciness level
+     */
+    public void setSpiciness(int spiciness) {
+        if (!Utils.validateSpicinessLevel(spiciness)) {
+            throw new IllegalArgumentException("The spiciness level must be between 0 and 10 inclusively.");
+        }
+        this.spiciness = spiciness;
     }
 
     @Override
