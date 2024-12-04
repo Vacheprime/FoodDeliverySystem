@@ -306,7 +306,11 @@ public class FormSignup extends javax.swing.JFrame {
     }//GEN-LAST:event_langBtnActionPerformed
 
     private void passwordBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordBoxActionPerformed
-        // TODO add your handling code here:
+        if(passwordBox.isSelected()){
+            passwordTB.setEchoChar((char)0);
+        }else{
+            passwordTB.setEchoChar('*');
+        }
     }//GEN-LAST:event_passwordBoxActionPerformed
 
     private void passwordTBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordTBActionPerformed

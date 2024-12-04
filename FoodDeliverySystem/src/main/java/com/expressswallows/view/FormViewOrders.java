@@ -25,6 +25,7 @@ public class FormViewOrders extends javax.swing.JFrame {
         initComponents();
         this.client = client;
         this.order = order;
+        update();
     }
 
     /**
@@ -96,7 +97,7 @@ public class FormViewOrders extends javax.swing.JFrame {
     private void update() {
         ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
         backBtn.setText(rb.getString("back"));
-        yourOrdersLbl.setText(rb.getString("order"));
+        yourOrdersLbl.setText(rb.getString("orderhistory"));
     }
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed

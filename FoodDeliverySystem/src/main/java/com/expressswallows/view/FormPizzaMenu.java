@@ -6,7 +6,10 @@ package com.expressswallows.view;
 
 import com.expressswallows.model.restaurant.users.Client;
 import com.expressswallows.model.restaurant.Order;
+import com.expressswallows.utils.Utils;
+
 import javax.swing.ImageIcon;
+import java.util.ResourceBundle;
 
 /**
  *
@@ -32,6 +35,7 @@ public class FormPizzaMenu extends javax.swing.JFrame {
         pepperoniLblImg.setIcon(pepperoniImg);
         alldressLblImg.setText("");
         alldressLblImg.setIcon(alldressImg);
+        update();
     }
 
     /**
@@ -196,13 +200,27 @@ public class FormPizzaMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void update() {
+        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
+        backBtn.setText(rb.getString("back"));
+        langBtn.setText(rb.getString("lang"));
+        pizzaMenuLbl.setText(rb.getString("pizzamenu"));
+        cheeseLbl.setText(rb.getString("cheese"));
+        alldressLbl.setText(rb.getString("alldress"));
+        alldressBtn.setText(rb.getString("addtocart"));
+        pepperoniBtn.setText(rb.getString("addtocart"));
+        cheeseBtn.setText(rb.getString("addtocart"));
+    }
+
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         this.dispose();
         new FormClientMainMenu(client, order).setVisible(true);
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
-        // TODO add your handling code here:
+        Utils.switchLanguage();
+        update();
+
     }//GEN-LAST:event_langBtnActionPerformed
 
     private void cheeseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cheeseBtnActionPerformed

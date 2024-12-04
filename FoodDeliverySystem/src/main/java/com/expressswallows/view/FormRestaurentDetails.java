@@ -28,6 +28,7 @@ public class FormRestaurentDetails extends javax.swing.JFrame {
         locationTB.setText(restaurant.toString()); //getAddress
         numOrderTB.setText(restaurant.toString()); //get # of orders
         balanceTB.setText(restaurant.toString()); //getBalance
+        update();
     }
 
     /**
@@ -153,7 +154,8 @@ public class FormRestaurentDetails extends javax.swing.JFrame {
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
-        // TODO add your handling code here:
+        Utils.switchLanguage();
+        update();
     }//GEN-LAST:event_langBtnActionPerformed
 
 

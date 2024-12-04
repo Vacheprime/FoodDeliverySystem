@@ -6,6 +6,9 @@ package com.expressswallows.view;
 
 import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.users.Client;
+import com.expressswallows.utils.Utils;
+
+import java.util.ResourceBundle;
 
 /**
  *
@@ -22,6 +25,7 @@ public class FormPayment extends javax.swing.JFrame {
         this.client = client;
         this.order = order;
         order.calculateTotalPrice();
+        update();
     }
 
     /**
@@ -148,6 +152,17 @@ public class FormPayment extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void update(){
+        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
+        backBtn.setText(rb.getString("back"));
+        langBtn.setText(rb.getString("lang"));
+        cardnumberLbl.setText(rb.getString("cardnum"));
+        expirydateLbl.setText(rb.getString("expiry"));
+        amountLbl.setText(rb.getString("amount"));
+        confirmBtn.setText(rb.getString("confirm"));
+    }
+
+
     private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
         // TODO add your handling code here:
         
@@ -163,7 +178,8 @@ public class FormPayment extends javax.swing.JFrame {
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
-        // TODO add your handling code here:
+        Utils.switchLanguage();
+        update();
     }//GEN-LAST:event_langBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

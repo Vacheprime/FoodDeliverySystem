@@ -6,7 +6,10 @@ package com.expressswallows.view;
 
 import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.users.Client;
+import com.expressswallows.utils.Utils;
+
 import javax.swing.ImageIcon;
+import java.util.ResourceBundle;
 
 /**
  *
@@ -29,6 +32,7 @@ public class FormHotDogMenu extends javax.swing.JFrame {
         glizzyLblImg.setIcon(glizzyImg);
         millimeterLblImg.setText("");
         millimeterLblImg.setIcon(millimeter);
+        update();
     }
 
     /**
@@ -171,13 +175,25 @@ public class FormHotDogMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void update() {
+        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
+        backBtn.setText(rb.getString("back"));
+        langBtn.setText(rb.getString("lang"));
+        hotdogMenuLbl.setText(rb.getString("hotdogmenu"));
+        priceGGLbl.setText(rb.getString("price"));
+        priceMDLbl.setText(rb.getString("price"));
+        glizzyBtn.setText(rb.getString("addtocart"));
+        millimeterBtn.setText(rb.getString("addtocart"));
+    }
+
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         this.dispose();
         new FormClientMainMenu(client, order).setVisible(true);
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
-        // TODO add your handling code here:
+        Utils.switchLanguage();
+        update();
     }//GEN-LAST:event_langBtnActionPerformed
 
     private void glizzyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_glizzyBtnActionPerformed

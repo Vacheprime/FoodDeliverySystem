@@ -222,6 +222,14 @@ public class FormBurgerMenu extends javax.swing.JFrame {
     private void update(){
         ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
         backBtn.setText(rb.getString("back"));
+        burgerMenuLbl.setText(rb.getString("burgermenu"));
+        langBtn.setText(rb.getString("lang"));
+        bigFattyBtn.setText(rb.getString("addtocart"));
+        priceGBLbl.setText(rb.getString("price"));
+        priceSPLbl.setText(rb.getString("price"));
+        priceBFLbl.setText(rb.getString("price"));
+        greenBushBtn.setText(rb.getString("addtocart"));
+        skinnyPityBtn.setText(rb.getString("addtocart"));
     }
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
