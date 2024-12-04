@@ -58,6 +58,11 @@ public class FormPayment extends javax.swing.JFrame {
         });
 
         langBtn.setText("French");
+        langBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                langBtnActionPerformed(evt);
+            }
+        });
 
         backBtn.setText("Back");
         backBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -156,6 +161,10 @@ public class FormPayment extends javax.swing.JFrame {
         this.dispose();
         new FormViewCart(client, order).setVisible(true);
     }//GEN-LAST:event_backBtnActionPerformed
+
+    private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_langBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel amountLbl;

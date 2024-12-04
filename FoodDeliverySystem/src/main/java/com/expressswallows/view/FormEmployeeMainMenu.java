@@ -49,6 +49,7 @@ public class FormEmployeeMainMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
         rest1lbl = new javax.swing.JLabel();
         allRestaurantsLbl = new javax.swing.JLabel();
         rest2lbl = new javax.swing.JLabel();
@@ -87,6 +88,11 @@ public class FormEmployeeMainMenu extends javax.swing.JFrame {
         logoutBtn.setText("Log out");
 
         langBtn.setText("French");
+        langBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                langBtnActionPerformed(evt);
+            }
+        });
 
         rest3lbl.setText("jLabel1");
 
@@ -115,10 +121,10 @@ public class FormEmployeeMainMenu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rest1lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(101, 101, 101)
-                                .addComponent(view1Btn)))
+                                .addComponent(view1Btn))
+                            .addComponent(rest1lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -160,7 +166,7 @@ public class FormEmployeeMainMenu extends javax.swing.JFrame {
                     .addComponent(allRestaurantsLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(logoutBtn)
                     .addComponent(langBtn))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rest1lbl)
                     .addComponent(rest2lbl))
@@ -176,7 +182,7 @@ public class FormEmployeeMainMenu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(view3Btn)
                     .addComponent(view4Btn))
-                .addContainerGap(278, Short.MAX_VALUE))
+                .addContainerGap(290, Short.MAX_VALUE))
         );
 
         pack();
@@ -213,6 +219,10 @@ public class FormEmployeeMainMenu extends javax.swing.JFrame {
         new FormRestaurentDetails(restaurants.get(3), employee).setVisible(true);
     }//GEN-LAST:event_view4BtnActionPerformed
 
+    private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_langBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -220,6 +230,7 @@ public class FormEmployeeMainMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel allRestaurantsLbl;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton langBtn;
     private javax.swing.JButton logoutBtn;
     private javax.swing.JLabel rest1lbl;
