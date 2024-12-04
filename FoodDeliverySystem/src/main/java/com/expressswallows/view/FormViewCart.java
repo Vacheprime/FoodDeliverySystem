@@ -6,6 +6,9 @@ package com.expressswallows.view;
 
 import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.users.Client;
+import com.expressswallows.utils.Utils;
+
+import java.util.ResourceBundle;
 
 /**
  *
@@ -22,6 +25,7 @@ public class FormViewCart extends javax.swing.JFrame {
         initComponents();
         this.order = order;
         this.client = client;
+        update();
     }
 
     /**
@@ -95,6 +99,13 @@ public class FormViewCart extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void update() {
+        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
+        viewcartLbl.setText(rb.getString("yourcart"));
+        payBtn.setText(rb.getString("pay"));
+        backBtn.setText(rb.getString("back"));
+    }
 
     private void payBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payBtnActionPerformed
         dispose();

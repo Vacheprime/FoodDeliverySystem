@@ -6,6 +6,9 @@ package com.expressswallows.view;
 
 import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.users.Client;
+import com.expressswallows.utils.Utils;
+
+import java.util.ResourceBundle;
 
 /**
  *
@@ -33,14 +36,14 @@ public class FormViewOrders extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        orderLbl = new javax.swing.JLabel();
         orderPanel = new javax.swing.JPanel();
         backBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setText("Your Orders");
+        orderLbl.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        orderLbl.setText("Your Orders");
 
         javax.swing.GroupLayout orderPanelLayout = new javax.swing.GroupLayout(orderPanel);
         orderPanel.setLayout(orderPanelLayout);
@@ -72,7 +75,7 @@ public class FormViewOrders extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addComponent(backBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addComponent(orderLbl)
                 .addGap(134, 134, 134))
         );
         layout.setVerticalGroup(
@@ -80,7 +83,7 @@ public class FormViewOrders extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(orderLbl)
                     .addComponent(backBtn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(orderPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -90,6 +93,12 @@ public class FormViewOrders extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void update() {
+        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
+        backBtn.setText(rb.getString("back"));
+        orderLbl.setText(rb.getString("order"));
+    }
+
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         dispose();
         new FormClientMainMenu(client, order).setVisible(true);
@@ -97,7 +106,7 @@ public class FormViewOrders extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel orderLbl;
     private javax.swing.JPanel orderPanel;
     // End of variables declaration//GEN-END:variables
 }

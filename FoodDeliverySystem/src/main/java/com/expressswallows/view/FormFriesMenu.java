@@ -7,7 +7,10 @@ package com.expressswallows.view;
 import com.expressswallows.model.menu.fooditems.Fries;
 import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.users.Client;
+import com.expressswallows.utils.Utils;
+
 import javax.swing.ImageIcon;
+import java.util.ResourceBundle;
 
 /**
  *
@@ -22,7 +25,7 @@ public class FormFriesMenu extends javax.swing.JFrame {
     private final double SMALL_PRICE = 2.99;
     private final double MEDIUM_PRICE = 3.49;
     private final double LARGE_PRICE = 4.99;
-    
+    private double currentPrice = 0;
     /**
      * Creates new form frmFriesMenu
      */
@@ -32,7 +35,8 @@ public class FormFriesMenu extends javax.swing.JFrame {
         this.order = order;
         friesImg.setText("");
         friesImg.setIcon(friesI);
-        priceLbl.setText("priceLabel" + " " + SMALL_PRICE);
+
+        update();
     }
 
     /**
@@ -141,8 +145,35 @@ public class FormFriesMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void update() {
+        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
+        backBtn.setText(rb.getString("back"));
+        langBtn.setText(rb.getString("lang"));
+        friesMenuLbl.setText(rb.getString("friesmenu"));
+        //sizeLbl.setText(rb.getString("size"));
+
+        String priceText = String.format("%.2f", currentPrice);
+        if (Utils.currentLocale.getLanguage().equals("en")) {
+            // In English, put $ before the price
+            priceLbl.setText(rb.getString("price") + " $" + priceText);  // Add "Price:" and the currency symbol
+        } else if (Utils.currentLocale.getLanguage().equals("fr")) {
+            // In French, put € after the price
+            priceLbl.setText(rb.getString("price") + " " + priceText + "$");  // Add "Prix:" and the currency symbol
+        }
+
+        addToCartBtn.setText(rb.getString("addtocart"));
+
+        sizeBox.removeAllItems();
+
+        sizeBox.addItem(rb.getString("small"));
+        sizeBox.addItem(rb.getString("medium"));
+        sizeBox.addItem(rb.getString("large"));
+    }
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
-        // TODO add your handling code here:
+        int selectedSize = sizeBox.getSelectedIndex();
+        Utils.switchLanguage();
+        update();
+        sizeBox.setSelectedIndex(selectedSize);
     }//GEN-LAST:event_langBtnActionPerformed
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
@@ -151,17 +182,22 @@ public class FormFriesMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void sizeBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sizeBoxActionPerformed
-    int selectedSize = sizeBox.getSelectedIndex();
-    double price = 0;
-    
-    switch (selectedSize) {
-        case 0 -> price = SMALL_PRICE;
-        case 1 -> price = MEDIUM_PRICE;
-        case 2 -> price = LARGE_PRICE;
-    }
-    
-    priceLbl.setText("priceLabel" + " " + String.format("%.2f", price));
+        int selectedSize = sizeBox.getSelectedIndex();
 
+        switch (selectedSize) {
+            case 0 -> currentPrice = SMALL_PRICE;  // Small price
+            case 1 -> currentPrice = MEDIUM_PRICE; // Medium price
+            case 2 -> currentPrice = LARGE_PRICE;  // Large price
+        }
+
+        String priceText = String.format("%.2f", currentPrice);
+        if (Utils.currentLocale.getLanguage().equals("en")) {
+            // In English, put $ before the price
+            priceLbl.setText("Price: $" + priceText);
+        } else if (Utils.currentLocale.getLanguage().equals("fr")) {
+            // In French, put € after the price
+            priceLbl.setText("Prix: " + priceText + "$");
+        }
     }//GEN-LAST:event_sizeBoxActionPerformed
 
     private void addToCartBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToCartBtnActionPerformed

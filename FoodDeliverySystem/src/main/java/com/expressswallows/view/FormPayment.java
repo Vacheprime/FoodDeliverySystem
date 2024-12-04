@@ -21,7 +21,7 @@ public class FormPayment extends javax.swing.JFrame {
         initComponents();
         this.client = client;
         this.order = order;
-        amountLbl.setText("Amount: $");
+        order.calculateTotalPrice();
     }
 
     /**

@@ -90,11 +90,6 @@ public class FormDrinksMenu extends javax.swing.JFrame {
         });
 
         typeBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Water", "Coke", "7up" }));
-        typeBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                typeBoxActionPerformed(evt);
-            }
-        });
 
         sizeBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Small", "Medium", "Large" }));
         sizeBox.addActionListener(new java.awt.event.ActionListener() {
@@ -212,10 +207,6 @@ public class FormDrinksMenu extends javax.swing.JFrame {
     private void orderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_orderBtnActionPerformed
-
-    private void typeBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typeBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_typeBoxActionPerformed
 
     private void sizeBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sizeBoxActionPerformed
         int selectedSize = sizeBox.getSelectedIndex();

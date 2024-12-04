@@ -6,6 +6,9 @@ package com.expressswallows.view;
 
 import com.expressswallows.model.restaurant.Restaurant;
 import com.expressswallows.model.restaurant.users.Employee;
+import com.expressswallows.utils.Utils;
+
+import java.util.ResourceBundle;
 
 /**
  *
@@ -134,6 +137,15 @@ public class FormRestaurentDetails extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void update() {
+        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
+        titleLbl.setText(rb.getString("restdet"));
+        locationLbl.setText(rb.getString("location"));
+        langBtn.setText(rb.getString("lang"));
+        balanceLbl.setText(rb.getString("balance"));
+        numOrdersLbl.setText(rb.getString("numorders"));
+    }
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         this.dispose();

@@ -6,7 +6,10 @@ package com.expressswallows.view;
 
 import com.expressswallows.model.restaurant.Restaurant;
 import com.expressswallows.model.restaurant.users.Employee;
+import com.expressswallows.utils.Utils;
+
 import java.util.List;
+import java.util.ResourceBundle;
 import javax.swing.ImageIcon;
 
 /**
@@ -34,6 +37,7 @@ public class FormEmployeeMainMenu extends javax.swing.JFrame {
         rest3lbl.setIcon(restaurant);
         rest4lbl.setText("");
         rest4lbl.setIcon(restaurant);
+        update();
     }
 
     /**
@@ -177,6 +181,17 @@ public class FormEmployeeMainMenu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void update() {
+        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
+        logoutBtn.setText(rb.getString("logout"));
+        langBtn.setText(rb.getString("lang"));
+        allRestaurantsLbl.setText(rb.getString("allrest"));
+        view1Btn.setText(rb.getString("view"));
+        view2Btn.setText(rb.getString("view"));
+        view3Btn.setText(rb.getString("view"));
+        view4Btn.setText(rb.getString("view"));
+    }
 
     private void view1BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view1BtnActionPerformed
         this.dispose();
