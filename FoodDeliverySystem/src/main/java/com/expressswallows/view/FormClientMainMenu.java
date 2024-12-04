@@ -6,8 +6,11 @@ package com.expressswallows.view;
 
 import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.users.Client;
+import com.expressswallows.utils.Utils;
+
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import java.util.ResourceBundle;
 
 /**
  *
@@ -39,6 +42,7 @@ public class FormClientMainMenu extends javax.swing.JFrame {
         friesLbl.setIcon(friesImage);
         drinksLbl.setText("");
         drinksLbl.setIcon(drinksImage);
+        update();
     }
 
     /**
@@ -232,6 +236,20 @@ public class FormClientMainMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void update() {
+        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
+        langBtn.setText(rb.getString("lang"));
+        logoutBtn.setText(rb.getString("logout"));
+        burgerBtn.setText(rb.getString("burgermenu"));
+        pizzaBtn.setText(rb.getString("pizzamenu"));
+        hotdogBtn.setText(rb.getString("hotdogmenu"));
+        friesBtn.setText(rb.getString("friesmenu"));
+        drinksBtn.setText(rb.getString("drinksmenu"));
+        viewCartBtn.setText(rb.getString("viewcart"));
+        viewPreOrderBtn.setText(rb.getString("viewprev"));
+
+    }
+
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
         int a = JOptionPane.showConfirmDialog(null, "Do you want to log out the application","Select",JOptionPane.YES_NO_OPTION);
         if(a == 0){
@@ -266,7 +284,8 @@ public class FormClientMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_drinksBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
-        // TODO add your handling code here:
+        Utils.switchLanguage();
+        update();
     }//GEN-LAST:event_langBtnActionPerformed
 
     private void viewCartBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewCartBtnActionPerformed

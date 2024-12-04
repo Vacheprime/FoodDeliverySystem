@@ -6,6 +6,8 @@ package com.expressswallows.view;
 
 import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.users.Client;
+import com.expressswallows.utils.Utils;
+
 import javax.swing.ImageIcon;
 import java.util.ResourceBundle;
 
@@ -36,6 +38,7 @@ public class FormBurgerMenu extends javax.swing.JFrame {
         greenBushImg.setIcon(greenBush);
         skinnyPityImg.setText("");
         skinnyPityImg.setIcon(skinnyPity);
+        update();
     }
 
     /**
@@ -197,8 +200,8 @@ public class FormBurgerMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void Update(){
-        ResourceBundle rb = ResourceBundle.getBundle("resources.messages");
+    private void update(){
+        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
         backBtn.setText(rb.getString("back"));
     }
 
@@ -208,7 +211,8 @@ public class FormBurgerMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
-        // TODO add your handling code here:
+        Utils.switchLanguage();
+        update();
     }//GEN-LAST:event_langBtnActionPerformed
 
     private void bigFattyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bigFattyBtnActionPerformed

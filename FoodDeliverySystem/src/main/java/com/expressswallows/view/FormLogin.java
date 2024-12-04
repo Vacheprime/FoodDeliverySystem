@@ -9,9 +9,12 @@ import com.expressswallows.model.restaurant.users.Address;
 import com.expressswallows.model.restaurant.users.Client;
 import com.expressswallows.model.restaurant.users.Employee;
 import com.expressswallows.model.restaurant.users.Person;
+import com.expressswallows.utils.Utils;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 
 /**
@@ -34,6 +37,7 @@ public class FormLogin extends javax.swing.JFrame {
         clients.add(new Client("Andy", "Shah", "andrew@gmail.com", "123456", d1, "(123) 122-1323", new Address("Street", "122", "H2R 2B1", Address.City.Montreal)));
 
         errorLbl.setVisible(false);
+        update();
     }
 
     /**
@@ -173,6 +177,19 @@ public class FormLogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void update() {
+        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
+        langBtn.setText(rb.getString("lang"));
+        loginBtn.setText(rb.getString("login"));
+        logoutBtn.setText(rb.getString("logout"));
+        emailLbl.setText(rb.getString("email"));
+        passwordLbl.setText(rb.getString("password"));
+        errorLbl.setText(rb.getString("error"));
+        passwordBox.setText(rb.getString("showpass"));
+        signupBtn.setText(rb.getString("signup"));
+        loginLbl.setText(rb.getString("login"));
+    }
+
     private void passwordBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordBoxActionPerformed
         if(passwordBox.isSelected()){
             passwordTB.setEchoChar((char)0);
@@ -210,7 +227,8 @@ public class FormLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_loginBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
-        // TODO add your handling code here:
+        Utils.switchLanguage();
+        update();
     }//GEN-LAST:event_langBtnActionPerformed
 
     private void signupBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signupBtnActionPerformed

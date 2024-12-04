@@ -6,7 +6,10 @@ package com.expressswallows.view;
 
 import com.expressswallows.model.restaurant.users.Address;
 import com.expressswallows.model.restaurant.users.Client;
+import com.expressswallows.utils.Utils;
+
 import java.time.LocalDate;
+import java.util.ResourceBundle;
 
 /**
  *
@@ -19,6 +22,7 @@ public class FormSignup extends javax.swing.JFrame {
      */
     public FormSignup() {
         initComponents();
+        update();
     }
 
     
@@ -253,7 +257,24 @@ public class FormSignup extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
+    private void update() {
+        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
+        firstNameLbl.setText(rb.getString("firstname"));
+        lastNameLbl.setText(rb.getString("lastname"));
+        phoneNumberLbl.setText(rb.getString("phone"));
+        dobLbl.setText(rb.getString("dob"));
+        emailLbl.setText(rb.getString("email"));
+        passwordLbl.setText(rb.getString("password"));
+        passwordBox.setText(rb.getString("showpass"));
+        streetNumLbl.setText(rb.getString("streetnum"));
+        streetNameLbl.setText(rb.getString("streetname"));
+        postalCodeLbl.setText(rb.getString("postal"));
+        signupLbl.setText(rb.getString("signup"));
+        backBtn.setText(rb.getString("back"));
+        signUpBtn.setText(rb.getString("signup"));
+
+    }
+
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         this.dispose();
         new FormLogin().setVisible(true);
@@ -276,7 +297,8 @@ public class FormSignup extends javax.swing.JFrame {
     }//GEN-LAST:event_signUpBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
-        // TODO add your handling code here:
+        Utils.switchLanguage();
+        update();
     }//GEN-LAST:event_langBtnActionPerformed
 
     private void passwordBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordBoxActionPerformed

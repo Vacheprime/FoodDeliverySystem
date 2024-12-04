@@ -2,6 +2,7 @@ package com.expressswallows.utils;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Locale;
 
 /**
  * Utils class used to contain static functions that could be used in many
@@ -10,7 +11,11 @@ import java.time.Period;
  * @author Danat
  */
 public class Utils {
-    
+
+    public static final Locale cultureEn = new Locale("en", "CA");
+    public static final Locale cultureFr = new Locale("fr", "CA");
+    public static Locale currentLocale = cultureEn;
+
     /**
      * Determine whether a zip code follows the following format:
      * A1A B2B
@@ -95,4 +100,13 @@ public class Utils {
     private static int getDateDifferenceInYears(LocalDate date) {
         return Period.between(date, LocalDate.now()).getYears();
     }
+
+    public static void switchLanguage() {
+        if (currentLocale.equals(cultureEn)) {
+            currentLocale = cultureFr;
+        } else {
+            currentLocale = cultureEn;
+        }
+    }
+
 }
