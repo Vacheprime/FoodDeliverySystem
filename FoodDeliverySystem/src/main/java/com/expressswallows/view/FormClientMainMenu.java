@@ -64,6 +64,7 @@ public class FormClientMainMenu extends javax.swing.JFrame {
         drinksLbl = new javax.swing.JLabel();
         drinksBtn = new javax.swing.JButton();
         viewCartBtn = new javax.swing.JButton();
+        viewPreOrderBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -137,6 +138,13 @@ public class FormClientMainMenu extends javax.swing.JFrame {
             }
         });
 
+        viewPreOrderBtn.setText("View Previous Orders");
+        viewPreOrderBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewPreOrderBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -180,6 +188,10 @@ public class FormClientMainMenu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(hotdogBtn)
                 .addGap(175, 175, 175))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(viewPreOrderBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(181, 181, 181))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,7 +222,9 @@ public class FormClientMainMenu extends javax.swing.JFrame {
                     .addComponent(drinksLbl)
                     .addComponent(drinksBtn)
                     .addComponent(viewCartBtn))
-                .addContainerGap(674, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(viewPreOrderBtn)
+                .addContainerGap(633, Short.MAX_VALUE))
         );
 
         pack();
@@ -254,9 +268,14 @@ public class FormClientMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_langBtnActionPerformed
 
     private void viewCartBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewCartBtnActionPerformed
-        dispose();
+        this.dispose();
         new FormViewCart(client,order).setVisible(true);
     }//GEN-LAST:event_viewCartBtnActionPerformed
+
+    private void viewPreOrderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewPreOrderBtnActionPerformed
+        this.dispose();
+        new FormViewOrders(client, order).setVisible(true);
+    }//GEN-LAST:event_viewPreOrderBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton burgerBtn;
@@ -273,5 +292,6 @@ public class FormClientMainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel pizzaLbl;
     private javax.swing.JLabel titleLbl;
     private javax.swing.JButton viewCartBtn;
+    private javax.swing.JButton viewPreOrderBtn;
     // End of variables declaration//GEN-END:variables
 }

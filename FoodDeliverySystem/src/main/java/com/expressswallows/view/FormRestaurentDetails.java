@@ -137,7 +137,7 @@ public class FormRestaurentDetails extends javax.swing.JFrame {
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         this.dispose();
-        new FormEmployeeMainMenu().setVisible(true);
+        new FormEmployeeMainMenu(employee).setVisible(true);
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed

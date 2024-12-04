@@ -147,7 +147,7 @@ public class FormPayment extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         
-        //make sure to clear the order
+        //make sure to clear the order back to nothing
         this.dispose();
         new FormOrderDetails(client, order).setVisible(true);
     }//GEN-LAST:event_confirmBtnActionPerformed

@@ -76,6 +76,11 @@
               <Component id="hotdogBtn" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="175" max="-2" attributes="0"/>
           </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="viewPreOrderBtn" min="-2" pref="157" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="181" max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -113,7 +118,9 @@
                   <Component id="drinksBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="viewCartBtn" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="674" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="viewPreOrderBtn" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="633" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -214,6 +221,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewCartBtnActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="viewPreOrderBtn">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="View Previous Orders"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewPreOrderBtnActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

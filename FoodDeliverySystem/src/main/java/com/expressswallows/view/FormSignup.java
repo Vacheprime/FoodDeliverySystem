@@ -4,6 +4,10 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.model.restaurant.users.Address;
+import com.expressswallows.model.restaurant.users.Client;
+import java.time.LocalDate;
+
 /**
  *
  * @author shahi
@@ -258,6 +262,17 @@ public class FormSignup extends javax.swing.JFrame {
     private void signUpBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpBtnActionPerformed
         String first = firstNameTB.getText();
         String last = lastNameTB.getText();
+        String phone = phoneNumberTB.getText();
+        String dob = dobTB.getText(); //LocalDate (yyyy/mm/dd)
+        String streetNum = streetNumTB.getText();
+        String streetName = streetNameTB.getText();
+        String postal = postalCodeTB.getText();
+        String email = emailTB.getText();
+        String password = passwordTB.getText();
+        
+        //have to validate the date of birth and if nothing is left blank
+        //Client client = new Client(first, last, email, password, dob, phone, new Address(streetName, streetNum, postal, Address.City.Montreal));
+        //Add the client to the database
     }//GEN-LAST:event_signUpBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed

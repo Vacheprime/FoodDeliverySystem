@@ -192,7 +192,7 @@ public class FormLogin extends javax.swing.JFrame {
           if (emailTB.getText().equals(e1.getEmail()) && passwordTB.getText().equals(e1.getPassword()) ||
               emailTB.getText().equals(e2.getEmail()) && passwordTB.getText().equals(e2.getPassword())) {
         setVisible(false);
-        new FormEmployeeMainMenu().setVisible(true);
+        new FormEmployeeMainMenu(e1).setVisible(true);
         return;
     }
     for (Client client : clients) {

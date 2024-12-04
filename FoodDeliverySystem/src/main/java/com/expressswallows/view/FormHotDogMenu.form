@@ -152,11 +152,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Add to cart"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="glizzyBtnActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="millimeterBtn">
       <Properties>
         <Property name="text" type="java.lang.String" value="Add to cart"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="millimeterBtnActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

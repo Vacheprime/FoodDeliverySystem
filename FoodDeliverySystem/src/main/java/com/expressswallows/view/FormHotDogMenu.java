@@ -80,8 +80,18 @@ public class FormHotDogMenu extends javax.swing.JFrame {
         millimeterLblImg.setText("jLabel4");
 
         glizzyBtn.setText("Add to cart");
+        glizzyBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                glizzyBtnActionPerformed(evt);
+            }
+        });
 
         millimeterBtn.setText("Add to cart");
+        millimeterBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                millimeterBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -155,6 +165,14 @@ public class FormHotDogMenu extends javax.swing.JFrame {
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_langBtnActionPerformed
+
+    private void glizzyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_glizzyBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_glizzyBtnActionPerformed
+
+    private void millimeterBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_millimeterBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_millimeterBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
