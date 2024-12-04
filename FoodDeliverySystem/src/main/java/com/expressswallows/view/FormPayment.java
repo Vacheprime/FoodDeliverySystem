@@ -44,10 +44,10 @@ public class FormPayment extends javax.swing.JFrame {
         confirmBtn = new javax.swing.JButton();
         langBtn = new javax.swing.JButton();
         backBtn = new javax.swing.JButton();
-        amountLbl = new javax.swing.JLabel();
         cardnumberLbl = new javax.swing.JLabel();
         expirydateLbl = new javax.swing.JLabel();
         cvvLbl = new javax.swing.JLabel();
+        totalLbl = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,26 +81,27 @@ public class FormPayment extends javax.swing.JFrame {
 
         cvvLbl.setText("CVV: ");
 
+        totalLbl.setText("Total:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(162, 162, 162)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(amountLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(confirmBtn))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(confirmBtn)
+                            .addComponent(totalLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addComponent(backBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(paymentLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(55, 55, 55)))
+                        .addGap(62, 62, 62)
+                        .addComponent(paymentLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(langBtn)
-                .addGap(15, 15, 15))
+                .addGap(47, 47, 47))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -120,7 +121,7 @@ public class FormPayment extends javax.swing.JFrame {
                         .addComponent(cvvLbl)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cvvTB, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(85, 85, 85))
+                .addGap(127, 135, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,11 +143,11 @@ public class FormPayment extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cvvTB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cvvLbl))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addComponent(amountLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
+                .addComponent(totalLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(confirmBtn)
-                .addGap(36, 36, 36))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         pack();
@@ -158,8 +159,9 @@ public class FormPayment extends javax.swing.JFrame {
         langBtn.setText(rb.getString("lang"));
         cardnumberLbl.setText(rb.getString("cardnum"));
         expirydateLbl.setText(rb.getString("expiry"));
-        amountLbl.setText(rb.getString("amount"));
+        totalLbl.setText(rb.getString("amount"));
         confirmBtn.setText(rb.getString("confirm"));
+        paymentLbl.setText(rb.getString("payment"));
     }
 
 
@@ -183,7 +185,6 @@ public class FormPayment extends javax.swing.JFrame {
     }//GEN-LAST:event_langBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel amountLbl;
     private javax.swing.JButton backBtn;
     private javax.swing.JLabel cardnumberLbl;
     private javax.swing.JTextField cardnumberTB;
@@ -194,5 +195,6 @@ public class FormPayment extends javax.swing.JFrame {
     private javax.swing.JTextField expirydateTB;
     private javax.swing.JButton langBtn;
     private javax.swing.JLabel paymentLbl;
+    private javax.swing.JLabel totalLbl;
     // End of variables declaration//GEN-END:variables
 }
