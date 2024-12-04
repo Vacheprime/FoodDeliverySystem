@@ -7,6 +7,7 @@ package com.expressswallows.view;
 import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.users.Client;
 import javax.swing.ImageIcon;
+import java.util.ResourceBundle;
 
 /**
  *
@@ -195,6 +196,11 @@ public class FormBurgerMenu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void Update(){
+        ResourceBundle rb = ResourceBundle.getBundle("resources.messages");
+        backBtn.setText(rb.getString("back"));
+    }
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         this.dispose();
