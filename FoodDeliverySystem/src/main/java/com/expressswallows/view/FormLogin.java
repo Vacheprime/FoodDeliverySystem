@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
@@ -202,9 +203,18 @@ public class FormLogin extends javax.swing.JFrame {
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
           if (emailTB.getText().equals(e1.getEmail()) && passwordTB.getText().equals(e1.getPassword()) ||
               emailTB.getText().equals(e2.getEmail()) && passwordTB.getText().equals(e2.getPassword())) {
-        setVisible(false);
+        /*this.dispose();
         new FormEmployeeMainMenu(e1).setVisible(true);
-        return;
+        */
+        getContentPane().removeAll();
+    
+    // Create the Employee Main Menu panel and set it as the content pane
+    JPanel employeeMainMenu = new FormEmployeeMainMenu(e1); // Assuming FormEmployeeMainMenu extends JPanel
+    setContentPane(employeeMainMenu);
+    
+    // Refresh the frame to apply the new content
+    revalidate();
+    repaint();
     }
     for (Client client : clients) {
         if (emailTB.getText().equals(client.getEmail()) && passwordTB.getText().equals(client.getPassword())) {

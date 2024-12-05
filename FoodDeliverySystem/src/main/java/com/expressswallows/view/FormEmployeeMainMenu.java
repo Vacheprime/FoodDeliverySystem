@@ -11,33 +11,36 @@ import com.expressswallows.utils.Utils;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  *
  * @author shahi
  */
-public class FormEmployeeMainMenu extends javax.swing.JFrame {
+public class FormEmployeeMainMenu extends javax.swing.JPanel {
 
     List<Restaurant> restaurants;
     Employee employee;
     ImageIcon restaurant = new ImageIcon("FoodDeliverySystem/restaurants.jpg");
     
+
     /**
-     * Creates new form frmEmployeeMainMenu
+     * Creates new form EmployeeMainMenu
      */
     public FormEmployeeMainMenu(Employee employee) {
         initComponents();
-        
         this.employee = employee;
-        rest1lbl.setText("");
-        rest1lbl.setIcon(restaurant);
-        rest2lbl.setText("");
-        rest2lbl.setIcon(restaurant);
-        rest3lbl.setText("");
-        rest3lbl.setIcon(restaurant);
-        rest4lbl.setText("");
-        rest4lbl.setIcon(restaurant);
+        rest1Lbl.setText("");
+        rest1Lbl.setIcon(restaurant);
+        rest2Lbl.setText("");
+        rest2Lbl.setIcon(restaurant);
+        rest3Lbl.setText("");
+        rest3Lbl.setIcon(restaurant);
+        rest4Lbl.setText("");
+        rest4Lbl.setIcon(restaurant);
         update();
+
     }
 
     /**
@@ -50,26 +53,43 @@ public class FormEmployeeMainMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        rest1lbl = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         allRestaurantsLbl = new javax.swing.JLabel();
-        rest2lbl = new javax.swing.JLabel();
-        view1Btn = new javax.swing.JButton();
-        view2Btn = new javax.swing.JButton();
         logoutBtn = new javax.swing.JButton();
         langBtn = new javax.swing.JButton();
-        rest3lbl = new javax.swing.JLabel();
-        rest4lbl = new javax.swing.JLabel();
+        rest1Lbl = new javax.swing.JLabel();
+        rest2Lbl = new javax.swing.JLabel();
+        view1Btn = new javax.swing.JButton();
+        view2Btn = new javax.swing.JButton();
+        rest4Lbl = new javax.swing.JLabel();
+        rest3Lbl = new javax.swing.JLabel();
         view3Btn = new javax.swing.JButton();
         view4Btn = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        rest1lbl.setText("jLabel1");
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollPane1.setViewportView(jPanel1);
 
         allRestaurantsLbl.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         allRestaurantsLbl.setText("All Restaurants");
 
-        rest2lbl.setText("jLabel2");
+        logoutBtn.setText("Log out");
+        logoutBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutBtnActionPerformed(evt);
+            }
+        });
+
+        langBtn.setText("French");
+        langBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                langBtnActionPerformed(evt);
+            }
+        });
+
+        rest1Lbl.setText("jLabel1");
+
+        rest2Lbl.setText("jLabel1");
 
         view1Btn.setText("View");
         view1Btn.addActionListener(new java.awt.event.ActionListener() {
@@ -85,18 +105,9 @@ public class FormEmployeeMainMenu extends javax.swing.JFrame {
             }
         });
 
-        logoutBtn.setText("Log out");
+        rest4Lbl.setText("jLabel1");
 
-        langBtn.setText("French");
-        langBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                langBtnActionPerformed(evt);
-            }
-        });
-
-        rest3lbl.setText("jLabel1");
-
-        rest4lbl.setText("jLabel2");
+        rest3Lbl.setText("jLabel1");
 
         view3Btn.setText("View");
         view3Btn.addActionListener(new java.awt.event.ActionListener() {
@@ -112,81 +123,120 @@ public class FormEmployeeMainMenu extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(44, 44, 44)
+                        .addComponent(allRestaurantsLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(langBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(66, 66, 66))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(rest3Lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(rest4Lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(rest1Lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(rest2Lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(51, 51, 51))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(78, 78, 78)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(view3Btn, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+                    .addComponent(view1Btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(view2Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(125, 125, 125))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(view4Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(123, 123, 123))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(allRestaurantsLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(logoutBtn)
+                    .addComponent(langBtn))
+                .addGap(26, 26, 26)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rest1Lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rest2Lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(view1Btn)
+                    .addComponent(view2Btn))
+                .addGap(29, 29, 29)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rest3Lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rest4Lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(view3Btn)
+                    .addComponent(view4Btn))
+                .addContainerGap(305, Short.MAX_VALUE))
+        );
+
+        jScrollPane1.setViewportView(jPanel1);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(101, 101, 101)
-                                .addComponent(view1Btn))
-                            .addComponent(rest1lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(rest2lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(20, 20, 20))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(view2Btn)
-                                .addGap(120, 120, 120))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(56, 56, 56)
-                                .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(62, 62, 62)
-                                .addComponent(allRestaurantsLbl)
-                                .addGap(72, 72, 72)
-                                .addComponent(langBtn))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(33, 33, 33)
-                                        .addComponent(view3Btn))
-                                    .addComponent(rest3lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(93, 93, 93)
-                                        .addComponent(rest4lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(view4Btn)
-                                        .addGap(137, 137, 137)))))
-                        .addContainerGap())))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 666, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(allRestaurantsLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(logoutBtn)
-                    .addComponent(langBtn))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rest1lbl)
-                    .addComponent(rest2lbl))
-                .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(view1Btn)
-                    .addComponent(view2Btn))
-                .addGap(101, 101, 101)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rest3lbl)
-                    .addComponent(rest4lbl))
-                .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(view3Btn)
-                    .addComponent(view4Btn))
-                .addContainerGap(290, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
+                .addContainerGap())
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
+       int a = JOptionPane.showConfirmDialog(null, "Do you want to log out the application","Select",JOptionPane.YES_NO_OPTION);
+        if(a == 0){
+            SwingUtilities.getWindowAncestor(this).dispose();
+            new FormLogin().setVisible(true);
+        }
+    }//GEN-LAST:event_logoutBtnActionPerformed
+
+    private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
+        Utils.switchLanguage();
+        update();
+    }//GEN-LAST:event_langBtnActionPerformed
+
+    private void view1BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view1BtnActionPerformed
+        SwingUtilities.getWindowAncestor(this).dispose();
+        new FormRestaurentDetails(restaurants.get(0), employee).setVisible(true);
+    }//GEN-LAST:event_view1BtnActionPerformed
+
+    private void view2BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view2BtnActionPerformed
+        SwingUtilities.getWindowAncestor(this).dispose();
+        new FormRestaurentDetails(restaurants.get(1), employee).setVisible(true);
+    }//GEN-LAST:event_view2BtnActionPerformed
+
+    private void view3BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view3BtnActionPerformed
+        SwingUtilities.getWindowAncestor(this).dispose();
+        new FormRestaurentDetails(restaurants.get(2), employee).setVisible(true);
+    }//GEN-LAST:event_view3BtnActionPerformed
+
+    private void view4BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view4BtnActionPerformed
+        SwingUtilities.getWindowAncestor(this).dispose();
+        new FormRestaurentDetails(restaurants.get(3), employee).setVisible(true);
+    }//GEN-LAST:event_view4BtnActionPerformed
 
     private void update() {
         ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
@@ -199,44 +249,17 @@ public class FormEmployeeMainMenu extends javax.swing.JFrame {
         view4Btn.setText(rb.getString("view"));
     }
 
-    private void view1BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view1BtnActionPerformed
-        this.dispose();
-        new FormRestaurentDetails(restaurants.get(0), employee).setVisible(true);
-    }//GEN-LAST:event_view1BtnActionPerformed
-
-    private void view2BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view2BtnActionPerformed
-        this.dispose();
-        new FormRestaurentDetails(restaurants.get(1), employee).setVisible(true);
-    }//GEN-LAST:event_view2BtnActionPerformed
-
-    private void view3BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view3BtnActionPerformed
-        this.dispose();
-        new FormRestaurentDetails(restaurants.get(2), employee).setVisible(true);
-    }//GEN-LAST:event_view3BtnActionPerformed
-
-    private void view4BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view4BtnActionPerformed
-        this.dispose();
-        new FormRestaurentDetails(restaurants.get(3), employee).setVisible(true);
-    }//GEN-LAST:event_view4BtnActionPerformed
-
-    private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_langBtnActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel allRestaurantsLbl;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton langBtn;
     private javax.swing.JButton logoutBtn;
-    private javax.swing.JLabel rest1lbl;
-    private javax.swing.JLabel rest2lbl;
-    private javax.swing.JLabel rest3lbl;
-    private javax.swing.JLabel rest4lbl;
+    private javax.swing.JLabel rest1Lbl;
+    private javax.swing.JLabel rest2Lbl;
+    private javax.swing.JLabel rest3Lbl;
+    private javax.swing.JLabel rest4Lbl;
     private javax.swing.JButton view1Btn;
     private javax.swing.JButton view2Btn;
     private javax.swing.JButton view3Btn;
