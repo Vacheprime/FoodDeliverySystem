@@ -22,6 +22,7 @@ public class FormRestaurentDetails extends javax.swing.JFrame {
     Restaurant restaurent;
     Employee employee;
     public FormRestaurentDetails(Restaurant restaurant, Employee employee) {
+        
         initComponents();
         this.restaurent = restaurant;
         this.employee = employee;
