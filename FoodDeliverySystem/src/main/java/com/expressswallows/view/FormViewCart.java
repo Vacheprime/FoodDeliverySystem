@@ -4,10 +4,12 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.model.menu.fooditems.Food;
 import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.users.Client;
 import com.expressswallows.utils.Utils;
 
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -18,6 +20,8 @@ public class FormViewCart extends javax.swing.JFrame {
 
     Order order;
     Client client;
+    List<Food> foods = order.getFoods();
+
     /**
      * Creates new form FormViewCart
      */
@@ -26,6 +30,7 @@ public class FormViewCart extends javax.swing.JFrame {
         this.order = order;
         this.client = client;
         update();
+        loadOrder();
     }
 
     /**
@@ -99,6 +104,10 @@ public class FormViewCart extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void loadOrder() {
+        //foods.toString();
+    }
 
     private void update() {
         ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);

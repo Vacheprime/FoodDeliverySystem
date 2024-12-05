@@ -22,6 +22,10 @@ public class FormBurgerMenu extends javax.swing.JFrame {
     ImageIcon bigFatty = new ImageIcon("FoodDeliverySystem/bigfatty.jpg");
     ImageIcon greenBush = new ImageIcon("FoodDeliverySystem/greenbush.jpg");
     ImageIcon skinnyPity = new ImageIcon("FoodDeliverySystem/skinnypity.jpg");
+    private final double PRICEBF = 14.99;
+    private final double PRICEGB = 19.99;
+    private final double PRICESP = 7.99;
+
     
     
     
@@ -225,11 +229,19 @@ public class FormBurgerMenu extends javax.swing.JFrame {
         burgerMenuLbl.setText(rb.getString("burgermenu"));
         langBtn.setText(rb.getString("lang"));
         bigFattyBtn.setText(rb.getString("addtocart"));
-        priceGBLbl.setText(rb.getString("price"));
-        priceSPLbl.setText(rb.getString("price"));
-        priceBFLbl.setText(rb.getString("price"));
         greenBushBtn.setText(rb.getString("addtocart"));
         skinnyPityBtn.setText(rb.getString("addtocart"));
+
+        if (Utils.currentLocale.getLanguage().equals("en")) {
+            priceBFLbl.setText(rb.getString("price") + "$" + PRICEBF);
+            priceGBLbl.setText(rb.getString("price") + "$" + PRICEGB);
+            priceSPLbl.setText(rb.getString("price") + "$" + PRICESP);
+        } else if (Utils.currentLocale.getLanguage().equals("fr")) {
+            priceBFLbl.setText(rb.getString("price") + PRICEBF + "$");
+            priceGBLbl.setText(rb.getString("price") + PRICEGB + "$");
+            priceSPLbl.setText(rb.getString("price") + PRICESP + "$");
+        }
+
     }
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed

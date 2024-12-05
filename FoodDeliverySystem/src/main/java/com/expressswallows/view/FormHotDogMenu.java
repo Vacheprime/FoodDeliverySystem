@@ -21,6 +21,9 @@ public class FormHotDogMenu extends javax.swing.JFrame {
     Order order;
     ImageIcon glizzyImg = new ImageIcon("FoodDeliverySystem/glizzy.jpg");
     ImageIcon millimeter = new ImageIcon("FoodDeliverySystem/millimeter.jpg");
+    private final double PRICEGG = 7.99;
+    private final double PRICEMD = 3.99;
+
     /**
      * Creates new form frmHotDogMenu
      */
@@ -180,10 +183,16 @@ public class FormHotDogMenu extends javax.swing.JFrame {
         backBtn.setText(rb.getString("back"));
         langBtn.setText(rb.getString("lang"));
         hotdogMenuLbl.setText(rb.getString("hotdogmenu"));
-        priceGGLbl.setText(rb.getString("price"));
-        priceMDLbl.setText(rb.getString("price"));
         glizzyBtn.setText(rb.getString("addtocart"));
         millimeterBtn.setText(rb.getString("addtocart"));
+
+        if (Utils.currentLocale.getLanguage().equals("en")) {
+            priceGGLbl.setText(rb.getString("price") + "$" + PRICEGG);
+            priceMDLbl.setText(rb.getString("price") + "$" + PRICEMD);
+        } else if (Utils.currentLocale.getLanguage().equals("fr")) {
+            priceGGLbl.setText(rb.getString("price") + PRICEGG + "$");
+            priceMDLbl.setText(rb.getString("price") + PRICEMD + "$");
+        }
     }
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed

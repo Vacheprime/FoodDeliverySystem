@@ -22,6 +22,10 @@ public class FormPizzaMenu extends javax.swing.JFrame {
     ImageIcon cheeseImg = new ImageIcon("FoodDeliverySystem/cheese.jpg");
     ImageIcon pepperoniImg = new ImageIcon("FoodDeliverySystem/pepperoni.jpg");
     ImageIcon alldressImg = new ImageIcon("FoodDeliverySystem/alldress.jpg");
+    private final double PRICECHEEESE = 10.99;
+    private final double PRICEPEP = 17.99;
+    private final double PRICEAD = 22.99;
+
     /**
      * Creates new form frmPizzaMenu
      */
@@ -222,6 +226,18 @@ public class FormPizzaMenu extends javax.swing.JFrame {
         priceADLbl.setText(rb.getString("price"));
         priceCheeseLbl.setText(rb.getString("price"));
         pricePepLbl.setText(rb.getString("price"));
+
+        if (Utils.currentLocale.getLanguage().equals("en")) {
+            priceCheeseLbl.setText(rb.getString("price") + "$" + PRICECHEEESE);
+            pricePepLbl.setText(rb.getString("price") + "$" + PRICEPEP);
+            priceADLbl.setText(rb.getString("price") + "$" + PRICEAD);
+        } else if (Utils.currentLocale.getLanguage().equals("fr")) {
+            priceCheeseLbl.setText(rb.getString("price") + PRICECHEEESE + "$");
+            pricePepLbl.setText(rb.getString("price") + PRICEPEP + "$");
+            priceADLbl.setText(rb.getString("price") + PRICEAD + "$");
+        }
+
+
     }
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed

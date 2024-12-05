@@ -27,7 +27,7 @@ public class FormLogin extends javax.swing.JFrame {
     Employee e1 = new Employee("Andrew","Shahini","andrewshahini@gmail.com","123456",d1,"(123) 123-1234");
     Employee e2 = new Employee("Danat","Muradov","danatmuradov@gmail.com","123456",d1,"(123) 123-1234");
 
-    List<Client> clients = new ArrayList<Client>();
+    public static List<Client> clients = new ArrayList<>();
     
     
     /**

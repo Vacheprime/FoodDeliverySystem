@@ -8,7 +8,10 @@ import com.expressswallows.model.restaurant.users.Address;
 import com.expressswallows.model.restaurant.users.Client;
 import com.expressswallows.utils.Utils;
 
+import javax.swing.*;
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 /**
@@ -70,37 +73,13 @@ public class FormSignup extends javax.swing.JFrame {
 
         lastNameLbl.setText("Last name:");
 
-        lastNameTB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lastNameTBActionPerformed(evt);
-            }
-        });
-
         phoneNumberLbl.setText("Phone number:");
 
-        phoneNumberTB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                phoneNumberTBActionPerformed(evt);
-            }
-        });
-
         emailLbl.setText("Email:");
-
-        passwordTB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passwordTBActionPerformed(evt);
-            }
-        });
 
         passwordLbl.setText("Password:");
 
         streetNameLbl.setText("Street name:");
-
-        streetNameTB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                streetNameTBActionPerformed(evt);
-            }
-        });
 
         postalCodeLbl.setText("Postal code:");
 
@@ -122,12 +101,6 @@ public class FormSignup extends javax.swing.JFrame {
         passwordBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passwordBoxActionPerformed(evt);
-            }
-        });
-
-        streetNumTB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                streetNumTBActionPerformed(evt);
             }
         });
 
@@ -285,19 +258,20 @@ public class FormSignup extends javax.swing.JFrame {
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void signUpBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpBtnActionPerformed
-        String first = firstNameTB.getText();
-        String last = lastNameTB.getText();
-        String phone = phoneNumberTB.getText();
-        String dob = dobTB.getText(); //LocalDate (yyyy/mm/dd)
-        String streetNum = streetNumTB.getText();
-        String streetName = streetNameTB.getText();
-        String postal = postalCodeTB.getText();
-        String email = emailTB.getText();
-        String password = passwordTB.getText();
-        
-        //have to validate the date of birth and if nothing is left blank
-        //Client client = new Client(first, last, email, password, dob, phone, new Address(streetName, streetNum, postal, Address.City.Montreal));
-        //Add the client to the database
+        if (!checkClient())
+        {
+            return;
+        }
+        Client client = createClient();
+        if (client == null) {
+            JOptionPane.showMessageDialog(null, "User was null", "Creation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        FormLogin.clients.add(client);
+        JOptionPane.showMessageDialog(null, "You have successfully created an account.", "Account Creation Success", JOptionPane.INFORMATION_MESSAGE);
+        this.dispose();
+        new FormLogin().setVisible(true);
+
     }//GEN-LAST:event_signUpBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
@@ -313,26 +287,96 @@ public class FormSignup extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_passwordBoxActionPerformed
 
-    private void passwordTBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordTBActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_passwordTBActionPerformed
 
-    private void streetNameTBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_streetNameTBActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_streetNameTBActionPerformed
+    /***
+     * Creates a Client based on the textboxes from the JFrame and inserts them to the database
+     * @return The created client or null if there was a sql exception
+     */
+    private Client createClient() {
+        String first = firstNameTB.getText();
+        String last = lastNameTB.getText();
+        String phone = phoneNumberTB.getText();
 
-    private void lastNameTBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastNameTBActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lastNameTBActionPerformed
+        String dob = dobTB.getText(); //LocalDate (yyyy/mm/dd)
+        LocalDate birthday = Utils.parseDobToLocalDate(dob);
 
-    private void phoneNumberTBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phoneNumberTBActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_phoneNumberTBActionPerformed
+        String streetNum = streetNumTB.getText();
+        String streetName = streetNameTB.getText();
+        String postal = postalCodeTB.getText();
+        String email = emailTB.getText();
+        String password = passwordTB.getText();
 
-    private void streetNumTBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_streetNumTBActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_streetNumTBActionPerformed
+        try {
+            Client client = new Client(first, last, email, password, birthday, phone,
+                    new Address(streetName, streetNum, postal, Address.City.Montreal));
+            //add them to database
+            return client;
+        } catch (Exception e/*SQLException ex*/) {
 
+        }
+        return null;
+    }
+
+
+    /***
+     * Checks the client's input and validates them to see if they are properly formatted.
+     * @return true if all the information is valid or false if one of the information is invalid
+     */
+    private boolean checkClient() {
+        String first = firstNameTB.getText();
+        String last = lastNameTB.getText();
+        if (!first.isEmpty() || !last.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "First name and last name must not be empty.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        String dob = dobTB.getText();
+        if (!Utils.validateDate(dob)) {
+            JOptionPane.showMessageDialog(null, "Invalid dob.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate birthday = LocalDate.parse(dob, format);
+        if (!Utils.validateClientAge(birthday)) {
+            JOptionPane.showMessageDialog(null, "Date of birth is invalid or indicates an age that does not meet the requirement.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        String phone = phoneNumberTB.getText();
+        if (!Utils.validatePhoneNumber(phone)) {
+            JOptionPane.showMessageDialog(null, "Phone number is invalid. Ensure it follows the required format.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        String email = emailTB.getText();
+        if (!Utils.validateEmailAddress(email)) {
+            JOptionPane.showMessageDialog(null, "Email address is invalid. Ensure it follows the required format.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        String postal = postalCodeTB.getText();
+        if (!Utils.validatePostalCode(postal)) {
+            JOptionPane.showMessageDialog(null, "Postal code is invalid. Ensure it follows the required format.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        String streetNum = streetNumTB.getText();
+        String streetName = streetNameTB.getText();
+        if (!streetNum.isEmpty() || !streetName.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Street number and name must not be empty.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        String password = passwordTB.getText();
+        if (!password.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Password must not be empty.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        return true;
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
