@@ -7,30 +7,26 @@ package com.expressswallows.view;
 import com.expressswallows.model.restaurant.Restaurant;
 import com.expressswallows.model.restaurant.users.Employee;
 import com.expressswallows.utils.Utils;
-
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 
 /**
  *
  * @author shahi
  */
-public class FormEmployeeMainMenu extends javax.swing.JPanel {
+public class FormEmployeeMainMenu extends javax.swing.JFrame {
 
     List<Restaurant> restaurants;
     Employee employee;
     ImageIcon restaurant = new ImageIcon("FoodDeliverySystem/restaurants.jpg");
-    
 
     /**
-     * Creates new form EmployeeMainMenu
+     * Creates new form FormEmployeeMainMenu
      */
     public FormEmployeeMainMenu(Employee employee) {
         initComponents();
-        this.employee = employee;
         rest1Lbl.setText("");
         rest1Lbl.setIcon(restaurant);
         rest2Lbl.setText("");
@@ -54,24 +50,25 @@ public class FormEmployeeMainMenu extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
-        allRestaurantsLbl = new javax.swing.JLabel();
+        allRestLbl = new javax.swing.JLabel();
         logoutBtn = new javax.swing.JButton();
         langBtn = new javax.swing.JButton();
-        rest1Lbl = new javax.swing.JLabel();
         rest2Lbl = new javax.swing.JLabel();
+        rest3Lbl = new javax.swing.JLabel();
+        rest4Lbl = new javax.swing.JLabel();
+        rest1Lbl = new javax.swing.JLabel();
         view1Btn = new javax.swing.JButton();
         view2Btn = new javax.swing.JButton();
-        rest4Lbl = new javax.swing.JLabel();
-        rest3Lbl = new javax.swing.JLabel();
-        view3Btn = new javax.swing.JButton();
         view4Btn = new javax.swing.JButton();
+        view3Btn = new javax.swing.JButton();
 
-        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane1.setViewportView(jPanel1);
 
-        allRestaurantsLbl.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        allRestaurantsLbl.setText("All Restaurants");
+        allRestLbl.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        allRestLbl.setText("All Restaurants");
 
         logoutBtn.setText("Log out");
         logoutBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -87,9 +84,13 @@ public class FormEmployeeMainMenu extends javax.swing.JPanel {
             }
         });
 
-        rest1Lbl.setText("jLabel1");
-
         rest2Lbl.setText("jLabel1");
+
+        rest3Lbl.setText("jLabel1");
+
+        rest4Lbl.setText("jLabel1");
+
+        rest1Lbl.setText("jLabel1");
 
         view1Btn.setText("View");
         view1Btn.addActionListener(new java.awt.event.ActionListener() {
@@ -105,9 +106,12 @@ public class FormEmployeeMainMenu extends javax.swing.JPanel {
             }
         });
 
-        rest4Lbl.setText("jLabel1");
-
-        rest3Lbl.setText("jLabel1");
+        view4Btn.setText("View");
+        view4Btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                view4BtnActionPerformed(evt);
+            }
+        });
 
         view3Btn.setText("View");
         view3Btn.addActionListener(new java.awt.event.ActionListener() {
@@ -116,99 +120,110 @@ public class FormEmployeeMainMenu extends javax.swing.JPanel {
             }
         });
 
-        view4Btn.setText("View");
-        view4Btn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                view4BtnActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44)
-                        .addComponent(allRestaurantsLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(langBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(66, 66, 66))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(rest3Lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(rest4Lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(rest1Lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(rest2Lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(51, 51, 51))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(78, 78, 78)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(view3Btn, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
-                    .addComponent(view1Btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(59, Short.MAX_VALUE)
+                .addComponent(rest3Lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addComponent(rest4Lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(131, 131, 131))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(140, 140, 140)
+                .addComponent(view1Btn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(view2Btn)
+                .addGap(253, 253, 253))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(135, 135, 135)
+                .addComponent(view3Btn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(view4Btn)
+                .addGap(254, 254, 254))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(65, 65, 65)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(view2Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(125, 125, 125))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(view4Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(123, 123, 123))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(rest1Lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(rest2Lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(56, 56, 56)
+                        .addComponent(allRestLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addComponent(langBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(16, 16, 16)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(allRestaurantsLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(allRestLbl)
                     .addComponent(logoutBtn)
                     .addComponent(langBtn))
-                .addGap(26, 26, 26)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rest1Lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rest2Lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(view1Btn)
-                    .addComponent(view2Btn))
-                .addGap(29, 29, 29)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rest3Lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rest4Lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(view3Btn)
-                    .addComponent(view4Btn))
-                .addContainerGap(305, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(rest1Lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(rest2Lbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(view2Btn)
+                    .addComponent(view1Btn))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rest3Lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rest4Lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(view4Btn)
+                    .addComponent(view3Btn))
+                .addContainerGap(162, Short.MAX_VALUE))
         );
 
         jScrollPane1.setViewportView(jPanel1);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 666, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void update() {
+        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
+        logoutBtn.setText(rb.getString("logout"));
+        langBtn.setText(rb.getString("lang"));
+        allRestLbl.setText(rb.getString("allrest"));
+        view1Btn.setText(rb.getString("view"));
+        view2Btn.setText(rb.getString("view"));
+        view3Btn.setText(rb.getString("view"));
+        view4Btn.setText(rb.getString("view"));
+
+    }
+    
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
-       int a = JOptionPane.showConfirmDialog(null, "Do you want to log out the application","Select",JOptionPane.YES_NO_OPTION);
+        int a = JOptionPane.showConfirmDialog(null, "Do you want to log out the application","Select",JOptionPane.YES_NO_OPTION);
         if(a == 0){
-            SwingUtilities.getWindowAncestor(this).dispose();
+            this.dispose();
             new FormLogin().setVisible(true);
         }
     }//GEN-LAST:event_logoutBtnActionPerformed
@@ -219,39 +234,23 @@ public class FormEmployeeMainMenu extends javax.swing.JPanel {
     }//GEN-LAST:event_langBtnActionPerformed
 
     private void view1BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view1BtnActionPerformed
-        SwingUtilities.getWindowAncestor(this).dispose();
-        new FormRestaurentDetails(restaurants.get(0), employee).setVisible(true);
+        // TODO add your handling code here:
     }//GEN-LAST:event_view1BtnActionPerformed
 
     private void view2BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view2BtnActionPerformed
-        SwingUtilities.getWindowAncestor(this).dispose();
-        new FormRestaurentDetails(restaurants.get(1), employee).setVisible(true);
+        // TODO add your handling code here:
     }//GEN-LAST:event_view2BtnActionPerformed
 
     private void view3BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view3BtnActionPerformed
-        SwingUtilities.getWindowAncestor(this).dispose();
-        new FormRestaurentDetails(restaurants.get(2), employee).setVisible(true);
+        // TODO add your handling code here:
     }//GEN-LAST:event_view3BtnActionPerformed
 
     private void view4BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view4BtnActionPerformed
-        SwingUtilities.getWindowAncestor(this).dispose();
-        new FormRestaurentDetails(restaurants.get(3), employee).setVisible(true);
+        // TODO add your handling code here:
     }//GEN-LAST:event_view4BtnActionPerformed
 
-    private void update() {
-        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
-        logoutBtn.setText(rb.getString("logout"));
-        langBtn.setText(rb.getString("lang"));
-        allRestaurantsLbl.setText(rb.getString("allrest"));
-        view1Btn.setText(rb.getString("view"));
-        view2Btn.setText(rb.getString("view"));
-        view3Btn.setText(rb.getString("view"));
-        view4Btn.setText(rb.getString("view"));
-    }
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel allRestaurantsLbl;
+    private javax.swing.JLabel allRestLbl;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton langBtn;
