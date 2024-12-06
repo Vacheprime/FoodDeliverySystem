@@ -16,9 +16,18 @@ public abstract class Food {
      * @param price the price of the food item.
      */
     public Food(int cookTime, double price) {
+        if (cookTime <= 0 || price <= 0) {
+            throw new IllegalArgumentException("Both the cook time and the price"
+                    + " must be greater than zero.");
+        }
         this.cookTime = cookTime;
         this.price = price;
     }
+    
+    /**
+     * Empty constructor for a food item.
+     */
+    public Food() {}
 
     /**
      * Getter for the cook time.
@@ -26,6 +35,17 @@ public abstract class Food {
      */
     public int getCookTime() {
         return cookTime;
+    }
+    
+    /**
+     * Setter for the cook time.
+     * @param cookTime the new cook time.
+     */
+    public void setCookTime(int cookTime) {
+        if (cookTime <= 0) {
+            throw new IllegalArgumentException("The cook time must be greater than zero.");
+        }
+        this.cookTime = cookTime;
     }
 
 
@@ -58,15 +78,23 @@ public abstract class Food {
     public double getPrice() {
         return price;
     }
+
+    /**
+     * Setter for the price.
+     * @param price the new price of the food item.
+     */
+    public void setPrice(double price) {
+        if (price <= 0) {
+            throw new IllegalArgumentException("The price must be greater than zero.");
+        }
+        this.price = price;
+    }
     
     /**
      * Abstract method prepare is used by subclasses to let them initialize
      * their fields with their own predefined values.
-     * 
-     * @return the food item (the object itself) initialized with the right
-     * values.
      */
-    public abstract Food prepare();
+    public abstract void prepare();
 
     @Override
     public int hashCode() {

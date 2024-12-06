@@ -24,8 +24,8 @@ public class Utils {
      * The method checks if the string matches the following regex:
      * ^[A-Z][0-9][A-Z] [0-9][A-Z][0-9]$
      * 
-     * @param postalCode
-     * @return 
+     * @param postalCode the postal code to validate.
+     * @return a boolean indicating the validity of the postal code.
      */
     public static boolean validatePostalCode(String postalCode) {
         if (postalCode == null) {
@@ -40,8 +40,8 @@ public class Utils {
      * The method checks if the string matches the following regex:
      * ^\(\d{3}\) \d{3}-\d{4}$
      * 
-     * @param number
-     * @return 
+     * @param number the phone number to validate.
+     * @return a boolean indicating the validity of the phone number.
      */
     public static boolean validatePhoneNumber(String number) {
         if (number == null) {
@@ -62,7 +62,7 @@ public class Utils {
         if (email == null) {
             throw new IllegalArgumentException("The email cannot be null.");
         }
-        return email.matches("^[a-zA-Z0-9.!#$%&’*+\\/=?^_`\\{\\|\\}~\\-]+@[a-zA-Z0-9\\-]+\\.[a-zA-Z0-9\\-]+$");
+        return email.matches("^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~\\-]+@[a-zA-Z0-9\\-]+\\.[a-zA-Z0-9\\-]+$");
     }
     
     /**
@@ -78,6 +78,20 @@ public class Utils {
         // Validate the age: must be at least 16 years of age
         return getDateDifferenceInYears(dob) >= 16;
     }
+
+    /**
+     * Determine whether a name is valid.
+     * The name must start and end with a letter or period.
+     * The name cannot contain numbers or special characters.
+     * @param name the name to validate.
+     * @return a boolean indicating the validity of the name.
+     */
+    public static boolean validateName(String name) {
+        if (name == null) {
+            throw new IllegalArgumentException("The name cannot be null.");
+        }
+        return name.matches("^([\\p{L}.]+ ?)+(\\p{L}|\\.$)");
+    }
     
     /**
      * Determine whether an employee is old enough to be hired.
@@ -91,6 +105,17 @@ public class Utils {
         }
         // Validate the age: must be at least 16 years of age
         return getDateDifferenceInYears(dob) >= 18;
+    }
+
+    /**
+     * Determine whether a spiciness level is valid.
+     * The spiciness level is in range of 0 to 10 inclusively.
+     * @param spiciness the spiciness level to validate.
+     * @return a boolean indicating whether the spiciness
+     * level is valid.
+     */
+    public static boolean validateSpicinessLevel(int spiciness) {
+        return spiciness >= 0 && spiciness <= 10;
     }
     
     /**
