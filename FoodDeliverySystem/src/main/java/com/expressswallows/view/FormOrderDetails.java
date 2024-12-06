@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
  */
 public class FormOrderDetails extends javax.swing.JFrame {
 
-    Restaurant restaurant;
+    Restaurant restaurant = new Restaurant(new Address("","1","H2R 1G1",Address.City.Montreal), "BBQ", 0);;
     Client client;
     Order order;
     /**
@@ -32,7 +32,6 @@ public class FormOrderDetails extends javax.swing.JFrame {
         this.order = order;
         orderListTA.setText(foodList(order));
         update();
-        this.restaurant = new Restaurant(new Address("","1","H2R 1G1",Address.City.Montreal));
     }
 
     /**
@@ -145,13 +144,13 @@ public class FormOrderDetails extends javax.swing.JFrame {
         if (Utils.currentLocale.getLanguage().equals("en")) {
             orderLbl.setText(rb.getString("order") + order.getOrderId());
             etaLbl.setText(rb.getString("eta") + order.calculateTotalCookTime());
-            // locationAssignedLbl.setText(rb.getString("locationassigned") + restaurant.getLocation());
-            //statusLbl.setText(rb.getString("status") + order.getStatus());
+            locationAssignedLbl.setText(rb.getString("locationassigned") + restaurant.getLocation());
+            statusLbl.setText(rb.getString("status") + order.getStatus());
         } else if (Utils.currentLocale.getLanguage().equals("fr")) {
             orderLbl.setText(rb.getString("order") + order.getOrderId());
             etaLbl.setText(rb.getString("eta") + order.calculateTotalCookTime());
-            //locationAssignedLbl.setText(rb.getString("locationassigned") + restaurant.getLocation());
-            //statusLbl.setText(rb.getString("status") + order.getStatus());
+            locationAssignedLbl.setText(rb.getString("locationassigned") + restaurant.getLocation());
+            statusLbl.setText(rb.getString("status") + order.getStatus());
         }
         
         

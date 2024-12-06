@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class FormEmployeeMainMenu extends javax.swing.JFrame {
 
+
     List<Restaurant> restaurants;
     Employee employee;
     ImageIcon restaurant = new ImageIcon("FoodDeliverySystem/restaurants.jpg");
@@ -240,19 +241,47 @@ public class FormEmployeeMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_langBtnActionPerformed
 
     private void view1BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view1BtnActionPerformed
-        // TODO add your handling code here:
+        /*
+        var database = DatabaseUtilsConnection().getInstance();
+        Restaurant restaurant1 = database.getRestaurantById(1);
+        database.CloseConntion();
+        this.dispose();
+        new FormRestaurentDetails(restaurant1, employee).setVisible(true);
+
+         */
     }//GEN-LAST:event_view1BtnActionPerformed
 
     private void view2BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view2BtnActionPerformed
-        // TODO add your handling code here:
+       /*
+        var database = DatabaseUtilsConnection().getInstance();
+        Restaurant restaurant1 = database.getRestaurantById(2);
+        database.CloseConntion();
+        this.dispose();
+        new FormRestaurentDetails(restaurant1, employee).setVisible(true);
+
+         */
     }//GEN-LAST:event_view2BtnActionPerformed
 
     private void view3BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view3BtnActionPerformed
-        // TODO add your handling code here:
+        /*
+        var database = DatabaseUtilsConnection().getInstance();
+        Restaurant restaurant1 = database.getRestaurantById(3);
+        database.CloseConntion();
+        this.dispose();
+        new FormRestaurentDetails(restaurant1, employee).setVisible(true);
+
+         */
     }//GEN-LAST:event_view3BtnActionPerformed
 
     private void view4BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view4BtnActionPerformed
-        // TODO add your handling code here:
+        /*
+        var database = DatabaseUtilsConnection().getInstance();
+        Restaurant restaurant1 = database.getRestaurantById(4);
+        database.CloseConntion();
+        this.dispose();
+        new FormRestaurentDetails(restaurant1, employee).setVisible(true);
+
+         */
     }//GEN-LAST:event_view4BtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

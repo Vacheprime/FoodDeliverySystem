@@ -137,8 +137,6 @@ public class Address {
 
     @Override
     public String toString() {
-        return String.format("Address{Street: %s, StreetNo: %s,"
-                + " Postal Code: %s, City: %s}",
-                street, streetNo, postalCode, city);
+        return streetNo + " " + street + ", " + postalCode + ", " + city;
     }
 }

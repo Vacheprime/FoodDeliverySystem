@@ -31,6 +31,7 @@ public class FormViewOrders extends javax.swing.JFrame {
         initComponents();
         this.client = client;
         this.order = order;
+        //loadOrders(client);
         loadOrders(orders);
         update();
     }
@@ -129,8 +130,37 @@ public class FormViewOrders extends javax.swing.JFrame {
         update();
     }//GEN-LAST:event_langBtnActionPerformed
 
+
     private void loadOrders(List<Order> orders) {
-        
+
+        // var database = DatabaseUtils.getInstance();
+        //List<Order> orders = database.getOrdersByClientId(client.getClientId());
+
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+
+        for (Order order : orders) {
+            listModel.addElement("Order ID: " + order.getOrderId() + " Total: $" + order.calculateTotalPrice());
+        }
+        listOfOrders.setModel(listModel);
+
+        listOfOrders.addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                int selectedIndex = listOfOrders.getSelectedIndex();
+                if (selectedIndex != -1) {
+                    Order selectedOrder = orders.get(selectedIndex);
+                    openOrderDetails(selectedOrder);
+                }
+            }
+        });
+        //database.CloseConnection();
+    }
+
+    /*
+    private void loadOrders(Client client) {
+
+       // var database = DatabaseUtils.getInstance();
+        //List<Order> orders = database.getOrdersByClientId(client.getClientId());
+
         DefaultListModel<String> listModel = new DefaultListModel<>();
         
         for (Order order : orders) {
@@ -146,8 +176,11 @@ public class FormViewOrders extends javax.swing.JFrame {
                 openOrderDetails(selectedOrder);
             }
         }
-    });   
+    });
+        //database.CloseConnection();
     }
+
+     */
     
     private void openOrderDetails(Order order) {
         this.dispose();

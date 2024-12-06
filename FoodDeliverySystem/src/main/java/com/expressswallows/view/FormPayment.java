@@ -5,6 +5,7 @@
 package com.expressswallows.view;
 
 import com.expressswallows.model.restaurant.Order;
+import com.expressswallows.model.restaurant.Payment;
 import com.expressswallows.model.restaurant.users.Client;
 import com.expressswallows.utils.Utils;
 
@@ -176,11 +177,18 @@ public class FormPayment extends javax.swing.JFrame {
 
     private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
 
+        //var database = DatabaseUtilsConnection.getInstance();
+
+
         if (!checkPayment()) {
             JOptionPane.showMessageDialog(null, "Payment failed", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
+        //Payment payment = new Payment(price, client);
+        //database.insertOrder(order); make sure that we get all the food items
+        //database.insertPayment(payment);
+        //database.CloseConnection();
         FormViewOrders.addOrderToList(order);
         this.dispose();
         new FormOrderDetails(client, order).setVisible(true);
