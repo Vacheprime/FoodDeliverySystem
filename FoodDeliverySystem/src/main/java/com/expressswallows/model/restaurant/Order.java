@@ -16,6 +16,16 @@ public class Order {
     private Client orderedBy;
     private Restaurant assignedTo;
     private final LocalDateTime orderDateTime;
+    private Status status;
+
+    /**
+     * Status enum is used to represent the different states that an order can be in.
+     */
+    public enum Status {
+        IN_PROGRESS,
+        DELIVERING,
+        DELIVERED
+    }
 
     /**
      * All argument constructor for a client's Order.
@@ -25,12 +35,10 @@ public class Order {
      */
     public Order(Client orderedBy, Restaurant assignedTo) {
         // Validate the arguments
-        if (foods == null || orderedBy == null || assignedTo == null) {
+        if (orderedBy == null || assignedTo == null) {
             throw new IllegalArgumentException("The arguments cannot be null.");
         }
-        if (foods.isEmpty()) {
-            throw new IllegalArgumentException("The order must contain food items.");
-        }
+        this.status = Status.IN_PROGRESS;
         this.foods = new ArrayList<>();
         this.orderedBy = orderedBy;
         this.assignedTo = assignedTo;
@@ -102,6 +110,25 @@ public class Order {
      */
     public LocalDateTime getOrderDateTime() {
         return orderDateTime;
+    }
+
+    /**
+     * Getter for the status of the order.
+     * @return
+     */
+    public Status getStatus() {
+        return status;
+    }
+
+    /**
+     * Setter for the status of the order.
+     * @param status the new status of the order.
+     */
+    public void setStatus(Status status) {
+        if (status == null) {
+            throw new IllegalArgumentException("The status cannot be null.");
+        }
+        this.status = status;
     }
 
     @Override
