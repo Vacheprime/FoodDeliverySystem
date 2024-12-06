@@ -289,7 +289,7 @@ public class FormClientMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_langBtnActionPerformed
 
     private void viewCartBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewCartBtnActionPerformed
-        if (order.getFoods() != null) {
+        if (order.getFoods() != null && !order.getFoods().isEmpty() && order != null) {
             this.dispose();
             new FormViewCart(client, order).setVisible(true);
         } else {
