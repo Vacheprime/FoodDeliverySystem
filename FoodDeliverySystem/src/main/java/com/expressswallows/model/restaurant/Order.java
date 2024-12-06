@@ -44,7 +44,23 @@ public class Order {
         this.foods = new ArrayList<>();
         this.orderedBy = orderedBy;
         this.assignedTo = assignedTo;
-        this.orderDateTime = LocalDateTime.now();
+        this.orderDateTime = null;
+    }
+
+    /**
+     * Minimal constructor for a client's order.
+     * This constructor assumes that the assigned restaurant will be
+     * assigned later on.
+     *
+     * @param orderedBy
+     */
+    public Order(Client orderedBy) {
+        this.status = Status.IN_PROGRESS;
+        this.orderId = -1;
+        this.foods = new ArrayList<>();
+        this.orderedBy = orderedBy;
+        this.assignedTo = null;
+        this.orderDateTime = null;
     }
 
     /**
