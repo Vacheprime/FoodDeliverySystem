@@ -16,13 +16,22 @@ public class Order {
     private Client orderedBy;
     private Restaurant assignedTo;
     private final LocalDateTime orderDateTime;
+    private Status status;
     private int orderId;
-    private static int nextOrderId = 1;
+
+    /**
+     * Status enum is used to represent the different states that an order can be in.
+     */
+    public enum Status {
+        IN_PROGRESS,
+        DELIVERING,
+        DELIVERED
+    }
 
     /**
      * All argument constructor for a client's Order.
-     *
-     * @param orderedBy  the client that ordered the food items.
+     * 
+     * @param orderedBy the client that ordered the food items.
      * @param assignedTo the restaurant charged with completing the order.
      */
     public Order(Client orderedBy, Restaurant assignedTo) {
@@ -30,23 +39,28 @@ public class Order {
         if (orderedBy == null || assignedTo == null) {
             throw new IllegalArgumentException("The arguments cannot be null.");
         }
-        this.orderId = nextOrderId++;
+        this.status = Status.IN_PROGRESS;
+        this.orderId = -1;
         this.foods = new ArrayList<>();
         this.orderedBy = orderedBy;
         this.assignedTo = assignedTo;
-        this.orderDateTime = LocalDateTime.now();
+        this.orderDateTime = null;
     }
 
+    /**
+     * Minimal constructor for a client's order.
+     * This constructor assumes that the assigned restaurant will be
+     * assigned later on.
+     *
+     * @param orderedBy
+     */
     public Order(Client orderedBy) {
-        this.orderId = nextOrderId++;
+        this.status = Status.IN_PROGRESS;
+        this.orderId = -1;
         this.foods = new ArrayList<>();
         this.orderedBy = orderedBy;
         this.assignedTo = null;
         this.orderDateTime = null;
-    }
-
-    public int getOrderId() {
-        return orderId;
     }
 
     /**
@@ -122,6 +136,33 @@ public class Order {
      */
     public LocalDateTime getOrderDateTime() {
         return orderDateTime;
+    }
+
+    /**
+     * Getter for the status of the order.
+     * @return
+     */
+    public Status getStatus() {
+        return status;
+    }
+
+    /**
+     * Setter for the status of the order.
+     * @param status the new status of the order.
+     */
+    public void setStatus(Status status) {
+        if (status == null) {
+            throw new IllegalArgumentException("The status cannot be null.");
+        }
+        this.status = status;
+    }
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 
     @Override

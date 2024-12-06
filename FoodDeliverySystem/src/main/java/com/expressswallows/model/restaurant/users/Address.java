@@ -120,7 +120,7 @@ public class Address {
      */
     public int mapAddressToX() {
         // Simulate a hashing function
-        return (int) Math.pow(streetNo.hashCode(), 2) % 250;
+        return (int) (Math.pow(streetNo.hashCode(), 2) % 250);
     }
     
     /**
@@ -132,7 +132,7 @@ public class Address {
      */
     public int mapAddressToY() {
         // Simulate a hashing function
-        return (int) Math.pow(street.hashCode(), 2) % 250;
+        return (int) (Math.pow(street.hashCode(), 2) % 250);
     }
 
     @Override
