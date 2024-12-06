@@ -39,11 +39,11 @@ public class FriesFactory extends AbstractFactory {
 
     @Override
     public Fries createFries(String request) {
-        if (request.equals("Small")) {
+        if (request.equalsIgnoreCase("Small")) {
             return new Fries(Fries.FriesSize.SMALL);
-        } else if (request.equals("Medium")) {
+        } else if (request.equalsIgnoreCase("Medium")) {
             return new Fries(Fries.FriesSize.MEDIUM);
-        } else if (request.equals("Large")) {
+        } else if (request.equalsIgnoreCase("Large")) {
             return new Fries(Fries.FriesSize.LARGE);
         }
         return null;

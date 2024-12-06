@@ -21,11 +21,11 @@ public class BurgerFactory extends AbstractFactory{
 
     @Override
     public Burger createBurger(String request) {
-        if (request.equals("Big Fatty")) {
+        if (request.equalsIgnoreCase("Big Fatty")) {
             return new BigFatty(Burger.BurgerSauce.SPICY);
-        } else if (request.equals("Skinny Pity")) {
+        } else if (request.equalsIgnoreCase("Skinny Pity")) {
             return new SkinnyPity(Burger.BurgerSauce.CLASSIC);
-        } else if (request.equals("Green Bush")) {
+        } else if (request.equalsIgnoreCase("Green Bush")) {
             return new GreenBush(Burger.BurgerSauce.CLASSIC);
         }
         return null;

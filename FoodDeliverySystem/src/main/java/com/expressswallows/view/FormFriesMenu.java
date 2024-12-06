@@ -4,12 +4,16 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.model.menu.factories.DrinkFactory;
+import com.expressswallows.model.menu.factories.FoodFactoryCreator;
+import com.expressswallows.model.menu.factories.FriesFactory;
 import com.expressswallows.model.menu.fooditems.Fries;
+import com.expressswallows.model.menu.fooditems.drinks.Drink;
 import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.users.Client;
 import com.expressswallows.utils.Utils;
 
-import javax.swing.ImageIcon;
+import javax.swing.*;
 import java.util.ResourceBundle;
 
 /**
@@ -201,7 +205,12 @@ public class FormFriesMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_sizeBoxActionPerformed
 
     private void addToCartBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToCartBtnActionPerformed
-    
+        String size = sizeBox.getSelectedItem().toString();
+        FoodFactoryCreator creator = new FoodFactoryCreator();
+        FriesFactory factory = (FriesFactory) creator.getFoodFactory("Fries");
+        Fries fries = factory.createFries(size);
+        order.addFoodToOrder(fries);
+        JOptionPane.showMessageDialog(null, "Successfully added fries to your cart.", "Fries Added", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_addToCartBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

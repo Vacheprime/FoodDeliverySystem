@@ -11,15 +11,15 @@ package com.expressswallows.model.menu.factories;
 public class FoodFactoryCreator {
 
     public AbstractFactory getFoodFactory(String category) {
-        if (category.equals("Burger")) {
+        if (category.equalsIgnoreCase("Burger")) {
             return new BurgerFactory();
-        } else if (category.equals("Drink")) {
+        } else if (category.equalsIgnoreCase("Drink")) {
             return new DrinkFactory();
-        } else if (category.equals("Fries")) {
+        } else if (category.equalsIgnoreCase("Fries")) {
             return new FriesFactory();
-        } else if (category.equals("Hotdog")) {
+        } else if (category.equalsIgnoreCase("Hotdog")) {
             return new HotdogFactory();
-        } else if (category.equals("Pizza")) {
+        } else if (category.equalsIgnoreCase("Pizza")) {
             return new PizzaFactory();
         }
         return null;

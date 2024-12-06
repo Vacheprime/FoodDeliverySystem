@@ -10,6 +10,7 @@ import com.expressswallows.model.restaurant.users.Client;
 import com.expressswallows.utils.Utils;
 import java.util.ArrayList;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.DefaultListModel;

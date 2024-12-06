@@ -4,11 +4,16 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.model.menu.factories.BurgerFactory;
+import com.expressswallows.model.menu.factories.DrinkFactory;
+import com.expressswallows.model.menu.factories.FoodFactoryCreator;
+import com.expressswallows.model.menu.fooditems.burgers.Burger;
+import com.expressswallows.model.menu.fooditems.drinks.Drink;
 import com.expressswallows.model.restaurant.users.Client;
 import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.utils.Utils;
 
-import javax.swing.ImageIcon;
+import javax.swing.*;
 import java.util.ResourceBundle;
 
 /**
@@ -207,7 +212,13 @@ public class FormDrinksMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_langBtnActionPerformed
 
     private void orderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderBtnActionPerformed
-        // TODO add your handling code here:
+        String drinkChoice = typeBox.getSelectedItem().toString();
+        String size = sizeBox.getSelectedItem().toString();
+        FoodFactoryCreator creator = new FoodFactoryCreator();
+        DrinkFactory factory = (DrinkFactory) creator.getFoodFactory("Drink");
+        Drink drink = factory.createDrink(drinkChoice, size);
+        order.addFoodToOrder(drink);
+        JOptionPane.showMessageDialog(null, "Successfully added drink to your cart.", "Drink Added", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_orderBtnActionPerformed
 
     private void sizeBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sizeBoxActionPerformed

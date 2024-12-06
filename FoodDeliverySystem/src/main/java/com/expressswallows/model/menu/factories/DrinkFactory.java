@@ -31,28 +31,28 @@ public class DrinkFactory extends AbstractFactory {
 
     @Override
     public Drink createDrink(String request, String size) {
-        if (request.equals("Coke")) {
-            if (size.equals("Small")) {
+        if (request.equalsIgnoreCase("Coke")) {
+            if (size.equalsIgnoreCase("Small")) {
                 return new Coke(Drink.Size.SMALL);
-            } else if (size.equals("Medium")) {
+            } else if (size.equalsIgnoreCase("Medium")) {
                 return new Coke(Drink.Size.MEDIUM);
-            } else if (size.equals("Large")) {
+            } else if (size.equalsIgnoreCase("Large")) {
                 return new Coke(Drink.Size.LARGE);
             }
-        } else if (request.equals("Water")) {
-            if (size.equals("Small")) {
+        } else if (request.equalsIgnoreCase("Water")) {
+            if (size.equalsIgnoreCase("Small")) {
                 return new Water(Drink.Size.SMALL);
-            } else if (size.equals("Medium")) {
+            } else if (size.equalsIgnoreCase("Medium")) {
                 return new Water(Drink.Size.MEDIUM);
-            } else if (size.equals("Large")) {
+            } else if (size.equalsIgnoreCase("Large")) {
                 return new Water(Drink.Size.LARGE);
             }
-        } else if (request.equals("SevenUp")) {
+        } else if (request.equalsIgnoreCase("SevenUp")) {
             if (size.equals("Small")) {
                 return new SevenUp(Drink.Size.SMALL);
-            } else if (size.equals("Medium")) {
+            } else if (size.equalsIgnoreCase("Medium")) {
                 return new SevenUp(Drink.Size.MEDIUM);
-            } else if (size.equals("Large")) {
+            } else if (size.equalsIgnoreCase("Large")) {
                 return new SevenUp(Drink.Size.LARGE);
             }
         }
