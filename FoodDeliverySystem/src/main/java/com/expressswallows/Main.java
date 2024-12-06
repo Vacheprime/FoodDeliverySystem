@@ -1,12 +1,10 @@
 package com.expressswallows;
 
-import com.expressswallows.exceptions.DatabaseException;
 import com.expressswallows.model.restaurant.users.Address;
 import com.expressswallows.model.restaurant.users.Client;
 import com.expressswallows.model.restaurant.users.Employee;
-import com.expressswallows.utils.DatabaseConnectionUtils;
 import com.expressswallows.utils.Utils;
-import com.expressswallows.view.frmLogin;
+import com.expressswallows.view.FormLogin;
 import java.time.LocalDate;
 
 /**
@@ -15,13 +13,12 @@ import java.time.LocalDate;
  */
 public class Main 
 {
-    public static void main(String[] args ) throws DatabaseException
+    public static void main(String[] args )
     {
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new frmLogin().setVisible(true);
-//            }
-//        }); 
-        DatabaseConnectionUtils database = DatabaseConnectionUtils.getInstance();
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new FormLogin().setVisible(true);
+            }
+        });  
     }
 }
