@@ -31,7 +31,9 @@ public class FormViewOrders extends javax.swing.JFrame {
         initComponents();
         this.client = client;
         this.order = order;
+
         //loadOrders(client);
+
         loadOrders(orders);
         update();
     }
@@ -130,7 +132,6 @@ public class FormViewOrders extends javax.swing.JFrame {
         update();
     }//GEN-LAST:event_langBtnActionPerformed
 
-
     private void loadOrders(List<Order> orders) {
 
         // var database = DatabaseUtils.getInstance();
@@ -176,11 +177,13 @@ public class FormViewOrders extends javax.swing.JFrame {
                 openOrderDetails(selectedOrder);
             }
         }
+
     });
         //database.CloseConnection();
     }
 
      */
+
     
     private void openOrderDetails(Order order) {
         this.dispose();

@@ -177,8 +177,8 @@ public class FormPayment extends javax.swing.JFrame {
 
     private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
 
-        //var database = DatabaseUtilsConnection.getInstance();
 
+        //var database = DatabaseUtilsConnection.getInstance();
 
         if (!checkPayment()) {
             JOptionPane.showMessageDialog(null, "Payment failed", "Error", JOptionPane.ERROR_MESSAGE);
@@ -189,6 +189,7 @@ public class FormPayment extends javax.swing.JFrame {
         //database.insertOrder(order); make sure that we get all the food items
         //database.insertPayment(payment);
         //database.CloseConnection();
+
         FormViewOrders.addOrderToList(order);
         this.dispose();
         new FormOrderDetails(client, order).setVisible(true);

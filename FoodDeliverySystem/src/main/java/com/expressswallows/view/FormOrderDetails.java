@@ -19,7 +19,9 @@ import java.util.ResourceBundle;
  */
 public class FormOrderDetails extends javax.swing.JFrame {
 
+
     Restaurant restaurant = new Restaurant(new Address("","1","H2R 1G1",Address.City.Montreal), "BBQ", 0);;
+
     Client client;
     Order order;
     /**
@@ -32,6 +34,7 @@ public class FormOrderDetails extends javax.swing.JFrame {
         this.order = order;
         orderListTA.setText(foodList(order));
         update();
+        this.restaurant = new Restaurant(new Address("","1","H2R 1G1",Address.City.Montreal));
     }
 
     /**
