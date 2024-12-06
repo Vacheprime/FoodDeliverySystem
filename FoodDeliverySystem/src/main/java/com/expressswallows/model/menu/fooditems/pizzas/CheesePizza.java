@@ -15,6 +15,7 @@ public class CheesePizza extends Pizza {
      */
     public CheesePizza() {
         super(cookTime, price);
+        this.prepare();
     }
 
     /**

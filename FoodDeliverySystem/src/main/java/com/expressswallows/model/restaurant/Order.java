@@ -69,7 +69,8 @@ public class Order {
      * @return the total price of the order.
      */
     public double calculateTotalPrice() {
-        return foods.stream().mapToDouble(f -> f.getPrice()).sum();
+        double total = foods.stream().mapToDouble(Food::getPrice).sum();
+        return Double.parseDouble(String.format("%.2f", total));
     }
 
     /**

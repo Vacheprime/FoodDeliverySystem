@@ -19,16 +19,13 @@ public class FormRestaurentDetails extends javax.swing.JFrame {
     /**
      * Creates new form FormRestaurentDetails
      */
-    Restaurant restaurent;
+    Restaurant restaurant;
     Employee employee;
     public FormRestaurentDetails(Restaurant restaurant, Employee employee) {
         
         initComponents();
-        this.restaurent = restaurant;
+        this.restaurant = restaurant;
         this.employee = employee;
-        locationTB.setText(restaurant.toString()); //getAddress
-        numOrderTB.setText(restaurant.toString()); //get # of orders
-        balanceTB.setText(restaurant.toString()); //getBalance
         update();
     }
 
@@ -143,10 +140,10 @@ public class FormRestaurentDetails extends javax.swing.JFrame {
     private void update() {
         ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
         titleLbl.setText(rb.getString("restdet"));
-        locationLbl.setText(rb.getString("location"));
+        locationLbl.setText(rb.getString("location") + restaurant.getLocation().toString());
         langBtn.setText(rb.getString("lang"));
-        balanceLbl.setText(rb.getString("balance"));
-        numOrdersLbl.setText(rb.getString("numorders"));
+        balanceLbl.setText(rb.getString("balance") + restaurant.getBalance());
+        numOrdersLbl.setText(rb.getString("numorders")); //need a getNumberOfOrders
     }
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed

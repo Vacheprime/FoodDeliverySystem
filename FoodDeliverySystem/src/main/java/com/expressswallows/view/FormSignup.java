@@ -310,9 +310,14 @@ public class FormSignup extends javax.swing.JFrame {
             Client client = new Client(first, last, email, password, birthday, phone,
                     new Address(streetName, streetNum, postal, Address.City.Montreal));
             //add them to database
+            /*
+            var database = DatabaseUtilsConnection.getInstance();
+            database.InsertClient(client);
+            database.CloseConnection();
+            */
             return client;
         } catch (Exception e/*SQLException ex*/) {
-
+            System.out.println(e.getMessage());
         }
         return null;
     }
