@@ -38,7 +38,7 @@ public class PizzaFactory extends AbstractFactory {
     }
 
     @Override
-    public Drink createDrink(String request, String size) {
+    public Drink createDrink(int request, int size) {
         return null;
     }
 
@@ -48,7 +48,7 @@ public class PizzaFactory extends AbstractFactory {
     }
 
     @Override
-    public Fries createFries(String request) {
+    public Fries createFries(int request) {
         return null;
     }
 }

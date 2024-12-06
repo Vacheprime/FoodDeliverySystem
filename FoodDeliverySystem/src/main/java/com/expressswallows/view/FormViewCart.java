@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -33,7 +34,7 @@ public class FormViewCart extends javax.swing.JFrame {
         this.order = order;
         this.client = client;
         update();
-        loadOrder(order.getFoods());
+        loadOrder(foods);
     }
 
     /**
@@ -50,6 +51,7 @@ public class FormViewCart extends javax.swing.JFrame {
         payBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         listOrders = new javax.swing.JList<>();
+        removeBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,24 +74,34 @@ public class FormViewCart extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(listOrders);
 
+        removeBtn.setText("Remove");
+        removeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(123, 123, 123)
-                .addComponent(backBtn)
-                .addGap(18, 18, 18)
-                .addComponent(payBtn)
-                .addContainerGap(115, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(125, 125, 125)
-                .addComponent(viewcartLbl)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(125, 125, 125)
+                        .addComponent(viewcartLbl))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(38, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addComponent(backBtn)
+                                .addGap(26, 26, 26)
+                                .addComponent(payBtn)
+                                .addGap(26, 26, 26)
+                                .addComponent(removeBtn))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -101,7 +113,8 @@ public class FormViewCart extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(backBtn)
-                    .addComponent(payBtn))
+                    .addComponent(payBtn)
+                    .addComponent(removeBtn))
                 .addGap(32, 32, 32))
         );
 
@@ -125,10 +138,29 @@ public class FormViewCart extends javax.swing.JFrame {
         new FormClientMainMenu(client, order).setVisible(true);
     }//GEN-LAST:event_backBtnActionPerformed
 
+    private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBtnActionPerformed
+        int selectedIndex = listOrders.getSelectedIndex(); //selected with the mouse
+        if (selectedIndex != -1) {
+            String selectedFood = listOrders.getSelectedValue();
+        for (int i = 0; i < order.getFoods().size(); i++) {
+            if (order.getFoods().get(i).toString().equals(selectedFood)) {
+                order.getFoods().remove(i);
+                JOptionPane.showMessageDialog(this, "You've removed a food");
+                break;
+            }
+        }
+        //save it to the databse
+        //reloads the list
+    } else {
+        JOptionPane.showMessageDialog(this, "Please select a food to remove.");
+    }
+
+    }//GEN-LAST:event_removeBtnActionPerformed
+
     private void loadOrder(List<Food> foods) {
         DefaultListModel<String> listModel = new DefaultListModel<>();
         for (Food food : foods) {
-            listModel.addElement(food.toString());
+            listModel.addElement(food.getClass().getName());
         }
         listOrders.setModel(listModel);
     }
@@ -138,6 +170,7 @@ public class FormViewCart extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<String> listOrders;
     private javax.swing.JButton payBtn;
+    private javax.swing.JButton removeBtn;
     private javax.swing.JLabel viewcartLbl;
     // End of variables declaration//GEN-END:variables
 }

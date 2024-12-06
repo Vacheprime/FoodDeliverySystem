@@ -28,7 +28,7 @@ public class FriesFactory extends AbstractFactory {
     }
 
     @Override
-    public Drink createDrink(String request, String size) {
+    public Drink createDrink(int request, int size) {
         return null;
     }
 
@@ -38,12 +38,12 @@ public class FriesFactory extends AbstractFactory {
     }
 
     @Override
-    public Fries createFries(String request) {
-        if (request.equalsIgnoreCase("Small")) {
+    public Fries createFries(int request) {
+        if (request == 0) {
             return new Fries(Fries.FriesSize.SMALL);
-        } else if (request.equalsIgnoreCase("Medium")) {
+        } else if (request == 1) {
             return new Fries(Fries.FriesSize.MEDIUM);
-        } else if (request.equalsIgnoreCase("Large")) {
+        } else if (request == 2) {
             return new Fries(Fries.FriesSize.LARGE);
         }
         return null;

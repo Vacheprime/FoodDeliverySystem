@@ -20,10 +20,10 @@ public abstract class AbstractFactory {
 
     public abstract Pizza createPizza(String request);
 
-    public abstract Drink createDrink(String request, String size);
+    public abstract Drink createDrink(int request, int size);
 
     public abstract Hotdog createHotdog(String request);
 
-    public abstract Fries createFries(String request);
+    public abstract Fries createFries(int request);
 
 }

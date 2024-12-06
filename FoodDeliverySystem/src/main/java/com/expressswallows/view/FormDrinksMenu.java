@@ -177,13 +177,10 @@ public class FormDrinksMenu extends javax.swing.JFrame {
 
         String priceText = String.format("%.2f", currentPrice);
         if (Utils.currentLocale.getLanguage().equals("en")) {
-            // In English, put $ before the price
-            priceLbl.setText(rb.getString("price") + " $" + priceText);  // Add "Price:" and the currency symbol
+            priceLbl.setText(rb.getString("price") + " $" + priceText); 
         } else if (Utils.currentLocale.getLanguage().equals("fr")) {
-            // In French, put € after the price
-            priceLbl.setText(rb.getString("price") + " " + priceText + "$");  // Add "Prix:" and the currency symbol
+            priceLbl.setText(rb.getString("price") + " " + priceText + "$");
         }
-
 
         orderBtn.setText(rb.getString("addtocart"));
 
@@ -212,8 +209,8 @@ public class FormDrinksMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_langBtnActionPerformed
 
     private void orderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderBtnActionPerformed
-        String drinkChoice = typeBox.getSelectedItem().toString();
-        String size = sizeBox.getSelectedItem().toString();
+        int drinkChoice = typeBox.getSelectedIndex();
+        int size = sizeBox.getSelectedIndex();
         FoodFactoryCreator creator = new FoodFactoryCreator();
         DrinkFactory factory = (DrinkFactory) creator.getFoodFactory("Drink");
         Drink drink = factory.createDrink(drinkChoice, size);
@@ -225,17 +222,15 @@ public class FormDrinksMenu extends javax.swing.JFrame {
         int selectedSize = sizeBox.getSelectedIndex();
 
         switch (selectedSize) {
-            case 0 -> currentPrice = SMALL;  // Small price
-            case 1 -> currentPrice = MEDIUM; // Medium price
-            case 2 -> currentPrice = LARGE;  // Large price
+            case 0 -> currentPrice = SMALL;
+            case 1 -> currentPrice = MEDIUM;
+            case 2 -> currentPrice = LARGE;
         }
 
         String priceText = String.format("%.2f", currentPrice);
         if (Utils.currentLocale.getLanguage().equals("en")) {
-            // In English, put $ before the price
             priceLbl.setText("Price: $" + priceText);
         } else if (Utils.currentLocale.getLanguage().equals("fr")) {
-            // In French, put € after the price
             priceLbl.setText("Prix: " + priceText + "$");
         }
     }//GEN-LAST:event_sizeBoxActionPerformed
