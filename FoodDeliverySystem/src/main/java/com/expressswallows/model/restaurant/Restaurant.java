@@ -4,8 +4,11 @@
  */
 package com.expressswallows.model.restaurant;
 
+import com.expressswallows.model.menu.fooditems.Food;
 import com.expressswallows.model.restaurant.users.Address;
 
+import java.time.Duration;
+import java.time.LocalTime;
 import java.util.Queue;
 
 /**
@@ -13,6 +16,7 @@ import java.util.Queue;
  * @author shahi
  */
 public class Restaurant {
+    public static double DELIVERY_TIME_PER_KM = 0.2; // Three minutes per km
     private Address location;
     private String name;
     private double balance;
@@ -23,9 +27,8 @@ public class Restaurant {
      * @param location the address of this restaurant.
      * @param name the name of this restaurant.
      * @param balance the balance of this restaurant.
-     * @param orderQueue the order queue of this restaurant.
      */
-    public Restaurant(Address location, String name, double balance, Queue<Order> orderQueue) {
+    public Restaurant(Address location, String name, double balance) {
         this.location = location;
         this.name = name;
         this.balance = balance;
@@ -128,4 +131,110 @@ public class Restaurant {
                 ", orderQueue=" + orderQueue +
                 '}';
     }
+
+    /**
+     * OrderProcessTask is used to represent an order task.
+     */
+    public static class OrderProcessTask implements Runnable {
+        private Order order;
+        private Restaurant restaurant;
+        private LocalTime startTime;
+
+        public OrderProcessTask(Order order, Restaurant restaurant) {
+            this.order = order;
+            this.restaurant = restaurant;
+            this.startTime = null;
+        }
+
+        /**
+         * Get the order of the OrderProcess
+         * @return the order of the OrderProcess
+         */
+        public Order getOrder() {
+            return order;
+        }
+
+        /**
+         * Get the restaurant of the OrderProcess.
+         * @return the restaurant of the OrderProcess.
+         */
+        public Restaurant getRestaurant() {
+            return restaurant;
+        }
+
+        /**
+         * Get the start time of the OrderProcess.
+         * @return the start time of the OrderProcess or null if not started.
+         */
+        public LocalTime getStartTime() {
+            return startTime;
+        }
+
+        /**
+         * Get the estimated amount of minutes remaining until
+         * completion of the order.
+         * @return the estimated remaining time in minutes until order completion.
+         */
+        public int getEstimatedRemainingTime() {
+            if (startTime == null) {
+                return Integer.MAX_VALUE; // The remaining time is undefined
+            }
+            // Find the time difference in minutes between the start
+            // and current time
+            LocalTime currentTime = LocalTime.now();
+            int minutesPassed = (int) Duration.between(startTime, currentTime).toMinutes();
+            // Get the total process time
+            int processTime = getTotalProcessTime();
+            return processTime - minutesPassed;
+        }
+
+        /**
+         * Get the total processing time.
+         * @return the total processing time.
+         */
+        public int getTotalProcessTime() {
+            return order.calculateTotalCookTime() + getDeliveryTime();
+        }
+
+        /**
+         * Get the delivery time of the order.
+         * @return the delivery time of the order.
+         */
+        public int getDeliveryTime() {
+            // Get coordinates
+            double x1 = order.getOrderedBy().getAddress().mapAddressToX();
+            double y1 = order.getOrderedBy().getAddress().mapAddressToY();
+            double x2 = restaurant.getLocation().mapAddressToX();
+            double y2 = restaurant.getLocation().mapAddressToY();
+            // Calculate distance and round it
+            int distance = (int) Math.round(Math.sqrt( Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2) ) );
+            return (int) (distance * Restaurant.DELIVERY_TIME_PER_KM);
+        }
+
+        /**
+         * Process the order.
+         */
+        @Override
+        public void run() {
+            // Set the current time
+            this.startTime = LocalTime.now();
+            try {
+                // Prepare the items
+                for (Food f: order.getFoods()) {
+                    f.prepare();
+                }
+                // Wait for cook time
+                Thread.sleep((long) order.calculateTotalCookTime() * 60 * 1000);
+                // Update to delivering
+                order.setStatus(Order.Status.DELIVERING);
+                Thread.sleep((long) getDeliveryTime() * 60 * 1000);
+                // Update to delivered
+                order.setStatus(Order.Status.DELIVERED);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }
+
