@@ -6,7 +6,10 @@ package com.expressswallows.view;
 
 import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.users.Client;
+import com.expressswallows.utils.Utils;
+
 import javax.swing.ImageIcon;
+import java.util.ResourceBundle;
 
 /**
  *
@@ -19,6 +22,10 @@ public class FormBurgerMenu extends javax.swing.JFrame {
     ImageIcon bigFatty = new ImageIcon("FoodDeliverySystem/bigfatty.jpg");
     ImageIcon greenBush = new ImageIcon("FoodDeliverySystem/greenbush.jpg");
     ImageIcon skinnyPity = new ImageIcon("FoodDeliverySystem/skinnypity.jpg");
+    private final double PRICEBF = 14.99;
+    private final double PRICEGB = 19.99;
+    private final double PRICESP = 7.99;
+
     
     
     
@@ -35,6 +42,7 @@ public class FormBurgerMenu extends javax.swing.JFrame {
         greenBushImg.setIcon(greenBush);
         skinnyPityImg.setText("");
         skinnyPityImg.setIcon(skinnyPity);
+        update();
     }
 
     /**
@@ -58,6 +66,9 @@ public class FormBurgerMenu extends javax.swing.JFrame {
         skinnyPityImg = new javax.swing.JLabel();
         skinnyPityBtn = new javax.swing.JButton();
         bigFattyLbl1 = new javax.swing.JLabel();
+        priceBFLbl = new javax.swing.JLabel();
+        priceGBLbl = new javax.swing.JLabel();
+        priceSPLbl = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -114,6 +125,12 @@ public class FormBurgerMenu extends javax.swing.JFrame {
         bigFattyLbl1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         bigFattyLbl1.setText("Skinny Pity");
 
+        priceBFLbl.setText("Price:");
+
+        priceGBLbl.setText("Price:");
+
+        priceSPLbl.setText("Price:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -121,36 +138,37 @@ public class FormBurgerMenu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bigFattyImg, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addComponent(bigFattyLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(bigFattyBtn)))
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bigFattyImg, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bigFattyBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(priceBFLbl, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(4, 4, 4)
                         .addComponent(burgerMenuLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(32, 32, 32)
                         .addComponent(langBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
+                        .addContainerGap(53, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(91, 91, 91)
+                        .addComponent(greenBushLbl)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(greenBushImg, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(74, 74, 74))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(greenBushBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(126, 126, 126))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(91, 91, 91)
-                        .addComponent(greenBushLbl)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(greenBushBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                                    .addComponent(priceGBLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(126, 126, 126))))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -158,9 +176,12 @@ public class FormBurgerMenu extends javax.swing.JFrame {
                         .addComponent(bigFattyLbl1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(154, 154, 154)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(skinnyPityBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(skinnyPityImg, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(skinnyPityImg, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(163, 163, 163)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(skinnyPityBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                            .addComponent(priceSPLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -180,21 +201,48 @@ public class FormBurgerMenu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bigFattyImg)
                     .addComponent(greenBushImg))
+                .addGap(13, 13, 13)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(priceBFLbl)
+                    .addComponent(priceGBLbl))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bigFattyBtn)
                     .addComponent(greenBushBtn))
-                .addGap(27, 27, 27)
+                .addGap(4, 4, 4)
                 .addComponent(bigFattyLbl1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(skinnyPityImg, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(7, 7, 7)
+                .addComponent(priceSPLbl)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(skinnyPityBtn)
-                .addContainerGap(201, Short.MAX_VALUE))
+                .addContainerGap(184, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void update(){
+        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
+        backBtn.setText(rb.getString("back"));
+        burgerMenuLbl.setText(rb.getString("burgermenu"));
+        langBtn.setText(rb.getString("lang"));
+        bigFattyBtn.setText(rb.getString("addtocart"));
+        greenBushBtn.setText(rb.getString("addtocart"));
+        skinnyPityBtn.setText(rb.getString("addtocart"));
+
+        if (Utils.currentLocale.getLanguage().equals("en")) {
+            priceBFLbl.setText(rb.getString("price") + "$" + PRICEBF);
+            priceGBLbl.setText(rb.getString("price") + "$" + PRICEGB);
+            priceSPLbl.setText(rb.getString("price") + "$" + PRICESP);
+        } else if (Utils.currentLocale.getLanguage().equals("fr")) {
+            priceBFLbl.setText(rb.getString("price") + PRICEBF + "$");
+            priceGBLbl.setText(rb.getString("price") + PRICEGB + "$");
+            priceSPLbl.setText(rb.getString("price") + PRICESP + "$");
+        }
+
+    }
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         this.dispose();
@@ -202,7 +250,8 @@ public class FormBurgerMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
-        // TODO add your handling code here:
+        Utils.switchLanguage();
+        update();
     }//GEN-LAST:event_langBtnActionPerformed
 
     private void bigFattyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bigFattyBtnActionPerformed
@@ -229,6 +278,9 @@ public class FormBurgerMenu extends javax.swing.JFrame {
     private javax.swing.JLabel greenBushImg;
     private javax.swing.JLabel greenBushLbl;
     private javax.swing.JButton langBtn;
+    private javax.swing.JLabel priceBFLbl;
+    private javax.swing.JLabel priceGBLbl;
+    private javax.swing.JLabel priceSPLbl;
     private javax.swing.JButton skinnyPityBtn;
     private javax.swing.JLabel skinnyPityImg;
     // End of variables declaration//GEN-END:variables

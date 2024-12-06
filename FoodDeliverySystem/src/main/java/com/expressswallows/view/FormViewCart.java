@@ -4,8 +4,15 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.model.menu.fooditems.Food;
 import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.users.Client;
+import com.expressswallows.utils.Utils;
+import java.util.ArrayList;
+
+import java.util.List;
+import java.util.ResourceBundle;
+import javax.swing.DefaultListModel;
 
 /**
  *
@@ -15,6 +22,8 @@ public class FormViewCart extends javax.swing.JFrame {
 
     Order order;
     Client client;
+    List<Food> foods = order.getFoods();
+
     /**
      * Creates new form FormViewCart
      */
@@ -22,6 +31,8 @@ public class FormViewCart extends javax.swing.JFrame {
         initComponents();
         this.order = order;
         this.client = client;
+        update();
+        loadOrder(order.getFoods());
     }
 
     /**
@@ -37,7 +48,7 @@ public class FormViewCart extends javax.swing.JFrame {
         backBtn = new javax.swing.JButton();
         payBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        listOrders = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -58,7 +69,7 @@ public class FormViewCart extends javax.swing.JFrame {
             }
         });
 
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(listOrders);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -70,13 +81,13 @@ public class FormViewCart extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(payBtn)
                 .addContainerGap(115, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(121, 121, 121)
-                .addComponent(viewcartLbl)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(125, 125, 125)
+                .addComponent(viewcartLbl)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -96,6 +107,13 @@ public class FormViewCart extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void update() {
+        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
+        viewcartLbl.setText(rb.getString("yourcart"));
+        payBtn.setText(rb.getString("pay"));
+        backBtn.setText(rb.getString("back"));
+    }
+
     private void payBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payBtnActionPerformed
         dispose();
         new FormPayment(client, order).setVisible(true);
@@ -106,10 +124,18 @@ public class FormViewCart extends javax.swing.JFrame {
         new FormClientMainMenu(client, order).setVisible(true);
     }//GEN-LAST:event_backBtnActionPerformed
 
+    private void loadOrder(List<Food> foods) {
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        for (Food food : foods) {
+            listModel.addElement(food.toString());
+        }
+        listOrders.setModel(listModel);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<String> listOrders;
     private javax.swing.JButton payBtn;
     private javax.swing.JLabel viewcartLbl;
     // End of variables declaration//GEN-END:variables

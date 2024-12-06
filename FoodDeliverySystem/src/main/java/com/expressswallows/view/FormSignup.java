@@ -4,6 +4,16 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.model.restaurant.users.Address;
+import com.expressswallows.model.restaurant.users.Client;
+import com.expressswallows.utils.Utils;
+
+import javax.swing.*;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ResourceBundle;
+
 /**
  *
  * @author shahi
@@ -15,6 +25,7 @@ public class FormSignup extends javax.swing.JFrame {
      */
     public FormSignup() {
         initComponents();
+        update();
     }
 
     
@@ -62,37 +73,13 @@ public class FormSignup extends javax.swing.JFrame {
 
         lastNameLbl.setText("Last name:");
 
-        lastNameTB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lastNameTBActionPerformed(evt);
-            }
-        });
-
         phoneNumberLbl.setText("Phone number:");
 
-        phoneNumberTB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                phoneNumberTBActionPerformed(evt);
-            }
-        });
-
         emailLbl.setText("Email:");
-
-        passwordTB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passwordTBActionPerformed(evt);
-            }
-        });
 
         passwordLbl.setText("Password:");
 
         streetNameLbl.setText("Street name:");
-
-        streetNameTB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                streetNameTBActionPerformed(evt);
-            }
-        });
 
         postalCodeLbl.setText("Postal code:");
 
@@ -117,12 +104,6 @@ public class FormSignup extends javax.swing.JFrame {
             }
         });
 
-        streetNumTB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                streetNumTBActionPerformed(evt);
-            }
-        });
-
         streetNumLbl.setText("Street Number:");
 
         dobLbl.setText("Date of birth:");
@@ -132,62 +113,66 @@ public class FormSignup extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(23, 23, 23)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(langBtn, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(langBtn)
                                     .addGroup(layout.createSequentialGroup()
+                                        .addGap(160, 160, 160)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(postalCodeLbl)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(postalCodeTB, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(emailLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(emailTB, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(passwordLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(passwordTB, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(passwordBox, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addGap(160, 160, 160)
                                         .addComponent(backBtn)
                                         .addGap(59, 59, 59)
-                                        .addComponent(signUpBtn))
+                                        .addComponent(signUpBtn)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(streetNumLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(11, 11, 11)
+                                        .addComponent(streetNumLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(streetNumTB, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(streetNameLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(streetNameTB, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(160, 160, 160)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(emailLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(35, 35, 35))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(passwordLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)))
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(passwordTB)
-                                            .addComponent(passwordBox, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(emailTB, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(postalCodeLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(postalCodeTB, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(streetNameLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(streetNameTB, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(15, 15, 15))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(150, 150, 150)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(227, 227, 227)
-                                .addComponent(lastNameLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(204, 204, 204)
+                                .addComponent(lastNameLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(lastNameTB, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(85, 85, 85)
                                 .addComponent(signupLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(146, 146, 146)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dobLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(phoneNumberLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addGap(108, 108, 108)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(dobLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(phoneNumberLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(dobTB)
                             .addComponent(phoneNumberTB, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -229,65 +214,169 @@ public class FormSignup extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(postalCodeLbl)
                     .addComponent(postalCodeTB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(emailLbl)
                     .addComponent(emailTB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(passwordTB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(passwordLbl))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(passwordLbl)
+                    .addComponent(passwordTB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
                 .addComponent(passwordBox)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(backBtn)
                     .addComponent(signUpBtn))
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
+    private void update() {
+        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
+        firstNameLbl.setText(rb.getString("firstname"));
+        lastNameLbl.setText(rb.getString("lastname"));
+        phoneNumberLbl.setText(rb.getString("phone"));
+        dobLbl.setText(rb.getString("dob"));
+        emailLbl.setText(rb.getString("email"));
+        passwordLbl.setText(rb.getString("password"));
+        passwordBox.setText(rb.getString("showpass"));
+        streetNumLbl.setText(rb.getString("streetnum"));
+        streetNameLbl.setText(rb.getString("streetname"));
+        postalCodeLbl.setText(rb.getString("postal"));
+        signupLbl.setText(rb.getString("signup"));
+        backBtn.setText(rb.getString("back"));
+        signUpBtn.setText(rb.getString("signup"));
+
+    }
+
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         this.dispose();
         new FormLogin().setVisible(true);
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void signUpBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpBtnActionPerformed
-        String first = firstNameTB.getText();
-        String last = lastNameTB.getText();
+        if (!checkClient())
+        {
+            return;
+        }
+        Client client = createClient();
+        if (client == null) {
+            JOptionPane.showMessageDialog(null, "User was null", "Creation Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        FormLogin.clients.add(client);
+        JOptionPane.showMessageDialog(null, "You have successfully created an account.", "Account Creation Success", JOptionPane.INFORMATION_MESSAGE);
+        this.dispose();
+        new FormLogin().setVisible(true);
+
     }//GEN-LAST:event_signUpBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
-        // TODO add your handling code here:
+        Utils.switchLanguage();
+        update();
     }//GEN-LAST:event_langBtnActionPerformed
 
     private void passwordBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordBoxActionPerformed
-        // TODO add your handling code here:
+        if(passwordBox.isSelected()){
+            passwordTB.setEchoChar((char)0);
+        }else{
+            passwordTB.setEchoChar('*');
+        }
     }//GEN-LAST:event_passwordBoxActionPerformed
 
-    private void passwordTBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordTBActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_passwordTBActionPerformed
 
-    private void streetNameTBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_streetNameTBActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_streetNameTBActionPerformed
+    /***
+     * Creates a Client based on the textboxes from the JFrame and inserts them to the database
+     * @return The created client or null if there was a sql exception
+     */
+    private Client createClient() {
+        String first = firstNameTB.getText();
+        String last = lastNameTB.getText();
+        String phone = phoneNumberTB.getText();
 
-    private void lastNameTBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastNameTBActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lastNameTBActionPerformed
+        String dob = dobTB.getText(); //LocalDate (yyyy/mm/dd)
+        LocalDate birthday = Utils.parseDobToLocalDate(dob);
 
-    private void phoneNumberTBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phoneNumberTBActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_phoneNumberTBActionPerformed
+        String streetNum = streetNumTB.getText();
+        String streetName = streetNameTB.getText();
+        String postal = postalCodeTB.getText();
+        String email = emailTB.getText();
+        String password = passwordTB.getText();
 
-    private void streetNumTBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_streetNumTBActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_streetNumTBActionPerformed
+        try {
+            Client client = new Client(first, last, email, password, birthday, phone,
+                    new Address(streetName, streetNum, postal, Address.City.Montreal));
+            //add them to database
+            return client;
+        } catch (Exception e/*SQLException ex*/) {
 
+        }
+        return null;
+    }
+
+
+    /***
+     * Checks the client's input and validates them to see if they are properly formatted.
+     * @return true if all the information is valid or false if one of the information is invalid
+     */
+    private boolean checkClient() {
+        String first = firstNameTB.getText();
+        String last = lastNameTB.getText();
+        if (!first.isEmpty() || !last.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "First name and last name must not be empty.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        String dob = dobTB.getText();
+        if (!Utils.validateDate(dob)) {
+            JOptionPane.showMessageDialog(null, "Invalid dob.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate birthday = LocalDate.parse(dob, format);
+        if (!Utils.validateClientAge(birthday)) {
+            JOptionPane.showMessageDialog(null, "Date of birth is invalid or indicates an age that does not meet the requirement.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        String phone = phoneNumberTB.getText();
+        if (!Utils.validatePhoneNumber(phone)) {
+            JOptionPane.showMessageDialog(null, "Phone number is invalid. Ensure it follows the required format.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        String email = emailTB.getText();
+        if (!Utils.validateEmailAddress(email)) {
+            JOptionPane.showMessageDialog(null, "Email address is invalid. Ensure it follows the required format.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        String postal = postalCodeTB.getText();
+        if (!Utils.validatePostalCode(postal)) {
+            JOptionPane.showMessageDialog(null, "Postal code is invalid. Ensure it follows the required format.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        String streetNum = streetNumTB.getText();
+        String streetName = streetNameTB.getText();
+        if (!streetNum.isEmpty() || !streetName.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Street number and name must not be empty.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        String password = passwordTB.getText();
+        if (!password.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Password must not be empty.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        return true;
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;

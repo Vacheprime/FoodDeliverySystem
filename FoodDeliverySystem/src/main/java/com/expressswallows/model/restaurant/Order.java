@@ -16,6 +16,8 @@ public class Order {
     private Client orderedBy;
     private Restaurant assignedTo;
     private final LocalDateTime orderDateTime;
+    private int orderId;
+    private static int nextOrderId = 1;
 
     /**
      * All argument constructor for a client's Order.
@@ -28,6 +30,7 @@ public class Order {
         if (orderedBy == null || assignedTo == null) {
             throw new IllegalArgumentException("The arguments cannot be null.");
         }
+        this.orderId = nextOrderId++;
         this.foods = new ArrayList<>();
         this.orderedBy = orderedBy;
         this.assignedTo = assignedTo;
@@ -35,10 +38,15 @@ public class Order {
     }
 
     public Order(Client orderedBy) {
+        this.orderId = nextOrderId++;
         this.foods = new ArrayList<>();
         this.orderedBy = orderedBy;
         this.assignedTo = null;
         this.orderDateTime = null;
+    }
+
+    public int getOrderId() {
+        return orderId;
     }
 
     /**

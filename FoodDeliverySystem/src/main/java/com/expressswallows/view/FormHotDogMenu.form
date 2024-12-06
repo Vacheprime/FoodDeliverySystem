@@ -50,21 +50,27 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="backBtn" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                      <Component id="hotdogMenuLbl" min="-2" pref="202" max="-2" attributes="0"/>
+                      <Component id="backBtn" min="-2" pref="87" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="langBtn" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
+                      <Component id="hotdogMenuLbl" min="-2" pref="202" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="langBtn" min="-2" pref="94" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="102" max="-2" attributes="0"/>
-              <Component id="glizzyBtn" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="glizzyBtn" max="32767" attributes="0"/>
+                  <Component id="priceGGLbl" max="32767" attributes="0"/>
+              </Group>
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="millimeterBtn" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="151" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="millimeterBtn" max="32767" attributes="0"/>
+                  <Component id="priceMDLbl" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="148" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -87,12 +93,17 @@
                   <Component id="millimeterLblImg" alignment="3" max="32767" attributes="0"/>
                   <Component id="glizzyLblImg" alignment="3" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="priceGGLbl" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="priceMDLbl" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="glizzyBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="millimeterBtn" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="408" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="376" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -152,10 +163,26 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Add to cart"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="glizzyBtnActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="millimeterBtn">
       <Properties>
         <Property name="text" type="java.lang.String" value="Add to cart"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="millimeterBtnActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="priceGGLbl">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Price:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="priceMDLbl">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Price:"/>
       </Properties>
     </Component>
   </SubComponents>
