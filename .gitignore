@@ -18,3 +18,6 @@ buildNumber.properties
 
 # Intellij folder
 .idea
+
+# Ignore the database file
+*.db
