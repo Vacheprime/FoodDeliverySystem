@@ -1,9 +1,12 @@
 package com.expressswallows.utils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -172,5 +175,35 @@ public class Utils {
             currentLocale = cultureEn;
         }
     }
+
+    /**
+     * Validates if the user's credit card is properly formatted
+     * @param creditCardNumber Credit card number
+     * @param cvv CVV
+     * @param expiryDate expiryDate (MM/yy)
+     * @return false if any of the inputs are invalid and true if all the inputs are valid
+     */
+    public static boolean validateCreditCard(String creditCardNumber, String cvv, String expiryDate) {
+        if (creditCardNumber.length() != 12 || !creditCardNumber.matches("\\d+")) {
+            return false;
+        }
+
+        if (cvv.length() != 3 || !cvv.matches("\\d+")) {
+            return false;
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/yy");
+        sdf.setLenient(false);
+        try {
+            Date parsedExpiryDate = sdf.parse(expiryDate);
+            if (parsedExpiryDate.before(new Date())) {
+                return false;
+            }
+        } catch (ParseException e) {
+            return false;
+        }
+        return true;
+    }
+
 
 }

@@ -208,11 +208,10 @@ public class FormLogin extends javax.swing.JFrame {
     }
     for (Client client : clients) {
         if (emailTB.getText().equals(client.getEmail()) && passwordTB.getText().equals(client.getPassword())) {
-            setVisible(false);
-
+            
             Order order = new Order(client);
-
-            new FormClientMainMenu(client,order).setVisible(true);
+            this.dispose();
+            new FormClientMainMenu(client, order).setVisible(true);
             return;
         }
     }

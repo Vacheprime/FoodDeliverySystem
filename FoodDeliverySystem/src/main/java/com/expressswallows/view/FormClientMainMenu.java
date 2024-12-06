@@ -30,8 +30,8 @@ public class FormClientMainMenu extends javax.swing.JFrame {
      */
     public FormClientMainMenu(Client client, Order order) {
         initComponents();
-        this.client=client;
-        this.order=order;
+        this.client = client;
+        this.order = order;
         burgerLbl.setText("");
         burgerLbl.setIcon(burgerImage);
         pizzaLbl.setText("");
@@ -265,22 +265,22 @@ public class FormClientMainMenu extends javax.swing.JFrame {
 
     private void pizzaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pizzaBtnActionPerformed
         this.dispose();
-        new FormPizzaMenu(client,order).setVisible(true);
+        new FormPizzaMenu(client, order).setVisible(true);
     }//GEN-LAST:event_pizzaBtnActionPerformed
 
     private void hotdogBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hotdogBtnActionPerformed
         this.dispose();
-        new FormHotDogMenu(client,order).setVisible(true);
+        new FormHotDogMenu(client, order).setVisible(true);
     }//GEN-LAST:event_hotdogBtnActionPerformed
 
     private void friesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_friesBtnActionPerformed
         this.dispose();
-        new FormFriesMenu(client,order).setVisible(true);
+        new FormFriesMenu(client, order).setVisible(true);
     }//GEN-LAST:event_friesBtnActionPerformed
 
     private void drinksBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drinksBtnActionPerformed
         this.dispose();
-        new FormDrinksMenu(client,order).setVisible(true);
+        new FormDrinksMenu(client, order).setVisible(true);
     }//GEN-LAST:event_drinksBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
@@ -289,8 +289,12 @@ public class FormClientMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_langBtnActionPerformed
 
     private void viewCartBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewCartBtnActionPerformed
-        this.dispose();
-        new FormViewCart(client,order).setVisible(true);
+        if (order.getFoods() != null && !order.getFoods().isEmpty() && order != null) {
+            this.dispose();
+            new FormViewCart(client, order).setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "You have nothing in your cart","Empty Cart", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_viewCartBtnActionPerformed
 
     private void viewPreOrderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewPreOrderBtnActionPerformed

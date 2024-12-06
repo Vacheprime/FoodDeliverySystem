@@ -104,9 +104,6 @@ public abstract class Hotdog extends Food {
 
     @Override
     public String toString() {
-        return "Hotdog{" +
-                "bun=" + bun +
-                ", spiciness=" + spiciness +
-                '}';
+        return this.getClass().getSimpleName() + " with a " + bun + " bun and spiciness level of " + spiciness + ".";
     }
 }

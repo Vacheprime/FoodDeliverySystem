@@ -4,11 +4,16 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.model.menu.factories.DrinkFactory;
+import com.expressswallows.model.menu.factories.FoodFactoryCreator;
+import com.expressswallows.model.menu.factories.HotdogFactory;
+import com.expressswallows.model.menu.fooditems.drinks.Drink;
+import com.expressswallows.model.menu.fooditems.hotdogs.Hotdog;
 import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.users.Client;
 import com.expressswallows.utils.Utils;
 
-import javax.swing.ImageIcon;
+import javax.swing.*;
 import java.util.ResourceBundle;
 
 /**
@@ -206,11 +211,21 @@ public class FormHotDogMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_langBtnActionPerformed
 
     private void glizzyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_glizzyBtnActionPerformed
-        // TODO add your handling code here:
+        String choice = "Glizzy Gobbler";
+        FoodFactoryCreator creator = new FoodFactoryCreator();
+        HotdogFactory factory = (HotdogFactory) creator.getFoodFactory("Hotdog");
+        Hotdog hotdog = factory.createHotdog(choice);
+        order.addFoodToOrder(hotdog);
+        JOptionPane.showMessageDialog(null, "Successfully added Glizzy Gobbler to your cart.", "Hotdog Added", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_glizzyBtnActionPerformed
 
     private void millimeterBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_millimeterBtnActionPerformed
-        // TODO add your handling code here:
+        String choice = "Millimeter Defeater";
+        FoodFactoryCreator creator = new FoodFactoryCreator();
+        HotdogFactory factory = (HotdogFactory) creator.getFoodFactory("Hotdog");
+        Hotdog hotdog = factory.createHotdog(choice);
+        order.addFoodToOrder(hotdog);
+        JOptionPane.showMessageDialog(null, "Successfully added Millimeter Defeater to your cart.", "Hotdog Added", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_millimeterBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

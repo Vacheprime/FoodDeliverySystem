@@ -14,6 +14,7 @@ public class GreenBush extends Burger {
      */
     public GreenBush(BurgerSauce sauce) {
         super(cookTime, price, sauce);
+        this.prepare();
     }
 
     /**
@@ -23,4 +24,12 @@ public class GreenBush extends Burger {
     public void prepare() {
         this.setSpiciness(spiciness);
     }
+
+    @Override
+    public String toString() {
+        return "Green Bush " + super.toString();
+    }
+    
+    
+    
 }

@@ -11,7 +11,8 @@ public class Water extends Drink {
      * @param size the size of the drink.
      */
     public Water(Drink.Size size) {
-        super(size.getCookTime(), size.getPrice());
+        super(size.getCookTime(), size.getPrice(), size);
+        this.prepare();
     }
 
     /**
@@ -20,5 +21,10 @@ public class Water extends Drink {
     @Override
     public void prepare() {
         this.setSugarContent(sugarContent);
+    }
+    
+    @Override
+    public String toString() {
+        return super.toString();
     }
 }

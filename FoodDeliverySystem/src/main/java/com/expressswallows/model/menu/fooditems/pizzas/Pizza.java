@@ -74,8 +74,6 @@ public abstract class Pizza extends Food {
 
     @Override
     public String toString() {
-        return "Pizza{" +
-                "toppings=" + toppings +
-                '}';
+        return this.getClass().getSimpleName()+ " pizza with " + toppings +".";
     }
 }

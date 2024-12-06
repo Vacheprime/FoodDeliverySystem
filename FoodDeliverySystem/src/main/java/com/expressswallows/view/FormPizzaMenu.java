@@ -4,11 +4,16 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.model.menu.factories.FoodFactoryCreator;
+import com.expressswallows.model.menu.factories.HotdogFactory;
+import com.expressswallows.model.menu.factories.PizzaFactory;
+import com.expressswallows.model.menu.fooditems.hotdogs.Hotdog;
+import com.expressswallows.model.menu.fooditems.pizzas.Pizza;
 import com.expressswallows.model.restaurant.users.Client;
 import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.utils.Utils;
 
-import javax.swing.ImageIcon;
+import javax.swing.*;
 import java.util.ResourceBundle;
 
 /**
@@ -252,15 +257,30 @@ public class FormPizzaMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_langBtnActionPerformed
 
     private void cheeseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cheeseBtnActionPerformed
-        // TODO add your handling code here:
+        String choice = "Cheese";
+        FoodFactoryCreator creator = new FoodFactoryCreator();
+        PizzaFactory factory = (PizzaFactory) creator.getFoodFactory("Pizza");
+        Pizza pizza = factory.createPizza(choice);
+        order.addFoodToOrder(pizza);
+        JOptionPane.showMessageDialog(null, "Successfully added Cheese to your cart.", "Pizza Added", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_cheeseBtnActionPerformed
 
     private void pepperoniBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pepperoniBtnActionPerformed
-        // TODO add your handling code here:
+        String choice = "Pepperoni";
+        FoodFactoryCreator creator = new FoodFactoryCreator();
+        PizzaFactory factory = (PizzaFactory) creator.getFoodFactory("Pizza");
+        Pizza pizza = factory.createPizza(choice);
+        order.addFoodToOrder(pizza);
+        JOptionPane.showMessageDialog(null, "Successfully added Pepperoni to your cart.", "Pizza Added", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_pepperoniBtnActionPerformed
 
     private void alldressBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alldressBtnActionPerformed
-        // TODO add your handling code here:
+        String choice = "All dressed";
+        FoodFactoryCreator creator = new FoodFactoryCreator();
+        PizzaFactory factory = (PizzaFactory) creator.getFoodFactory("Pizza");
+        Pizza pizza = factory.createPizza(choice);
+        order.addFoodToOrder(pizza);
+        JOptionPane.showMessageDialog(null, "Successfully added All Dressed to your cart.", "Pizza Added", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_alldressBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

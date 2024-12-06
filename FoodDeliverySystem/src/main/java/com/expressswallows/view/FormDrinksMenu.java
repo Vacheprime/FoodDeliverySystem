@@ -4,11 +4,16 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.model.menu.factories.BurgerFactory;
+import com.expressswallows.model.menu.factories.DrinkFactory;
+import com.expressswallows.model.menu.factories.FoodFactoryCreator;
+import com.expressswallows.model.menu.fooditems.burgers.Burger;
+import com.expressswallows.model.menu.fooditems.drinks.Drink;
 import com.expressswallows.model.restaurant.users.Client;
 import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.utils.Utils;
 
-import javax.swing.ImageIcon;
+import javax.swing.*;
 import java.util.ResourceBundle;
 
 /**
@@ -172,13 +177,10 @@ public class FormDrinksMenu extends javax.swing.JFrame {
 
         String priceText = String.format("%.2f", currentPrice);
         if (Utils.currentLocale.getLanguage().equals("en")) {
-            // In English, put $ before the price
-            priceLbl.setText(rb.getString("price") + " $" + priceText);  // Add "Price:" and the currency symbol
+            priceLbl.setText(rb.getString("price") + " $" + priceText); 
         } else if (Utils.currentLocale.getLanguage().equals("fr")) {
-            // In French, put € after the price
-            priceLbl.setText(rb.getString("price") + " " + priceText + "$");  // Add "Prix:" and the currency symbol
+            priceLbl.setText(rb.getString("price") + " " + priceText + "$");
         }
-
 
         orderBtn.setText(rb.getString("addtocart"));
 
@@ -207,24 +209,28 @@ public class FormDrinksMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_langBtnActionPerformed
 
     private void orderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderBtnActionPerformed
-        // TODO add your handling code here:
+        int drinkChoice = typeBox.getSelectedIndex();
+        int size = sizeBox.getSelectedIndex();
+        FoodFactoryCreator creator = new FoodFactoryCreator();
+        DrinkFactory factory = (DrinkFactory) creator.getFoodFactory("Drink");
+        Drink drink = factory.createDrink(drinkChoice, size);
+        order.addFoodToOrder(drink);
+        JOptionPane.showMessageDialog(null, "Successfully added drink to your cart.", "Drink Added", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_orderBtnActionPerformed
 
     private void sizeBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sizeBoxActionPerformed
         int selectedSize = sizeBox.getSelectedIndex();
 
         switch (selectedSize) {
-            case 0 -> currentPrice = SMALL;  // Small price
-            case 1 -> currentPrice = MEDIUM; // Medium price
-            case 2 -> currentPrice = LARGE;  // Large price
+            case 0 -> currentPrice = SMALL;
+            case 1 -> currentPrice = MEDIUM;
+            case 2 -> currentPrice = LARGE;
         }
 
         String priceText = String.format("%.2f", currentPrice);
         if (Utils.currentLocale.getLanguage().equals("en")) {
-            // In English, put $ before the price
             priceLbl.setText("Price: $" + priceText);
         } else if (Utils.currentLocale.getLanguage().equals("fr")) {
-            // In French, put € after the price
             priceLbl.setText("Prix: " + priceText + "$");
         }
     }//GEN-LAST:event_sizeBoxActionPerformed

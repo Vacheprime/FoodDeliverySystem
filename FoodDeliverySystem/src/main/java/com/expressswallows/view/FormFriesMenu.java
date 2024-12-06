@@ -4,12 +4,16 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.model.menu.factories.DrinkFactory;
+import com.expressswallows.model.menu.factories.FoodFactoryCreator;
+import com.expressswallows.model.menu.factories.FriesFactory;
 import com.expressswallows.model.menu.fooditems.Fries;
+import com.expressswallows.model.menu.fooditems.drinks.Drink;
 import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.users.Client;
 import com.expressswallows.utils.Utils;
 
-import javax.swing.ImageIcon;
+import javax.swing.*;
 import java.util.ResourceBundle;
 
 /**
@@ -150,15 +154,12 @@ public class FormFriesMenu extends javax.swing.JFrame {
         backBtn.setText(rb.getString("back"));
         langBtn.setText(rb.getString("lang"));
         friesMenuLbl.setText(rb.getString("friesmenu"));
-        //sizeLbl.setText(rb.getString("size"));
 
         String priceText = String.format("%.2f", currentPrice);
         if (Utils.currentLocale.getLanguage().equals("en")) {
-            // In English, put $ before the price
-            priceLbl.setText(rb.getString("price") + " $" + priceText);  // Add "Price:" and the currency symbol
+            priceLbl.setText(rb.getString("price") + " $" + priceText);
         } else if (Utils.currentLocale.getLanguage().equals("fr")) {
-            // In French, put € after the price
-            priceLbl.setText(rb.getString("price") + " " + priceText + "$");  // Add "Prix:" and the currency symbol
+            priceLbl.setText(rb.getString("price") + " " + priceText + "$");
         }
 
         addToCartBtn.setText(rb.getString("addtocart"));
@@ -185,23 +186,26 @@ public class FormFriesMenu extends javax.swing.JFrame {
         int selectedSize = sizeBox.getSelectedIndex();
 
         switch (selectedSize) {
-            case 0 -> currentPrice = SMALL_PRICE;  // Small price
-            case 1 -> currentPrice = MEDIUM_PRICE; // Medium price
-            case 2 -> currentPrice = LARGE_PRICE;  // Large price
+            case 0 -> currentPrice = SMALL_PRICE;
+            case 1 -> currentPrice = MEDIUM_PRICE;
+            case 2 -> currentPrice = LARGE_PRICE;
         }
 
         String priceText = String.format("%.2f", currentPrice);
         if (Utils.currentLocale.getLanguage().equals("en")) {
-            // In English, put $ before the price
             priceLbl.setText("Price: $" + priceText);
         } else if (Utils.currentLocale.getLanguage().equals("fr")) {
-            // In French, put € after the price
             priceLbl.setText("Prix: " + priceText + "$");
         }
     }//GEN-LAST:event_sizeBoxActionPerformed
 
     private void addToCartBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToCartBtnActionPerformed
-    
+        int size = sizeBox.getSelectedIndex();
+        FoodFactoryCreator creator = new FoodFactoryCreator();
+        FriesFactory factory = (FriesFactory) creator.getFoodFactory("Fries");
+        Fries fries = factory.createFries(size);
+        order.addFoodToOrder(fries);
+        JOptionPane.showMessageDialog(null, "Successfully added fries to your cart.", "Fries Added", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_addToCartBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

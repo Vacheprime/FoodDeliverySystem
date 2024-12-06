@@ -58,8 +58,9 @@ public abstract class Drink extends Food {
      * @param price the price of the drink.
      * 
      */
-    public Drink(int cookTime, double price) {
+    public Drink(int cookTime, double price, Size size) {
         super(cookTime, price);
+        this.size = size;
     }
 
     /**
@@ -125,6 +126,6 @@ public abstract class Drink extends Food {
 
     @Override
     public String toString() {
-        return "Drink{" + "size=" + size + ", sugarContent=" + sugarContent + '}';
+        return getSize() + " " + this.getClass().getSimpleName().toLowerCase() + " with " + sugarContent + "g of sugar";
     }
 }

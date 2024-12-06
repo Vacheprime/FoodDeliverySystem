@@ -111,8 +111,6 @@ public abstract class Burger extends Food {
 
     @Override
     public String toString() {
-        return "Burger{" +
-                "sauce=" + sauce +
-                '}';
+        return "with " + sauce + " sauce and spiciness level of " + spiciness + ".";
     }
 }
