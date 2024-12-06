@@ -26,4 +26,10 @@ public class CheesePizza extends Pizza {
             addTopping(topping);
         }
     }
+    
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+    
 }

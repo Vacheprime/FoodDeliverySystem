@@ -4,10 +4,14 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.model.menu.fooditems.Food;
 import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.users.Client;
 import com.expressswallows.utils.Utils;
 
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -18,6 +22,8 @@ public class FormViewOrders extends javax.swing.JFrame {
 
     Client client;
     Order order;
+    static List<Order> orders = new ArrayList<>();
+    private double price;
     /**
      * Creates new form FormViewOrders
      */
@@ -25,7 +31,15 @@ public class FormViewOrders extends javax.swing.JFrame {
         initComponents();
         this.client = client;
         this.order = order;
+        loadOrders(orders);
         update();
+    }
+
+    public static void addOrderToList(Order order) {
+        if (order == null) {
+            throw new IllegalArgumentException("The order to add cannot be null.");
+        }
+        orders.add(order);
     }
 
     /**
@@ -38,25 +52,15 @@ public class FormViewOrders extends javax.swing.JFrame {
     private void initComponents() {
 
         yourOrdersLbl = new javax.swing.JLabel();
-        orderPanel = new javax.swing.JPanel();
         backBtn = new javax.swing.JButton();
         langBtn = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listOfOrders = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         yourOrdersLbl.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         yourOrdersLbl.setText("Your Orders History");
-
-        javax.swing.GroupLayout orderPanelLayout = new javax.swing.GroupLayout(orderPanel);
-        orderPanel.setLayout(orderPanelLayout);
-        orderPanelLayout.setHorizontalGroup(
-            orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 442, Short.MAX_VALUE)
-        );
-        orderPanelLayout.setVerticalGroup(
-            orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 284, Short.MAX_VALUE)
-        );
 
         backBtn.setText("Back");
         backBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -72,35 +76,37 @@ public class FormViewOrders extends javax.swing.JFrame {
             }
         });
 
+        jScrollPane1.setViewportView(listOfOrders);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(orderPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(backBtn)
-                .addGap(18, 18, 18)
-                .addComponent(yourOrdersLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(langBtn)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(backBtn)
+                        .addGap(18, 18, 18)
+                        .addComponent(yourOrdersLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(langBtn))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(65, 65, 65)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(langBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(backBtn)
-                        .addComponent(yourOrdersLbl)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(backBtn)
+                    .addComponent(yourOrdersLbl)
+                    .addComponent(langBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(orderPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(25, 25, 25))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         pack();
@@ -123,10 +129,37 @@ public class FormViewOrders extends javax.swing.JFrame {
         update();
     }//GEN-LAST:event_langBtnActionPerformed
 
+    private void loadOrders(List<Order> orders) {
+        
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        
+        for (Order order : orders) {
+            listModel.addElement("Order ID: " + order.getOrderId() + " Total: $" + order.calculateTotalPrice());
+        }
+        listOfOrders.setModel(listModel);
+    
+        listOfOrders.addListSelectionListener(e -> {
+        if (!e.getValueIsAdjusting()) {
+            int selectedIndex = listOfOrders.getSelectedIndex();
+            if (selectedIndex != -1) {
+                Order selectedOrder = orders.get(selectedIndex);
+                openOrderDetails(selectedOrder);
+            }
+        }
+    });   
+    }
+    
+    private void openOrderDetails(Order order) {
+        this.dispose();
+        FormOrderDetails orderDetailsForm = new FormOrderDetails(client, order);
+        orderDetailsForm.setVisible(true);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton langBtn;
-    private javax.swing.JPanel orderPanel;
+    private javax.swing.JList<String> listOfOrders;
     private javax.swing.JLabel yourOrdersLbl;
     // End of variables declaration//GEN-END:variables
 }

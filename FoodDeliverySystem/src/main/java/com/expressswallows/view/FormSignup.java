@@ -325,7 +325,7 @@ public class FormSignup extends javax.swing.JFrame {
     private boolean checkClient() {
         String first = firstNameTB.getText();
         String last = lastNameTB.getText();
-        if (!first.isEmpty() || !last.isEmpty()) {
+        if (!Utils.validateName(first) || !Utils.validateName(last)) {
             JOptionPane.showMessageDialog(null, "First name and last name must not be empty.", "Validation Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }

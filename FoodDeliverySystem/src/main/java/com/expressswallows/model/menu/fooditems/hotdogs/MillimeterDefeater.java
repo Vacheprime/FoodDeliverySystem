@@ -14,6 +14,7 @@ public class MillimeterDefeater extends Hotdog {
      */
     public MillimeterDefeater(HotdogBun bun) {
         super(cookTime, price, bun);
+        this.prepare();
     }
 
     /**
@@ -23,4 +24,10 @@ public class MillimeterDefeater extends Hotdog {
     public void prepare() {
         this.setSpiciness(spiciness);
     }
+    
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+    
 }

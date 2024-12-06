@@ -24,7 +24,7 @@ public class FormViewCart extends javax.swing.JFrame {
 
     Order order;
     Client client;
-    List<Food> foods = order.getFoods();
+    //List<Food> foods = order.getFoods();
 
     /**
      * Creates new form FormViewCart
@@ -34,7 +34,7 @@ public class FormViewCart extends javax.swing.JFrame {
         this.order = order;
         this.client = client;
         update();
-        loadOrder(foods);
+        loadOrder(order.getFoods());
     }
 
     /**
@@ -126,6 +126,7 @@ public class FormViewCart extends javax.swing.JFrame {
         viewcartLbl.setText(rb.getString("yourcart"));
         payBtn.setText(rb.getString("pay"));
         backBtn.setText(rb.getString("back"));
+        removeBtn.setText(rb.getString("remove"));
     }
 
     private void payBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payBtnActionPerformed
@@ -139,28 +140,31 @@ public class FormViewCart extends javax.swing.JFrame {
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBtnActionPerformed
-        int selectedIndex = listOrders.getSelectedIndex(); //selected with the mouse
+        int selectedIndex = listOrders.getSelectedIndex(); // selected with the mouse
         if (selectedIndex != -1) {
             String selectedFood = listOrders.getSelectedValue();
-        for (int i = 0; i < order.getFoods().size(); i++) {
-            if (order.getFoods().get(i).toString().equals(selectedFood)) {
-                order.getFoods().remove(i);
-                JOptionPane.showMessageDialog(this, "You've removed a food");
-                break;
+
+            for (Food food : order.getFoods()) {
+                if (food.getClass().getSimpleName().equals(selectedFood)) {
+                    order.getFoods().remove(food);
+                    JOptionPane.showMessageDialog(this, "You've removed a food");
+
+                    DefaultListModel<String> model = (DefaultListModel<String>) listOrders.getModel();
+                    model.removeElement(selectedFood);
+                    break;
+                }
             }
+            //save it to the database?
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a food to remove.");
         }
-        //save it to the databse
-        //reloads the list
-    } else {
-        JOptionPane.showMessageDialog(this, "Please select a food to remove.");
-    }
 
     }//GEN-LAST:event_removeBtnActionPerformed
 
     private void loadOrder(List<Food> foods) {
         DefaultListModel<String> listModel = new DefaultListModel<>();
         for (Food food : foods) {
-            listModel.addElement(food.getClass().getName());
+            listModel.addElement(food.getClass().getSimpleName());
         }
         listOrders.setModel(listModel);
     }

@@ -293,7 +293,7 @@ public class FormClientMainMenu extends javax.swing.JFrame {
             this.dispose();
             new FormViewCart(client, order).setVisible(true);
         } else {
-            JOptionPane.showConfirmDialog(null, "You have nothing in your cart","Empty Cart",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "You have nothing in your cart","Empty Cart", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_viewCartBtnActionPerformed
 

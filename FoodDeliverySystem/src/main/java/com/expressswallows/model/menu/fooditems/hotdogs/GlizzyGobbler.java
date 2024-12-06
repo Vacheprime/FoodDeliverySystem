@@ -14,6 +14,7 @@ public class GlizzyGobbler extends Hotdog {
      */
     public GlizzyGobbler(HotdogBun bun) {
         super(cookTime, price, bun);
+        this.prepare();
     }
 
     /**
@@ -23,4 +24,12 @@ public class GlizzyGobbler extends Hotdog {
     public void prepare() {
         this.setSpiciness(spiciness);
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+    
+    
+    
 }

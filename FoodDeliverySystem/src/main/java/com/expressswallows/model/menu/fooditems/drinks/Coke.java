@@ -11,7 +11,8 @@ public class Coke extends Drink {
      * @param size the size of the coke.
      */
     public Coke(Drink.Size size) {
-        super(size.getCookTime(), size.getPrice());
+        super(size.getCookTime(), size.getPrice(), size);
+        this.prepare();
     }
 
     /**
@@ -21,4 +22,11 @@ public class Coke extends Drink {
     public void prepare() {
         this.setSugarContent(sugarContent);
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+  
+    
 }

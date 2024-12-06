@@ -14,6 +14,7 @@ public class SkinnyPity extends Burger {
      */
     public SkinnyPity(BurgerSauce sauce) {
         super(cookTime, price, sauce);
+        this.prepare();
     }
 
     /**
@@ -23,4 +24,12 @@ public class SkinnyPity extends Burger {
     public void prepare() {
         this.setSpiciness(spiciness);
     }
+
+    @Override
+    public String toString() {
+        return "Skinny Pity " + super.toString(); 
+    }
+    
+    
+    
 }
