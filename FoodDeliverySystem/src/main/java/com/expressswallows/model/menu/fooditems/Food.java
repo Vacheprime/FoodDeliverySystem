@@ -47,7 +47,6 @@ public abstract class Food {
         }
         this.cookTime = cookTime;
     }
-
     /**
      * Getter for the product ID.
      * @return the product ID.

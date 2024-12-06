@@ -2,6 +2,9 @@ package com.expressswallows.utils;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Locale;
 
 /**
  * Utils class used to contain static functions that could be used in many
@@ -10,7 +13,11 @@ import java.time.Period;
  * @author Danat
  */
 public class Utils {
-    
+
+    public static final Locale cultureEn = new Locale("en", "CA");
+    public static final Locale cultureFr = new Locale("fr", "CA");
+    public static Locale currentLocale = cultureEn;
+
     /**
      * Determine whether a zip code follows the following format:
      * A1A B2B
@@ -120,4 +127,50 @@ public class Utils {
     private static int getDateDifferenceInYears(LocalDate date) {
         return Period.between(date, LocalDate.now()).getYears();
     }
+
+
+    /**
+     * Validates a date string to ensure it follows the format yyyy-MM-dd and converts it to a LocalDate to make sure they are not too old.
+     * @param dob the date of birth as a string in the format yyyy-MM-dd.
+     * @return true if the date string is valid and can be parsed into a LocalDate and false if the date string is in an invalid format or cannot be parsed.
+     * @throws DateTimeParseException if the string cannot be parsed to a valid LocalDate.
+     */
+    public static boolean validateDate(String dob) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try {
+        LocalDate parsedDate = LocalDate.parse(dob, formatter);
+        if (parsedDate.getYear() < 1900) {
+            return false;
+        }
+        return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
+
+    /**
+     * Parses a date of birth string (yyyy-MM-dd) into a LocalDate
+     * @param dob the date of birth as a string in the format yyyy-MM-dd.
+     * @return the LocalDate or null if the format is invalid.
+     */
+    public static LocalDate parseDobToLocalDate(String dob) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try {
+            return LocalDate.parse(dob, formatter);
+        } catch (DateTimeParseException e) {
+            return null;
+        }
+    }
+
+    /***
+     * Changes the currentLocale to the selected language of the users.
+     */
+    public static void switchLanguage() {
+        if (currentLocale.equals(cultureEn)) {
+            currentLocale = cultureFr;
+        } else {
+            currentLocale = cultureEn;
+        }
+    }
+
 }

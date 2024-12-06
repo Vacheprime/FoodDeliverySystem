@@ -4,17 +4,38 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.model.restaurant.Order;
+import com.expressswallows.model.restaurant.users.Client;
+import com.expressswallows.utils.Utils;
+
+import javax.swing.ImageIcon;
+import java.util.ResourceBundle;
+
 /**
  *
  * @author shahi
  */
 public class FormHotDogMenu extends javax.swing.JFrame {
 
+    Client client;
+    Order order;
+    ImageIcon glizzyImg = new ImageIcon("FoodDeliverySystem/glizzy.jpg");
+    ImageIcon millimeter = new ImageIcon("FoodDeliverySystem/millimeter.jpg");
+    private final double PRICEGG = 7.99;
+    private final double PRICEMD = 3.99;
+
     /**
      * Creates new form frmHotDogMenu
      */
-    public FormHotDogMenu() {
+    public FormHotDogMenu(Client client, Order order) {
         initComponents();
+        this.client = client;
+        this.order = order;
+        glizzyLblImg.setText("");
+        glizzyLblImg.setIcon(glizzyImg);
+        millimeterLblImg.setText("");
+        millimeterLblImg.setIcon(millimeter);
+        update();
     }
 
     /**
@@ -29,6 +50,14 @@ public class FormHotDogMenu extends javax.swing.JFrame {
         backBtn = new javax.swing.JButton();
         langBtn = new javax.swing.JButton();
         hotdogMenuLbl = new javax.swing.JLabel();
+        glizzyGobblerLbl = new javax.swing.JLabel();
+        glizzyLblImg = new javax.swing.JLabel();
+        millimeterDefeaterLbl = new javax.swing.JLabel();
+        millimeterLblImg = new javax.swing.JLabel();
+        glizzyBtn = new javax.swing.JButton();
+        millimeterBtn = new javax.swing.JButton();
+        priceGGLbl = new javax.swing.JLabel();
+        priceMDLbl = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,18 +78,75 @@ public class FormHotDogMenu extends javax.swing.JFrame {
         hotdogMenuLbl.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         hotdogMenuLbl.setText("HotDog Menu");
 
+        glizzyGobblerLbl.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        glizzyGobblerLbl.setText("Glizzy Gobbler");
+
+        glizzyLblImg.setText("jLabel2");
+
+        millimeterDefeaterLbl.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        millimeterDefeaterLbl.setText("Millimeter Defeater");
+
+        millimeterLblImg.setText("jLabel4");
+
+        glizzyBtn.setText("Add to cart");
+        glizzyBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                glizzyBtnActionPerformed(evt);
+            }
+        });
+
+        millimeterBtn.setText("Add to cart");
+        millimeterBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                millimeterBtnActionPerformed(evt);
+            }
+        });
+
+        priceGGLbl.setText("Price:");
+
+        priceMDLbl.setText("Price:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(backBtn)
-                .addGap(30, 30, 30)
-                .addComponent(hotdogMenuLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(langBtn)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(78, 78, 78)
+                                .addComponent(glizzyGobblerLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE))
+                            .addComponent(glizzyLblImg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(17, 17, 17)
+                                .addComponent(millimeterLblImg, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(millimeterDefeaterLbl)
+                                .addGap(127, 127, 127))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(hotdogMenuLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(langBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(95, 95, 95))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(89, 89, 89)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(glizzyBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(priceGGLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(millimeterBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(priceMDLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(148, 148, 148))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -70,60 +156,74 @@ public class FormHotDogMenu extends javax.swing.JFrame {
                     .addComponent(backBtn)
                     .addComponent(langBtn)
                     .addComponent(hotdogMenuLbl))
-                .addContainerGap(261, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(glizzyGobblerLbl)
+                    .addComponent(millimeterDefeaterLbl))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(millimeterLblImg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(glizzyLblImg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(priceGGLbl)
+                    .addComponent(priceMDLbl))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(glizzyBtn)
+                    .addComponent(millimeterBtn))
+                .addGap(376, 376, 376))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void update() {
+        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
+        backBtn.setText(rb.getString("back"));
+        langBtn.setText(rb.getString("lang"));
+        hotdogMenuLbl.setText(rb.getString("hotdogmenu"));
+        glizzyBtn.setText(rb.getString("addtocart"));
+        millimeterBtn.setText(rb.getString("addtocart"));
+
+        if (Utils.currentLocale.getLanguage().equals("en")) {
+            priceGGLbl.setText(rb.getString("price") + "$" + PRICEGG);
+            priceMDLbl.setText(rb.getString("price") + "$" + PRICEMD);
+        } else if (Utils.currentLocale.getLanguage().equals("fr")) {
+            priceGGLbl.setText(rb.getString("price") + PRICEGG + "$");
+            priceMDLbl.setText(rb.getString("price") + PRICEMD + "$");
+        }
+    }
+
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         this.dispose();
-        new FormClientMainMenu().setVisible(true);
+        new FormClientMainMenu(client, order).setVisible(true);
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
-        // TODO add your handling code here:
+        Utils.switchLanguage();
+        update();
     }//GEN-LAST:event_langBtnActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormHotDogMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormHotDogMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormHotDogMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormHotDogMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
+    private void glizzyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_glizzyBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_glizzyBtnActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FormHotDogMenu().setVisible(true);
-            }
-        });
-    }
+    private void millimeterBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_millimeterBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_millimeterBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
+    private javax.swing.JButton glizzyBtn;
+    private javax.swing.JLabel glizzyGobblerLbl;
+    private javax.swing.JLabel glizzyLblImg;
     private javax.swing.JLabel hotdogMenuLbl;
     private javax.swing.JButton langBtn;
+    private javax.swing.JButton millimeterBtn;
+    private javax.swing.JLabel millimeterDefeaterLbl;
+    private javax.swing.JLabel millimeterLblImg;
+    private javax.swing.JLabel priceGGLbl;
+    private javax.swing.JLabel priceMDLbl;
     // End of variables declaration//GEN-END:variables
 }

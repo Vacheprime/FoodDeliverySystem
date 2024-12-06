@@ -4,17 +4,39 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.model.menu.fooditems.Fries;
+import com.expressswallows.model.restaurant.Order;
+import com.expressswallows.model.restaurant.users.Client;
+import com.expressswallows.utils.Utils;
+
+import javax.swing.ImageIcon;
+import java.util.ResourceBundle;
+
 /**
  *
  * @author shahi
  */
 public class FormFriesMenu extends javax.swing.JFrame {
 
+    Client client;
+    Order order;
+    ImageIcon friesI = new ImageIcon("FoodDeliverySystem/fries.jpg");
+    
+    private final double SMALL_PRICE = 2.99;
+    private final double MEDIUM_PRICE = 3.49;
+    private final double LARGE_PRICE = 4.99;
+    private double currentPrice = 0;
     /**
      * Creates new form frmFriesMenu
      */
-    public FormFriesMenu() {
+    public FormFriesMenu(Client client, Order order) {
         initComponents();
+        this.client = client;
+        this.order = order;
+        friesImg.setText("");
+        friesImg.setIcon(friesI);
+
+        update();
     }
 
     /**
@@ -29,6 +51,10 @@ public class FormFriesMenu extends javax.swing.JFrame {
         backBtn = new javax.swing.JButton();
         friesMenuLbl = new javax.swing.JLabel();
         langBtn = new javax.swing.JButton();
+        friesImg = new javax.swing.JLabel();
+        addToCartBtn = new javax.swing.JButton();
+        sizeBox = new javax.swing.JComboBox<>();
+        priceLbl = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,6 +75,24 @@ public class FormFriesMenu extends javax.swing.JFrame {
             }
         });
 
+        friesImg.setText("jLabel1");
+
+        addToCartBtn.setText("Add to cart");
+        addToCartBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addToCartBtnActionPerformed(evt);
+            }
+        });
+
+        sizeBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Small", "Medium", "Large" }));
+        sizeBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sizeBoxActionPerformed(evt);
+            }
+        });
+
+        priceLbl.setText("Price:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -56,11 +100,24 @@ public class FormFriesMenu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(backBtn)
-                .addGap(18, 18, 18)
-                .addComponent(friesMenuLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                .addComponent(langBtn)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(friesImg, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(57, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(friesMenuLbl)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(langBtn)
+                        .addContainerGap())))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(152, 152, 152)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(addToCartBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(sizeBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(priceLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -70,60 +127,90 @@ public class FormFriesMenu extends javax.swing.JFrame {
                     .addComponent(backBtn)
                     .addComponent(friesMenuLbl)
                     .addComponent(langBtn))
-                .addContainerGap(261, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(friesImg, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+                        .addGap(38, 38, 38))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(sizeBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
+                .addComponent(priceLbl)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(addToCartBtn)
+                .addGap(15, 15, 15))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void update() {
+        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
+        backBtn.setText(rb.getString("back"));
+        langBtn.setText(rb.getString("lang"));
+        friesMenuLbl.setText(rb.getString("friesmenu"));
+        //sizeLbl.setText(rb.getString("size"));
+
+        String priceText = String.format("%.2f", currentPrice);
+        if (Utils.currentLocale.getLanguage().equals("en")) {
+            // In English, put $ before the price
+            priceLbl.setText(rb.getString("price") + " $" + priceText);  // Add "Price:" and the currency symbol
+        } else if (Utils.currentLocale.getLanguage().equals("fr")) {
+            // In French, put € after the price
+            priceLbl.setText(rb.getString("price") + " " + priceText + "$");  // Add "Prix:" and the currency symbol
+        }
+
+        addToCartBtn.setText(rb.getString("addtocart"));
+
+        sizeBox.removeAllItems();
+
+        sizeBox.addItem(rb.getString("small"));
+        sizeBox.addItem(rb.getString("medium"));
+        sizeBox.addItem(rb.getString("large"));
+    }
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
-        // TODO add your handling code here:
+        int selectedSize = sizeBox.getSelectedIndex();
+        Utils.switchLanguage();
+        update();
+        sizeBox.setSelectedIndex(selectedSize);
     }//GEN-LAST:event_langBtnActionPerformed
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         this.dispose();
-        new FormClientMainMenu().setVisible(true);
+        new FormClientMainMenu(client, order).setVisible(true);
     }//GEN-LAST:event_backBtnActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormFriesMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormFriesMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormFriesMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormFriesMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
+    private void sizeBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sizeBoxActionPerformed
+        int selectedSize = sizeBox.getSelectedIndex();
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FormFriesMenu().setVisible(true);
-            }
-        });
-    }
+        switch (selectedSize) {
+            case 0 -> currentPrice = SMALL_PRICE;  // Small price
+            case 1 -> currentPrice = MEDIUM_PRICE; // Medium price
+            case 2 -> currentPrice = LARGE_PRICE;  // Large price
+        }
+
+        String priceText = String.format("%.2f", currentPrice);
+        if (Utils.currentLocale.getLanguage().equals("en")) {
+            // In English, put $ before the price
+            priceLbl.setText("Price: $" + priceText);
+        } else if (Utils.currentLocale.getLanguage().equals("fr")) {
+            // In French, put € after the price
+            priceLbl.setText("Prix: " + priceText + "$");
+        }
+    }//GEN-LAST:event_sizeBoxActionPerformed
+
+    private void addToCartBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToCartBtnActionPerformed
+    
+    }//GEN-LAST:event_addToCartBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addToCartBtn;
     private javax.swing.JButton backBtn;
+    private javax.swing.JLabel friesImg;
     private javax.swing.JLabel friesMenuLbl;
     private javax.swing.JButton langBtn;
+    private javax.swing.JLabel priceLbl;
+    private javax.swing.JComboBox<String> sizeBox;
     // End of variables declaration//GEN-END:variables
 }
