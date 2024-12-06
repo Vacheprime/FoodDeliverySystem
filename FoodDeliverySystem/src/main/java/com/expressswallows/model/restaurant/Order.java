@@ -14,8 +14,8 @@ import java.util.Objects;
 public class Order {
     private ArrayList<Food> foods;
     private Client orderedBy;
-    private Restaurant assignedTo;
-    private final LocalDateTime orderDateTime;
+    private int restaurantId;
+    private LocalDateTime orderDateTime;
     private Status status;
     private int orderId;
 
@@ -43,7 +43,20 @@ public class Order {
         this.orderId = -1;
         this.foods = new ArrayList<>();
         this.orderedBy = orderedBy;
-        this.assignedTo = assignedTo;
+        this.restaurantId = assignedTo.getRestaurantId();
+        this.orderDateTime = null;
+    }
+
+    public Order(int restaurantId, Client orderedBy) {
+        // Validate the arguments
+        if (orderedBy == null) {
+            throw new IllegalArgumentException("The arguments cannot be null.");
+        }
+        this.status = Status.IN_PROGRESS;
+        this.orderId = -1;
+        this.foods = new ArrayList<>();
+        this.orderedBy = orderedBy;
+        this.restaurantId = restaurantId;
         this.orderDateTime = null;
     }
 
@@ -59,7 +72,7 @@ public class Order {
         this.orderId = -1;
         this.foods = new ArrayList<>();
         this.orderedBy = orderedBy;
-        this.assignedTo = null;
+        this.restaurantId = -1;
         this.orderDateTime = null;
     }
 
@@ -112,21 +125,21 @@ public class Order {
     }
 
     /**
-     * Getter for the restaurant that is responsible for completing the order.
+     * Getter for the restaurant ID that is responsible for completing the order.
      *
-     * @return the restaurant responsible for completing the order.
+     * @return the restaurant ID responsible for completing the order.
      */
-    public Restaurant getAssignedTo() {
-        return assignedTo;
+    public int getRestaurantId() {
+        return restaurantId;
     }
 
     /**
-     * Setter for the assigned restaurant,
+     * Setter for the assigned restaurant ID.
      *
-     * @param assignedTo the new restaurant in charge of the order.
+     * @param restaurantId the new restaurant ID of the restaurant in charge of the order.
      */
-    public void setAssignedTo(Restaurant assignedTo) {
-        this.assignedTo = assignedTo;
+    public void setRestaurantId(int restaurantId) {
+        this.restaurantId = restaurantId;
     }
 
     /**
@@ -136,6 +149,14 @@ public class Order {
      */
     public LocalDateTime getOrderDateTime() {
         return orderDateTime;
+    }
+
+    /**
+     * Setter for the date and time the order was placed.
+     * @param orderDateTime the date and time the order was placed.
+     */
+    public void setOrderDateTime(LocalDateTime orderDateTime) {
+        this.orderDateTime = orderDateTime;
     }
 
     /**
@@ -170,7 +191,7 @@ public class Order {
         int hash = 7;
         hash = 23 * hash + Objects.hashCode(this.foods);
         hash = 23 * hash + Objects.hashCode(this.orderedBy);
-        hash = 23 * hash + Objects.hashCode(this.assignedTo);
+        hash = 23 * hash + Objects.hashCode(this.restaurantId);
         hash = 23 * hash + Objects.hashCode(this.orderDateTime);
         return hash;
     }
@@ -193,7 +214,7 @@ public class Order {
         if (!Objects.equals(this.orderedBy, other.orderedBy)) {
             return false;
         }
-        if (!Objects.equals(this.assignedTo, other.assignedTo)) {
+        if (!Objects.equals(this.restaurantId, other.restaurantId)) {
             return false;
         }
         return Objects.equals(this.orderDateTime, other.orderDateTime);
@@ -201,6 +222,6 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" + "foods=" + foods + ", orderedBy=" + orderedBy + ", assignedTo=" + assignedTo + ", orderDateTime=" + orderDateTime + '}';
+        return "Order{" + "foods=" + foods + ", orderedBy=" + orderedBy + ", assignedTo=" + restaurantId + ", orderDateTime=" + orderDateTime + '}';
     }
 }

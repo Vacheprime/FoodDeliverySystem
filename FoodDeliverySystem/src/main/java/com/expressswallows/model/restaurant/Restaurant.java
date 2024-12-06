@@ -1,16 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.expressswallows.model.restaurant;
 
-import com.expressswallows.model.menu.factories.FoodFactoryCreator;
 import com.expressswallows.model.menu.fooditems.Food;
 import com.expressswallows.model.restaurant.users.Address;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Queue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -20,6 +15,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 public class Restaurant {
     public static double DELIVERY_TIME_PER_KM = 0.2; // Three minutes per km
+    private int restaurantId;
     private Address location;
     private String name;
     private double balance;
@@ -37,6 +33,14 @@ public class Restaurant {
         this.name = name;
         this.balance = balance;
         this.orderTaskQueue = new LinkedBlockingQueue<>();
+    }
+
+    public int getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(int restaurantId) {
+        this.restaurantId = restaurantId;
     }
 
     /**
@@ -105,6 +109,7 @@ public class Restaurant {
         if (order == null) {
             throw new IllegalArgumentException("Order cannot be null");
         }
+        order.setOrderDateTime(LocalDateTime.now()); // Set the date and time the order was placed
         orderTaskQueue.put(new OrderProcessTask(order));
     }
 
@@ -166,7 +171,7 @@ public class Restaurant {
          * @return the restaurant of the OrderProcess.
          */
         public Restaurant getRestaurant() {
-            return order.getAssignedTo();
+            return order.getRestaurantId();
         }
 
         /**
