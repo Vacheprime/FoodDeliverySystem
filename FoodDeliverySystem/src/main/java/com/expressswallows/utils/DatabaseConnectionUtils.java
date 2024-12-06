@@ -17,6 +17,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -426,9 +427,31 @@ public class DatabaseConnectionUtils {
         return orders;
     }
 
-    // TODO
+    /**
+     * Insert an order.
+     * @param order the order to insert
+     */
     public void insertOrder(Order order) {
-
+        final String SQL = """
+                            INSERT INTO order (OrderTime, Status, ClientID, RestaurantID)
+                            VALUES (?, ?, ?, ?);
+                            """;
+        try (PreparedStatement pstmt = connection.prepareStatement(SQL)) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            pstmt.setString(1, order.getOrderDateTime().format(formatter));
+            pstmt.setString(2, order.getStatus().toString());
+            pstmt.setInt(3, order.getOrderedBy().getClientId());
+            pstmt.setInt(4, order.getRestaurantId());
+            pstmt.executeUpdate();
+            // Get primary key
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    order.setOrderId(rs.getInt(1));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     // TODO
