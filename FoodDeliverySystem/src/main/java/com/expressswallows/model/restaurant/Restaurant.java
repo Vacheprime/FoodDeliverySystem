@@ -4,12 +4,15 @@
  */
 package com.expressswallows.model.restaurant;
 
+import com.expressswallows.model.menu.factories.FoodFactoryCreator;
 import com.expressswallows.model.menu.fooditems.Food;
 import com.expressswallows.model.restaurant.users.Address;
 
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.Queue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Restaurant class is used to represent a restaurant location.
@@ -20,7 +23,8 @@ public class Restaurant {
     private Address location;
     private String name;
     private double balance;
-    private Queue<Order> orderQueue;
+    private final BlockingQueue<OrderProcessTask> orderTaskQueue;
+    private OrderProcessTask currentOrderTask;
 
     /**
      * All argument constructor for a new Restaurant.
@@ -32,7 +36,7 @@ public class Restaurant {
         this.location = location;
         this.name = name;
         this.balance = balance;
-        this.orderQueue = orderQueue;
+        this.orderTaskQueue = new LinkedBlockingQueue<>();
     }
 
     /**
@@ -96,19 +100,24 @@ public class Restaurant {
      * Add an order to the restaurant's queue.
      * This method is synchronized and can be used by
      * multiple threads.
-     * @param category the category of the food item.
-     * @param food the concrete food item.
      */
-    public synchronized void addOrder(String category, String food) {
-        // TODO
+    public synchronized void addOrder(Order order) throws InterruptedException {
+        if (order == null) {
+            throw new IllegalArgumentException("Order cannot be null");
+        }
+        orderTaskQueue.put(new OrderProcessTask(order));
     }
 
     /**
-     * Complete a restaurant's order.
+     * Get the next restaurant's order to be processed.
      * @return the order completed.
      */
-    public synchronized Order completeOrder() {
-        return orderQueue.poll();
+    public synchronized OrderProcessTask processNextOrder() throws InterruptedException {
+        if (currentOrderTask.getOrder().getStatus() == Order.Status.DELIVERED) {
+            this.currentOrderTask = orderTaskQueue.take();
+            return currentOrderTask;
+        }
+        return null;
     }
 
     /**
@@ -128,7 +137,7 @@ public class Restaurant {
                 "location=" + location +
                 ", name='" + name + '\'' +
                 ", balance=" + balance +
-                ", orderQueue=" + orderQueue +
+                ", orderQueue=" + orderTaskQueue +
                 '}';
     }
 
@@ -137,12 +146,10 @@ public class Restaurant {
      */
     public static class OrderProcessTask implements Runnable {
         private Order order;
-        private Restaurant restaurant;
         private LocalTime startTime;
 
-        public OrderProcessTask(Order order, Restaurant restaurant) {
+        public OrderProcessTask(Order order) {
             this.order = order;
-            this.restaurant = restaurant;
             this.startTime = null;
         }
 
@@ -159,7 +166,7 @@ public class Restaurant {
          * @return the restaurant of the OrderProcess.
          */
         public Restaurant getRestaurant() {
-            return restaurant;
+            return order.getAssignedTo();
         }
 
         /**
@@ -204,8 +211,8 @@ public class Restaurant {
             // Get coordinates
             double x1 = order.getOrderedBy().getAddress().mapAddressToX();
             double y1 = order.getOrderedBy().getAddress().mapAddressToY();
-            double x2 = restaurant.getLocation().mapAddressToX();
-            double y2 = restaurant.getLocation().mapAddressToY();
+            double x2 = getRestaurant().getLocation().mapAddressToX();
+            double y2 = getRestaurant().getLocation().mapAddressToY();
             // Calculate distance and round it
             int distance = (int) Math.round(Math.sqrt( Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2) ) );
             return (int) (distance * Restaurant.DELIVERY_TIME_PER_KM);
