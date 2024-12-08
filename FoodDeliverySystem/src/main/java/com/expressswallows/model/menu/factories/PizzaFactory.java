@@ -27,18 +27,18 @@ public class PizzaFactory extends AbstractFactory {
 
     @Override
     public Pizza createPizza(String request) {
-        if (request.equals("Cheese")) {
+        if (request.equalsIgnoreCase("Cheese")) {
             return new CheesePizza();
-        } else if (request.equals("Pepperoni")) {
+        } else if (request.equalsIgnoreCase("Pepperoni")) {
             return new PepperoniPizza();
-        } else if (request.equals("All dressed")) {
+        } else if (request.equalsIgnoreCase("All dressed")) {
             return new AllDressedPizza();
         }
         return null;
     }
 
     @Override
-    public Drink createDrink(String request, String size) {
+    public Drink createDrink(int request, int size) {
         return null;
     }
 
@@ -48,7 +48,7 @@ public class PizzaFactory extends AbstractFactory {
     }
 
     @Override
-    public Fries createFries(String request) {
+    public Fries createFries(int request) {
         return null;
     }
 }

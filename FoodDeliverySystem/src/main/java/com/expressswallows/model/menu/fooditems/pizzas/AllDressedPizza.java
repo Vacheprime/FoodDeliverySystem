@@ -16,6 +16,7 @@ public class AllDressedPizza extends Pizza {
      */
     public AllDressedPizza() {
         super(cookTime, price);
+        this.prepare();
     }
 
     /**
@@ -27,4 +28,10 @@ public class AllDressedPizza extends Pizza {
             addTopping(topping);
         }
     }
+    
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+    
 }

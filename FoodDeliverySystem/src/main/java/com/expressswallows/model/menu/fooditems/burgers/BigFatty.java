@@ -14,6 +14,7 @@ public class BigFatty extends Burger {
      */
     public BigFatty(BurgerSauce sauce) {
         super(cookTime, price, sauce);
+        this.prepare();
     }
 
     /**
@@ -23,4 +24,13 @@ public class BigFatty extends Burger {
     public void prepare() {
         this.setSpiciness(spiciness);
     }
+
+    @Override
+    public String toString() {
+        return "Big Fatty " + super.toString();
+    }
+    
+    
+    
+    
 }

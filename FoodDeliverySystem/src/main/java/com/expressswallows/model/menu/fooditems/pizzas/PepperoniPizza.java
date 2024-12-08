@@ -15,6 +15,7 @@ public class PepperoniPizza extends Pizza {
      */
     public PepperoniPizza() {
         super(cookTime, price);
+        this.prepare();
     }
 
     /**
@@ -26,4 +27,12 @@ public class PepperoniPizza extends Pizza {
             addTopping(topping);
         }
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+    
+    
+    
 }

@@ -201,18 +201,39 @@ public class FormLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutBtnActionPerformed
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
-          if (emailTB.getText().equals(e1.getEmail()) && passwordTB.getText().equals(e1.getPassword()) ||
+
+        /*
+        var database = DatabaseUtilsConnection.getInstance();
+        Client client = database.getClientByCredentials(emailTB.getText(), passwordTB.getText());
+        Employee employee = database.getEmployeeByCredentials(emailTB.getText(), passwordTB.getText());
+        database.CloseConnection();
+
+        if (client != null) {
+            Order order = new Order(client);
+            this.dispose();
+            new FormClientMainMenu(client, order).setVisible(true);
+            return;
+        } else if (employee != null) {
+            this.dispose();
+            new FormEmployeeMainMenu(employee).setVisible(true);
+        } else {
+            errorLbl.setVisible(true);
+        }
+
+         */
+
+
+        if (emailTB.getText().equals(e1.getEmail()) && passwordTB.getText().equals(e1.getPassword()) ||
               emailTB.getText().equals(e2.getEmail()) && passwordTB.getText().equals(e2.getPassword())) {
         this.dispose();
         new FormEmployeeMainMenu(e1).setVisible(true);  
     }
     for (Client client : clients) {
         if (emailTB.getText().equals(client.getEmail()) && passwordTB.getText().equals(client.getPassword())) {
-            setVisible(false);
-
+            
             Order order = new Order(client);
-
-            new FormClientMainMenu(client,order).setVisible(true);
+            this.dispose();
+            new FormClientMainMenu(client, order).setVisible(true);
             return;
         }
     }

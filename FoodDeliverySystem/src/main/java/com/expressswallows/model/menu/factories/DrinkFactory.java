@@ -30,29 +30,29 @@ public class DrinkFactory extends AbstractFactory {
     }
 
     @Override
-    public Drink createDrink(String request, String size) {
-        if (request.equals("Coke")) {
-            if (size.equals("Small")) {
+    public Drink createDrink(int request, int size) {
+        if (request == 1) {
+            if (size == 0) {
                 return new Coke(Drink.Size.SMALL);
-            } else if (size.equals("Medium")) {
+            } else if (size == 1) {
                 return new Coke(Drink.Size.MEDIUM);
-            } else if (size.equals("Large")) {
+            } else if (size == 2) {
                 return new Coke(Drink.Size.LARGE);
             }
-        } else if (request.equals("Water")) {
-            if (size.equals("Small")) {
+        } else if (request == 0) {
+            if (size == 0) {
                 return new Water(Drink.Size.SMALL);
-            } else if (size.equals("Medium")) {
+            } else if (size == 1) {
                 return new Water(Drink.Size.MEDIUM);
-            } else if (size.equals("Large")) {
+            } else if (size == 2) {
                 return new Water(Drink.Size.LARGE);
             }
-        } else if (request.equals("SevenUp")) {
-            if (size.equals("Small")) {
+        } else if (request == 2) {
+            if (size == 0) {
                 return new SevenUp(Drink.Size.SMALL);
-            } else if (size.equals("Medium")) {
+            } else if (size == 1) {
                 return new SevenUp(Drink.Size.MEDIUM);
-            } else if (size.equals("Large")) {
+            } else if (size == 2) {
                 return new SevenUp(Drink.Size.LARGE);
             }
         }
@@ -65,7 +65,7 @@ public class DrinkFactory extends AbstractFactory {
     }
 
     @Override
-    public Fries createFries(String request) {
+    public Fries createFries(int request) {
         return null;
     }
 }

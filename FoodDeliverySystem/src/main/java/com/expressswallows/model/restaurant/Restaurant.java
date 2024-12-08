@@ -6,6 +6,7 @@ import com.expressswallows.model.restaurant.users.Address;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -33,6 +34,10 @@ public class Restaurant {
         this.name = name;
         this.balance = balance;
         this.orderTaskQueue = new LinkedBlockingQueue<>();
+    }
+
+    public BlockingQueue<OrderProcessTask> getOrderTaskQueue() {
+        return orderTaskQueue;
     }
 
     public int getRestaurantId() {
@@ -110,7 +115,7 @@ public class Restaurant {
             throw new IllegalArgumentException("Order cannot be null");
         }
         order.setOrderDateTime(LocalDateTime.now()); // Set the date and time the order was placed
-        orderTaskQueue.put(new OrderProcessTask(order));
+        orderTaskQueue.put(new OrderProcessTask(order, this));
     }
 
     /**
@@ -138,12 +143,7 @@ public class Restaurant {
 
     @Override
     public String toString() {
-        return "Restaurant{" +
-                "location=" + location +
-                ", name='" + name + '\'' +
-                ", balance=" + balance +
-                ", orderQueue=" + orderTaskQueue +
-                '}';
+        return name + ", " + location;
     }
 
     /**
@@ -151,15 +151,18 @@ public class Restaurant {
      */
     public static class OrderProcessTask implements Runnable {
         private Order order;
+        private Restaurant restaurant;
         private LocalTime startTime;
 
-        public OrderProcessTask(Order order) {
+        public OrderProcessTask(Order order, Restaurant restaurant) {
             this.order = order;
+            this.restaurant = restaurant;
             this.startTime = null;
         }
 
         /**
          * Get the order of the OrderProcess
+         *
          * @return the order of the OrderProcess
          */
         public Order getOrder() {
@@ -168,14 +171,16 @@ public class Restaurant {
 
         /**
          * Get the restaurant of the OrderProcess.
+         *
          * @return the restaurant of the OrderProcess.
          */
         public Restaurant getRestaurant() {
-            return order.getRestaurantId();
+            return restaurant;
         }
 
         /**
          * Get the start time of the OrderProcess.
+         *
          * @return the start time of the OrderProcess or null if not started.
          */
         public LocalTime getStartTime() {
@@ -185,9 +190,10 @@ public class Restaurant {
         /**
          * Get the estimated amount of minutes remaining until
          * completion of the order.
+         *
          * @return the estimated remaining time in minutes until order completion.
          */
-        public int getEstimatedRemainingTime() {
+        public int getEstimatedRemainingTime(Order order) {
             if (startTime == null) {
                 return Integer.MAX_VALUE; // The remaining time is undefined
             }
@@ -196,31 +202,71 @@ public class Restaurant {
             LocalTime currentTime = LocalTime.now();
             int minutesPassed = (int) Duration.between(startTime, currentTime).toMinutes();
             // Get the total process time
-            int processTime = getTotalProcessTime();
+            int processTime = getTotalProcessTime(order);
             return processTime - minutesPassed;
         }
 
         /**
+         * @return
+         */
+        public int calculateQueueTime(Restaurant restaurant) {
+            int totalCookTime = 0;
+            for (OrderProcessTask task : restaurant.orderTaskQueue) {
+                Order order = task.getOrder();
+                totalCookTime += order.calculateTotalCookTime();
+            }
+            return totalCookTime;
+        }
+
+        /**
          * Get the total processing time.
+         *
          * @return the total processing time.
          */
-        public int getTotalProcessTime() {
-            return order.calculateTotalCookTime() + getDeliveryTime();
+        public int getTotalProcessTime(Order order) {
+            return order.calculateTotalCookTime() + getDeliveryTime(order, getRestaurant());
         }
 
         /**
          * Get the delivery time of the order.
+         *
          * @return the delivery time of the order.
          */
-        public int getDeliveryTime() {
+        public int getDeliveryTime(Order order, Restaurant restaurant) {
             // Get coordinates
             double x1 = order.getOrderedBy().getAddress().mapAddressToX();
             double y1 = order.getOrderedBy().getAddress().mapAddressToY();
-            double x2 = getRestaurant().getLocation().mapAddressToX();
-            double y2 = getRestaurant().getLocation().mapAddressToY();
+            double x2 = restaurant.getLocation().mapAddressToX();
+            double y2 = restaurant.getLocation().mapAddressToY();
             // Calculate distance and round it
-            int distance = (int) Math.round(Math.sqrt( Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2) ) );
+            int distance = (int) Math.round(Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)));
             return (int) (distance * Restaurant.DELIVERY_TIME_PER_KM);
+        }
+
+
+        /***
+         *
+         * @param order
+         * @param availableRestaurants
+         * @return
+         */
+        public Restaurant findRestaurant(Order order, List<Restaurant> availableRestaurants) {
+            Restaurant bestRestaurant = null;
+            int shortestTime = Integer.MAX_VALUE;
+
+            for (Restaurant restaurant : availableRestaurants) {
+                int queueTime = calculateQueueTime(restaurant);
+
+                int deliveryTime = getDeliveryTime(order, restaurant);
+
+                int totalTime = queueTime + deliveryTime;
+
+                if (totalTime < shortestTime) {
+                    shortestTime = totalTime;
+                    bestRestaurant = restaurant;
+                }
+            }
+            return bestRestaurant;
         }
 
         /**
@@ -232,14 +278,14 @@ public class Restaurant {
             this.startTime = LocalTime.now();
             try {
                 // Prepare the items
-                for (Food f: order.getFoods()) {
+                for (Food f : order.getFoods()) {
                     f.prepare();
                 }
                 // Wait for cook time
                 Thread.sleep((long) order.calculateTotalCookTime() * 60 * 1000);
                 // Update to delivering
                 order.setStatus(Order.Status.DELIVERING);
-                Thread.sleep((long) getDeliveryTime() * 60 * 1000);
+                Thread.sleep((long) getDeliveryTime(order, restaurant) * 60 * 1000);
                 // Update to delivered
                 order.setStatus(Order.Status.DELIVERED);
             } catch (InterruptedException e) {
@@ -247,6 +293,4 @@ public class Restaurant {
             }
         }
     }
-
 }
-

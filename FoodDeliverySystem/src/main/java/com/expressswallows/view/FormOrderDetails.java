@@ -4,10 +4,17 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.Main;
+import com.expressswallows.model.menu.fooditems.Food;
 import com.expressswallows.model.restaurant.Order;
+import com.expressswallows.model.restaurant.Payment;
+import com.expressswallows.model.restaurant.Restaurant;
+import com.expressswallows.model.restaurant.users.Address;
 import com.expressswallows.model.restaurant.users.Client;
 import com.expressswallows.utils.Utils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -16,18 +23,40 @@ import java.util.ResourceBundle;
  */
 public class FormOrderDetails extends javax.swing.JFrame {
 
+
+
+
+
     Client client;
     Order order;
-    private final int orderNumber = order.getOrderId();
+    Restaurant restaurant;
+    Payment payment;
+    //List of restaurants from the database
     /**
      * Creates new form FormOrderDetails
      */
+    
+    public FormOrderDetails(Client client, Order order, Payment payment) {
+        initComponents();
+        this.client = client;
+        this.order = order;
+        orderListTA.setText(foodList(order));
+        Restaurant.OrderProcessTask task = new Restaurant.OrderProcessTask(order);
+        this.restaurant = task.findRestaurant(order, Main.restaurants);
+        this.restaurant.addPayment(this.payment = payment);
+        update();
+
+    }
     
     public FormOrderDetails(Client client, Order order) {
         initComponents();
         this.client = client;
         this.order = order;
+        orderListTA.setText(foodList(order));
+        Restaurant.OrderProcessTask task = new Restaurant.OrderProcessTask(order);
+        this.restaurant = task.findRestaurant(order, Main.restaurants);
         update();
+
     }
 
     /**
@@ -42,7 +71,7 @@ public class FormOrderDetails extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         backBtn = new javax.swing.JButton();
-        OrderLbl = new javax.swing.JLabel();
+        orderLbl = new javax.swing.JLabel();
         locationAssignedLbl = new javax.swing.JLabel();
         statusLbl = new javax.swing.JLabel();
         etaLbl = new javax.swing.JLabel();
@@ -63,8 +92,8 @@ public class FormOrderDetails extends javax.swing.JFrame {
             }
         });
 
-        OrderLbl.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        OrderLbl.setText("Order#");
+        orderLbl.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        orderLbl.setText("Order#");
 
         locationAssignedLbl.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         locationAssignedLbl.setText("Location assigned:");
@@ -73,8 +102,9 @@ public class FormOrderDetails extends javax.swing.JFrame {
         statusLbl.setText("Status:");
 
         etaLbl.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        etaLbl.setText("Estimate time of delivery:");
+        etaLbl.setText("Estimate time of arrival:");
 
+        orderListTA.setEditable(false);
         orderListTA.setColumns(20);
         orderListTA.setRows(5);
         jScrollPane2.setViewportView(orderListTA);
@@ -95,9 +125,9 @@ public class FormOrderDetails extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(102, 102, 102)
-                        .addComponent(OrderLbl)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(orderLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(langBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(32, 32, 32)
@@ -105,8 +135,8 @@ public class FormOrderDetails extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(locationAssignedLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
                                 .addComponent(statusLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(etaLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(etaLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -115,7 +145,7 @@ public class FormOrderDetails extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(backBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
-                    .addComponent(OrderLbl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(orderLbl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(langBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(locationAssignedLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -134,16 +164,26 @@ public class FormOrderDetails extends javax.swing.JFrame {
     private void update() {
         ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
         langBtn.setText(rb.getString("lang"));
-        OrderLbl.setText(rb.getString("order"));
         backBtn.setText(rb.getString("back"));
-        etaLbl.setText(rb.getString("eta"));
-        locationAssignedLbl.setText(rb.getString("locationassigned"));
-        statusLbl.setText(rb.getString("status"));
+        
+        if (Utils.currentLocale.getLanguage().equals("en")) {
+            orderLbl.setText(rb.getString("order") + order.getOrderId());
+            etaLbl.setText(rb.getString("eta") + order.calculateTotalCookTime());
+            locationAssignedLbl.setText(rb.getString("locationassigned") + restaurant.toString());
+            statusLbl.setText(rb.getString("status") + order.getStatus());
+        } else if (Utils.currentLocale.getLanguage().equals("fr")) {
+            orderLbl.setText(rb.getString("order") + order.getOrderId());
+            etaLbl.setText(rb.getString("eta") + order.calculateTotalCookTime());
+            locationAssignedLbl.setText(rb.getString("locationassigned") + restaurant.getLocation());
+            statusLbl.setText(rb.getString("status") + order.getStatus());
+        }
+
     }
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
+        Order newOrder = new Order(client);
         this.dispose();
-        new FormClientMainMenu(client, order).setVisible(true);
+        new FormClientMainMenu(client, newOrder).setVisible(true);
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
@@ -151,8 +191,17 @@ public class FormOrderDetails extends javax.swing.JFrame {
         update();
     }//GEN-LAST:event_langBtnActionPerformed
 
+    private String foodList(Order order) {
+        StringBuilder foodDetails = new StringBuilder();
+    
+        for (Food food : order.getFoods()) {
+            foodDetails.append(food.toString()).append("\n");           
+        }
+        return foodDetails.toString();
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel OrderLbl;
     private javax.swing.JButton backBtn;
     private javax.swing.JLabel etaLbl;
     private javax.swing.JScrollPane jScrollPane1;
@@ -160,6 +209,7 @@ public class FormOrderDetails extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton langBtn;
     private javax.swing.JLabel locationAssignedLbl;
+    private javax.swing.JLabel orderLbl;
     private javax.swing.JTextArea orderListTA;
     private javax.swing.JLabel statusLbl;
     // End of variables declaration//GEN-END:variables

@@ -30,22 +30,22 @@ public class HotdogFactory extends AbstractFactory {
     }
 
     @Override
-    public Drink createDrink(String request, String size) {
+    public Drink createDrink(int request, int size) {
         return null;
     }
 
     @Override
     public Hotdog createHotdog(String request) {
-        if (request.equals("Glizzy Gobbler")) {
+        if (request.equalsIgnoreCase("Glizzy Gobbler")) {
             return new GlizzyGobbler(Hotdog.HotdogBun.SOGGY);
-        } else if (request.equals("Millimeter Defeater")) {
+        } else if (request.equalsIgnoreCase("Millimeter Defeater")) {
             return new MillimeterDefeater(Hotdog.HotdogBun.WHITE);
         }
         return null;
     }
 
     @Override
-    public Fries createFries(String request) {
+    public Fries createFries(int request) {
         return null;
     }
 }

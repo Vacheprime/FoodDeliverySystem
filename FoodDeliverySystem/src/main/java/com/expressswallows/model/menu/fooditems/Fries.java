@@ -105,6 +105,6 @@ public class Fries extends Food {
 
     @Override
     public String toString() {
-        return "Fries{" + "size=" + size + '}';
+        return size + " fries";
     }
 }

@@ -14,21 +14,18 @@ import java.util.ResourceBundle;
  *
  * @author shahi
  */
-public class FormRestaurentDetails extends javax.swing.JFrame {
+public class FormRestaurantDetails extends javax.swing.JFrame {
 
     /**
      * Creates new form FormRestaurentDetails
      */
-    Restaurant restaurent;
+    Restaurant restaurant;
     Employee employee;
-    public FormRestaurentDetails(Restaurant restaurant, Employee employee) {
+    public FormRestaurantDetails(Restaurant restaurant, Employee employee) {
         
         initComponents();
-        this.restaurent = restaurant;
+        this.restaurant = restaurant;
         this.employee = employee;
-        locationTB.setText(restaurant.toString()); //getAddress
-        numOrderTB.setText(restaurant.toString()); //get # of orders
-        balanceTB.setText(restaurant.toString()); //getBalance
         update();
     }
 
@@ -44,13 +41,11 @@ public class FormRestaurentDetails extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         titleLbl = new javax.swing.JLabel();
         locationLbl = new javax.swing.JLabel();
-        locationTB = new javax.swing.JTextField();
         numOrdersLbl = new javax.swing.JLabel();
-        numOrderTB = new javax.swing.JTextField();
         balanceLbl = new javax.swing.JLabel();
-        balanceTB = new javax.swing.JTextField();
         backBtn = new javax.swing.JButton();
         langBtn = new javax.swing.JButton();
+        nameLbl = new javax.swing.JLabel();
 
         jButton1.setText("jButton1");
 
@@ -61,15 +56,9 @@ public class FormRestaurentDetails extends javax.swing.JFrame {
 
         locationLbl.setText("Location: ");
 
-        locationTB.setEnabled(false);
-
         numOrdersLbl.setText("Number of Orders:");
 
-        numOrderTB.setEnabled(false);
-
         balanceLbl.setText("Balance:");
-
-        balanceTB.setEnabled(false);
 
         backBtn.setText("Back");
         backBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -85,34 +74,28 @@ public class FormRestaurentDetails extends javax.swing.JFrame {
             }
         });
 
+        nameLbl.setText("Name:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(86, 86, 86)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(numOrdersLbl)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(numOrderTB, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(locationLbl)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(locationTB, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(balanceLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(balanceTB, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addComponent(backBtn)
-                .addGap(29, 29, 29)
-                .addComponent(titleLbl)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(titleLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(langBtn)
                 .addGap(37, 37, 37))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(92, 92, 92)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(nameLbl)
+                    .addComponent(numOrdersLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(locationLbl)
+                    .addComponent(balanceLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,19 +105,15 @@ public class FormRestaurentDetails extends javax.swing.JFrame {
                     .addComponent(titleLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(backBtn)
                     .addComponent(langBtn))
-                .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(locationLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(locationTB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(55, 55, 55)
+                .addComponent(nameLbl)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(locationLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(numOrdersLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(numOrderTB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(balanceLbl)
-                    .addComponent(balanceTB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(157, Short.MAX_VALUE))
+                .addComponent(numOrdersLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(balanceLbl)
+                .addContainerGap(115, Short.MAX_VALUE))
         );
 
         pack();
@@ -143,10 +122,11 @@ public class FormRestaurentDetails extends javax.swing.JFrame {
     private void update() {
         ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
         titleLbl.setText(rb.getString("restdet"));
-        locationLbl.setText(rb.getString("location"));
+        nameLbl.setText(rb.getString("name") + restaurant.getName());
+        locationLbl.setText(rb.getString("location") + restaurant.getLocation().toString());
         langBtn.setText(rb.getString("lang"));
-        balanceLbl.setText(rb.getString("balance"));
-        numOrdersLbl.setText(rb.getString("numorders"));
+        balanceLbl.setText(rb.getString("balance") + restaurant.getBalance());
+        numOrdersLbl.setText(rb.getString("numorders")); //need a getNumberOfOrders
     }
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
@@ -163,12 +143,10 @@ public class FormRestaurentDetails extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
     private javax.swing.JLabel balanceLbl;
-    private javax.swing.JTextField balanceTB;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton langBtn;
     private javax.swing.JLabel locationLbl;
-    private javax.swing.JTextField locationTB;
-    private javax.swing.JTextField numOrderTB;
+    private javax.swing.JLabel nameLbl;
     private javax.swing.JLabel numOrdersLbl;
     private javax.swing.JLabel titleLbl;
     // End of variables declaration//GEN-END:variables
