@@ -8,7 +8,6 @@ import java.time.LocalDate;
  * @author shahi
  */
 public class Client extends Person{
-    private static int nextID = 1;
     private int clientId;
     private Address address;
 
@@ -33,7 +32,7 @@ public class Client extends Person{
         if (!Utils.validateClientAge(dob)) {
             throw new IllegalArgumentException("The client must be at least 16 years of age.");
         }
-        this.clientId = nextID++;
+        this.clientId = -1;
         this.address = address;
     }
 
@@ -43,6 +42,10 @@ public class Client extends Person{
      */
     public int getClientId() {
         return clientId;
+    }
+
+    public void setClientId(int clientId) {
+        this.clientId = clientId;
     }
 
     /**

@@ -4,27 +4,34 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.users.Client;
+import com.expressswallows.utils.Utils;
+
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import java.util.ResourceBundle;
 
 /**
  *
  * @author shahi
  */
 public class FormClientMainMenu extends javax.swing.JFrame {
-
-    ImageIcon burgerImage = new ImageIcon("burger.jpg");
-    ImageIcon pizzaImage = new ImageIcon("pizza.jpg");
-    ImageIcon hotdogImage = new ImageIcon("hotdog.jpg");
-    ImageIcon friesImage = new ImageIcon("fries.jpg");
-    ImageIcon drinksImage = new ImageIcon("drinks.jpg");
+    Order order;
+    Client client;
+    ImageIcon burgerImage = new ImageIcon("FoodDeliverySystem/burger.jpg");
+    ImageIcon pizzaImage = new ImageIcon("FoodDeliverySystem/pizza.jpg");
+    ImageIcon hotdogImage = new ImageIcon("FoodDeliverySystem/hotdog.jpg");
+    ImageIcon friesImage = new ImageIcon("FoodDeliverySystem/fries.jpg");
+    ImageIcon drinksImage = new ImageIcon("FoodDeliverySystem/drinks.jpg");
     
     /**
      * Creates new form frmClientMainMenu
      */
-    public FormClientMainMenu() {
+    public FormClientMainMenu(Client client, Order order) {
         initComponents();
+        this.client=client;
+        this.order=order;
         burgerLbl.setText("");
         burgerLbl.setIcon(burgerImage);
         pizzaLbl.setText("");
@@ -35,6 +42,7 @@ public class FormClientMainMenu extends javax.swing.JFrame {
         friesLbl.setIcon(friesImage);
         drinksLbl.setText("");
         drinksLbl.setIcon(drinksImage);
+        update();
     }
 
     /**
@@ -60,6 +68,7 @@ public class FormClientMainMenu extends javax.swing.JFrame {
         drinksLbl = new javax.swing.JLabel();
         drinksBtn = new javax.swing.JButton();
         viewCartBtn = new javax.swing.JButton();
+        viewPreOrderBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -127,6 +136,18 @@ public class FormClientMainMenu extends javax.swing.JFrame {
         });
 
         viewCartBtn.setText("View Cart");
+        viewCartBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewCartBtnActionPerformed(evt);
+            }
+        });
+
+        viewPreOrderBtn.setText("View Previous Orders");
+        viewPreOrderBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewPreOrderBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -135,13 +156,6 @@ public class FormClientMainMenu extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(langBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(75, 75, 75)
-                        .addComponent(titleLbl)
-                        .addGap(84, 84, 84)
-                        .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -156,21 +170,34 @@ public class FormClientMainMenu extends javax.swing.JFrame {
                                 .addComponent(pizzaBtn)
                                 .addGap(93, 93, 93))
                             .addComponent(hotdogLbl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
-                            .addComponent(pizzaLbl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(drinksLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(drinksBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(viewCartBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)))
-                .addGap(82, 82, 82))
+                            .addComponent(pizzaLbl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(82, 82, 82))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(drinksLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(drinksBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                                .addComponent(viewCartBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(langBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(75, 75, 75)
+                                .addComponent(titleLbl)
+                                .addGap(65, 65, 65)
+                                .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(67, 67, 67))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(137, 137, 137)
                 .addComponent(friesBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(hotdogBtn)
                 .addGap(175, 175, 175))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(239, 239, 239)
+                .addComponent(viewPreOrderBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,7 +207,9 @@ public class FormClientMainMenu extends javax.swing.JFrame {
                     .addComponent(titleLbl)
                     .addComponent(langBtn)
                     .addComponent(logoutBtn))
-                .addGap(29, 29, 29)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(viewPreOrderBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(burgerLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pizzaLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -201,11 +230,25 @@ public class FormClientMainMenu extends javax.swing.JFrame {
                     .addComponent(drinksLbl)
                     .addComponent(drinksBtn)
                     .addComponent(viewCartBtn))
-                .addContainerGap(674, Short.MAX_VALUE))
+                .addContainerGap(668, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void update() {
+        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
+        langBtn.setText(rb.getString("lang"));
+        logoutBtn.setText(rb.getString("logout"));
+        burgerBtn.setText(rb.getString("burgermenu"));
+        pizzaBtn.setText(rb.getString("pizzamenu"));
+        hotdogBtn.setText(rb.getString("hotdogmenu"));
+        friesBtn.setText(rb.getString("friesmenu"));
+        drinksBtn.setText(rb.getString("drinksmenu"));
+        viewCartBtn.setText(rb.getString("viewcart"));
+        viewPreOrderBtn.setText(rb.getString("viewprev"));
+
+    }
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
         int a = JOptionPane.showConfirmDialog(null, "Do you want to log out the application","Select",JOptionPane.YES_NO_OPTION);
@@ -217,68 +260,43 @@ public class FormClientMainMenu extends javax.swing.JFrame {
 
     private void burgerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_burgerBtnActionPerformed
         this.dispose();
-        new FormBurgerMenu().setVisible(true);
+        new FormBurgerMenu(client, order).setVisible(true);
     }//GEN-LAST:event_burgerBtnActionPerformed
 
     private void pizzaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pizzaBtnActionPerformed
         this.dispose();
-        new FormPizzaMenu().setVisible(true);
+        new FormPizzaMenu(client,order).setVisible(true);
     }//GEN-LAST:event_pizzaBtnActionPerformed
 
     private void hotdogBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hotdogBtnActionPerformed
         this.dispose();
-        new FormHotDogMenu().setVisible(true);
+        new FormHotDogMenu(client,order).setVisible(true);
     }//GEN-LAST:event_hotdogBtnActionPerformed
 
     private void friesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_friesBtnActionPerformed
         this.dispose();
-        new FormFriesMenu().setVisible(true);
+        new FormFriesMenu(client,order).setVisible(true);
     }//GEN-LAST:event_friesBtnActionPerformed
 
     private void drinksBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drinksBtnActionPerformed
         this.dispose();
-        new FormDrinksMenu().setVisible(true);
+        new FormDrinksMenu(client,order).setVisible(true);
     }//GEN-LAST:event_drinksBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
-        // TODO add your handling code here:
+        Utils.switchLanguage();
+        update();
     }//GEN-LAST:event_langBtnActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormClientMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormClientMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormClientMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormClientMainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
+    private void viewCartBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewCartBtnActionPerformed
+        this.dispose();
+        new FormViewCart(client,order).setVisible(true);
+    }//GEN-LAST:event_viewCartBtnActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FormClientMainMenu().setVisible(true);
-            }
-        });
-    }
+    private void viewPreOrderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewPreOrderBtnActionPerformed
+        this.dispose();
+        new FormViewOrders(client, order).setVisible(true);
+    }//GEN-LAST:event_viewPreOrderBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton burgerBtn;
@@ -295,5 +313,6 @@ public class FormClientMainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel pizzaLbl;
     private javax.swing.JLabel titleLbl;
     private javax.swing.JButton viewCartBtn;
+    private javax.swing.JButton viewPreOrderBtn;
     // End of variables declaration//GEN-END:variables
 }
