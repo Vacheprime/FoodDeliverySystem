@@ -4,13 +4,17 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.Main;
 import com.expressswallows.model.menu.fooditems.Food;
 import com.expressswallows.model.restaurant.Order;
+import com.expressswallows.model.restaurant.Payment;
 import com.expressswallows.model.restaurant.Restaurant;
 import com.expressswallows.model.restaurant.users.Address;
 import com.expressswallows.model.restaurant.users.Client;
 import com.expressswallows.utils.Utils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -20,21 +24,39 @@ import java.util.ResourceBundle;
 public class FormOrderDetails extends javax.swing.JFrame {
 
 
-    Restaurant restaurant = new Restaurant(new Address("","1","H2R 1G1",Address.City.Montreal), "BBQ", 0);;
+
+
 
     Client client;
     Order order;
+    Restaurant restaurant;
+    Payment payment;
+    //List of restaurants from the database
     /**
      * Creates new form FormOrderDetails
      */
+    
+    public FormOrderDetails(Client client, Order order, Payment payment) {
+        initComponents();
+        this.client = client;
+        this.order = order;
+        orderListTA.setText(foodList(order));
+        Restaurant.OrderProcessTask task = new Restaurant.OrderProcessTask(order);
+        this.restaurant = task.findRestaurant(order, Main.restaurants);
+        this.restaurant.addPayment(this.payment = payment);
+        update();
+
+    }
     
     public FormOrderDetails(Client client, Order order) {
         initComponents();
         this.client = client;
         this.order = order;
         orderListTA.setText(foodList(order));
+        Restaurant.OrderProcessTask task = new Restaurant.OrderProcessTask(order);
+        this.restaurant = task.findRestaurant(order, Main.restaurants);
         update();
-        this.restaurant = new Restaurant(new Address("","1","H2R 1G1",Address.City.Montreal));
+
     }
 
     /**
@@ -80,7 +102,7 @@ public class FormOrderDetails extends javax.swing.JFrame {
         statusLbl.setText("Status:");
 
         etaLbl.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        etaLbl.setText("Estimate time of delivery:");
+        etaLbl.setText("Estimate time of arrival:");
 
         orderListTA.setEditable(false);
         orderListTA.setColumns(20);
@@ -103,9 +125,9 @@ public class FormOrderDetails extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(51, 51, 51)
-                        .addComponent(orderLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(orderLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(langBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(32, 32, 32)
@@ -147,7 +169,7 @@ public class FormOrderDetails extends javax.swing.JFrame {
         if (Utils.currentLocale.getLanguage().equals("en")) {
             orderLbl.setText(rb.getString("order") + order.getOrderId());
             etaLbl.setText(rb.getString("eta") + order.calculateTotalCookTime());
-            locationAssignedLbl.setText(rb.getString("locationassigned") + restaurant.getLocation());
+            locationAssignedLbl.setText(rb.getString("locationassigned") + restaurant.toString());
             statusLbl.setText(rb.getString("status") + order.getStatus());
         } else if (Utils.currentLocale.getLanguage().equals("fr")) {
             orderLbl.setText(rb.getString("order") + order.getOrderId());
@@ -155,8 +177,7 @@ public class FormOrderDetails extends javax.swing.JFrame {
             locationAssignedLbl.setText(rb.getString("locationassigned") + restaurant.getLocation());
             statusLbl.setText(rb.getString("status") + order.getStatus());
         }
-        
-        
+
     }
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed

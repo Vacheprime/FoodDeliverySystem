@@ -4,6 +4,7 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.Main;
 import com.expressswallows.model.restaurant.Restaurant;
 import com.expressswallows.model.restaurant.users.Employee;
 import com.expressswallows.utils.Utils;
@@ -19,7 +20,7 @@ import javax.swing.JOptionPane;
 public class FormEmployeeMainMenu extends javax.swing.JFrame {
 
 
-    List<Restaurant> restaurants;
+    List<Restaurant> restaurants = Main.restaurants;
     Employee employee;
     ImageIcon restaurant = new ImageIcon("FoodDeliverySystem/restaurants.jpg");
     ImageIcon rest2 = new ImageIcon("FoodDeliverySystem/rest2.jpg");
@@ -249,6 +250,8 @@ public class FormEmployeeMainMenu extends javax.swing.JFrame {
         new FormRestaurentDetails(restaurant1, employee).setVisible(true);
 
          */
+        this.dispose();
+        new FormRestaurantDetails(restaurants.get(0),employee).setVisible(true);
     }//GEN-LAST:event_view1BtnActionPerformed
 
     private void view2BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view2BtnActionPerformed
@@ -260,6 +263,8 @@ public class FormEmployeeMainMenu extends javax.swing.JFrame {
         new FormRestaurentDetails(restaurant1, employee).setVisible(true);
 
          */
+        this.dispose();
+        new FormRestaurantDetails(restaurants.get(1),employee).setVisible(true);
     }//GEN-LAST:event_view2BtnActionPerformed
 
     private void view3BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view3BtnActionPerformed

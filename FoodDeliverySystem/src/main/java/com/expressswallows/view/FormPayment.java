@@ -191,8 +191,9 @@ public class FormPayment extends javax.swing.JFrame {
         //database.CloseConnection();
 
         FormViewOrders.addOrderToList(order);
+        Payment payment = new Payment(price, client);
         this.dispose();
-        new FormOrderDetails(client, order).setVisible(true);
+        new FormOrderDetails(client, order, payment).setVisible(true);
     }//GEN-LAST:event_confirmBtnActionPerformed
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
