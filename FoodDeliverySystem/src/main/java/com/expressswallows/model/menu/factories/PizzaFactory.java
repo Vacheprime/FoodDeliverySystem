@@ -27,11 +27,11 @@ public class PizzaFactory extends AbstractFactory {
 
     @Override
     public Pizza createPizza(String request) {
-        if (request.equalsIgnoreCase("Cheese")) {
+        if (request.equalsIgnoreCase("CheesePizza")) {
             return new CheesePizza();
-        } else if (request.equalsIgnoreCase("Pepperoni")) {
+        } else if (request.equalsIgnoreCase("PepperoniPizza")) {
             return new PepperoniPizza();
-        } else if (request.equalsIgnoreCase("All dressed")) {
+        } else if (request.equalsIgnoreCase("Alldressedpizza")) {
             return new AllDressedPizza();
         }
         return null;

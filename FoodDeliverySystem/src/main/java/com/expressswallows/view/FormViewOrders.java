@@ -7,6 +7,7 @@ package com.expressswallows.view;
 import com.expressswallows.model.menu.fooditems.Food;
 import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.users.Client;
+import com.expressswallows.utils.DatabaseConnectionUtils;
 import com.expressswallows.utils.Utils;
 
 import javax.swing.*;
@@ -22,8 +23,6 @@ public class FormViewOrders extends javax.swing.JFrame {
 
     Client client;
     Order order;
-    static List<Order> orders = new ArrayList<>();
-    private double price;
     /**
      * Creates new form FormViewOrders
      */
@@ -32,17 +31,8 @@ public class FormViewOrders extends javax.swing.JFrame {
         this.client = client;
         this.order = order;
 
-        //loadOrders(client);
-
-        loadOrders(orders);
+        loadOrders(client);
         update();
-    }
-
-    public static void addOrderToList(Order order) {
-        if (order == null) {
-            throw new IllegalArgumentException("The order to add cannot be null.");
-        }
-        orders.add(order);
     }
 
     /**
@@ -132,59 +122,32 @@ public class FormViewOrders extends javax.swing.JFrame {
         update();
     }//GEN-LAST:event_langBtnActionPerformed
 
-    private void loadOrders(List<Order> orders) {
-
-        // var database = DatabaseUtils.getInstance();
-        //List<Order> orders = database.getOrdersByClientId(client.getClientId());
-
-        DefaultListModel<String> listModel = new DefaultListModel<>();
-
-        for (Order order : orders) {
-            listModel.addElement("Order ID: " + order.getOrderId() + " Total: $" + order.calculateTotalPrice());
-        }
-        listOfOrders.setModel(listModel);
-
-        listOfOrders.addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting()) {
-                int selectedIndex = listOfOrders.getSelectedIndex();
-                if (selectedIndex != -1) {
-                    Order selectedOrder = orders.get(selectedIndex);
-                    openOrderDetails(selectedOrder);
-                }
-            }
-        });
-        //database.CloseConnection();
-    }
-
-    /*
     private void loadOrders(Client client) {
 
-       // var database = DatabaseUtils.getInstance();
-        //List<Order> orders = database.getOrdersByClientId(client.getClientId());
+        try(var database = DatabaseConnectionUtils.getInstance()) {
+           List<Order> orders = database.fetchOrdersByClientId(client.getClientId());
+            DefaultListModel<String> listModel = new DefaultListModel<>();
 
-        DefaultListModel<String> listModel = new DefaultListModel<>();
-        
-        for (Order order : orders) {
-            listModel.addElement("Order ID: " + order.getOrderId() + " Total: $" + order.calculateTotalPrice());
-        }
-        listOfOrders.setModel(listModel);
-    
-        listOfOrders.addListSelectionListener(e -> {
-        if (!e.getValueIsAdjusting()) {
-            int selectedIndex = listOfOrders.getSelectedIndex();
-            if (selectedIndex != -1) {
-                Order selectedOrder = orders.get(selectedIndex);
-                openOrderDetails(selectedOrder);
+            for (Order order : orders) {
+                listModel.addElement("Order ID: " + order.getOrderId() + " Total: $" + order.calculateTotalPrice());
             }
-        }
+            listOfOrders.setModel(listModel);
 
-    });
-        //database.CloseConnection();
+            listOfOrders.addListSelectionListener(e -> {
+                if (!e.getValueIsAdjusting()) {
+                    int selectedIndex = listOfOrders.getSelectedIndex();
+                    if (selectedIndex != -1) {
+                        Order selectedOrder = orders.get(selectedIndex);
+                        openOrderDetails(selectedOrder);
+                    }
+                }
+
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-     */
-
-    
     private void openOrderDetails(Order order) {
         this.dispose();
         FormOrderDetails orderDetailsForm = new FormOrderDetails(client, order);

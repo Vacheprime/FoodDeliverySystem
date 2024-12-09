@@ -9,6 +9,7 @@ import com.expressswallows.model.restaurant.users.Address;
 import com.expressswallows.model.restaurant.users.Client;
 import com.expressswallows.model.restaurant.users.Employee;
 import com.expressswallows.model.restaurant.users.Person;
+import com.expressswallows.utils.DatabaseConnectionUtils;
 import com.expressswallows.utils.Utils;
 
 import java.time.LocalDate;
@@ -36,7 +37,6 @@ public class FormLogin extends javax.swing.JFrame {
      */
     public FormLogin() {
         initComponents();
-        clients.add(new Client("Andy", "Shah", "andrew@gmail.com", "123456", d1, "(123) 122-1323", new Address("Street", "122", "H2R 2B1", Address.City.MONTREAL)));
 
         errorLbl.setVisible(false);
         update();
@@ -207,26 +207,27 @@ public class FormLogin extends javax.swing.JFrame {
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
 
-        /*
-        var database = DatabaseUtilsConnection.getInstance();
-        Client client = database.getClientByCredentials(emailTB.getText(), passwordTB.getText());
-        Employee employee = database.getEmployeeByCredentials(emailTB.getText(), passwordTB.getText());
-        database.CloseConnection();
-
-        if (client != null) {
-            Order order = new Order(client);
-            this.dispose();
-            new FormClientMainMenu(client, order).setVisible(true);
-            return;
-        } else if (employee != null) {
-            this.dispose();
-            new FormEmployeeMainMenu(employee).setVisible(true);
-        } else {
-            errorLbl.setVisible(true);
+        try(var database = DatabaseConnectionUtils.getInstance()) {
+            Client client = database.fetchClientWithCredentials(emailTB.getText(), passwordTB.getText());
+            Employee employee = database.fetchEmployeeWithCredentials(emailTB.getText(), passwordTB.getText());
+            if (client != null) {
+                Order order = new Order(client);
+                this.dispose();
+                new FormClientMainMenu(client, order).setVisible(true);
+            } else if (employee != null) {
+                this.dispose();
+                new FormEmployeeMainMenu(employee).setVisible(true);
+            } else {
+                errorLbl.setVisible(true);
+            }
+        } catch (Exception e) {
+            //JOptionPane.showMessageDialog(null, e.getMessage());
+            e.printStackTrace();
         }
 
-         */
 
+
+/*
 
         if (emailTB.getText().equals(e1.getEmail()) && passwordTB.getText().equals(e1.getPassword()) ||
               emailTB.getText().equals(e2.getEmail()) && passwordTB.getText().equals(e2.getPassword())) {
@@ -242,8 +243,8 @@ public class FormLogin extends javax.swing.JFrame {
             return;
         }
     }
-
-    errorLbl.setVisible(true);
+*/
+    //errorLbl.setVisible(true);
     }//GEN-LAST:event_loginBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed

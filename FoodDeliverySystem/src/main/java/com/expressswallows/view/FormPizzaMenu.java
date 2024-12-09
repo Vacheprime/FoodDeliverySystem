@@ -261,7 +261,7 @@ public class FormPizzaMenu extends javax.swing.JFrame {
         String message = rb.getString("cheeseMes");
         String title = rb.getString("pizzaTitle");
         
-        String choice = "Cheese";
+        String choice = "CheesePizza";
         FoodFactoryCreator creator = new FoodFactoryCreator();
         PizzaFactory factory = (PizzaFactory) creator.getFoodFactory("Pizza");
         Pizza pizza = factory.createPizza(choice);
@@ -274,7 +274,7 @@ public class FormPizzaMenu extends javax.swing.JFrame {
         String message = rb.getString("pepMes");
         String title = rb.getString("pizzaTitle");
         
-        String choice = "Pepperoni";
+        String choice = "PepperoniPizza";
         FoodFactoryCreator creator = new FoodFactoryCreator();
         PizzaFactory factory = (PizzaFactory) creator.getFoodFactory("Pizza");
         Pizza pizza = factory.createPizza(choice);
@@ -287,7 +287,7 @@ public class FormPizzaMenu extends javax.swing.JFrame {
         String message = rb.getString("alldMes");
         String title = rb.getString("pizzaTitle");
         
-        String choice = "All dressed";
+        String choice = "AlldressedPizza";
         FoodFactoryCreator creator = new FoodFactoryCreator();
         PizzaFactory factory = (PizzaFactory) creator.getFoodFactory("Pizza");
         Pizza pizza = factory.createPizza(choice);
