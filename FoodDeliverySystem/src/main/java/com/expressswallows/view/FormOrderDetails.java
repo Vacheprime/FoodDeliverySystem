@@ -40,9 +40,20 @@ public class FormOrderDetails extends javax.swing.JFrame {
         this.payment = payment;
         orderListTA.setText(foodList(order));
         Restaurant.OrderProcessTask task = new Restaurant.OrderProcessTask(order);
-        this.restaurant = task.findRestaurant(order, Main.restaurants);
+        try(var data = DatabaseConnectionUtils.getInstance()) {
+            restaurant = task.findRestaurant(order, data.fetchRestaurantLocations());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            restaurant.addOrder(order);
+            order.setRestaurantId(restaurant.getRestaurantId());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         try(var database = DatabaseConnectionUtils.getInstance()) {
-            database.insertPayment(this.payment, this.restaurant.getRestaurantId());
+            database.insertOrder(order);
+            database.insertPayment(payment, restaurant.getRestaurantId());
         } catch (Exception e) {
 
         }
@@ -56,12 +67,12 @@ public class FormOrderDetails extends javax.swing.JFrame {
         this.order = order;
         orderListTA.setText(foodList(order));
         Restaurant.OrderProcessTask task = new Restaurant.OrderProcessTask(order);
-        this.restaurant = task.findRestaurant(order, Main.restaurants);
         try(var database = DatabaseConnectionUtils.getInstance()) {
-            database.insertPayment(this.payment, this.restaurant.getRestaurantId());
+            this.restaurant = task.findRestaurant(order, database.fetchRestaurantLocations());
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
+
         update();
 
     }

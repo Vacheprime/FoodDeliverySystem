@@ -190,11 +190,6 @@ public class FormPayment extends javax.swing.JFrame {
             return;
         }
 
-        try(var database = DatabaseConnectionUtils.getInstance()) {
-            database.insertOrder(order);
-        } catch (Exception de) {
-            de.printStackTrace();
-        }
         Payment payment = new Payment(price, client);
         this.dispose();
         new FormOrderDetails(client, order, payment).setVisible(true);
