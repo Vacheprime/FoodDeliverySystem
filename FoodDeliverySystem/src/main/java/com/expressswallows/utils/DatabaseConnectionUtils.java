@@ -30,7 +30,7 @@ import java.util.List;
  * 
  * @author Danat
  */
-public class DatabaseConnectionUtils {
+public class DatabaseConnectionUtils implements AutoCloseable {
     private static DatabaseConnectionUtils instance;
     private static final String DATABASE_FILENAME = "src/main/resources/FoodDeliveryData.db";
     private static final String DATABASE_URL = "jdbc:sqlite:" + DATABASE_FILENAME;
@@ -84,6 +84,14 @@ public class DatabaseConnectionUtils {
                     + DATABASE_URL + "': " + e.getMessage());
         }
     }
+
+    /**
+     * Close the connection to the database.
+     * @throws SQLException Exception thrown when an error occurs while
+     */
+    public void closeConnection() throws SQLException {
+        connection.close();
+    }
     
     /**
      * Check whether the database exists.
@@ -135,7 +143,7 @@ public class DatabaseConnectionUtils {
      * @return the client with the email and password specified. Null if the Client
      * with such credentials does not exist.
      */
-    public Client fetchClientWithCredentials(String email, String passwd) {
+    public Client fetchClientWithCredentials(String email, String passwd) throws DatabaseFetchException {
         final String SQL = """
                             SELECT * FROM client WHERE Email = ? AND Password = ?;
                             """;
@@ -154,10 +162,10 @@ public class DatabaseConnectionUtils {
                 // Set the client id
                 client.setClientId(rs.getInt("ClientID"));
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new DatabaseFetchException("Error: could not read ResultSet of client: " + e.getMessage());
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DatabaseFetchException("Error: could not fetch the client with credentials: " + e.getMessage());
         }
         return client;
     }
@@ -168,7 +176,7 @@ public class DatabaseConnectionUtils {
      * @param id the ID of the address.
      * @return the address object associated with the ID.
      */
-    private Address fetchAddressById(int id) {
+    private Address fetchAddressById(int id) throws DatabaseFetchException {
         final String SQL = """
                             SELECT * FROM address WHERE AddressID = ?;
                             """;
@@ -183,9 +191,11 @@ public class DatabaseConnectionUtils {
                         rs.getString("PostalCode"), Address.City.valueOf(rs.getString("City")));
                 // Set the address ID
                 address.setAddressId(rs.getInt("AddressID"));
+            } catch (SQLException e) {
+                throw new DatabaseFetchException("Error: could not read ResultSet of addresses: " + e.getMessage());
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DatabaseFetchException("Error: could not fetch the address with the specified ID: " + e.getMessage());
         }
         return address;
     }
@@ -197,7 +207,7 @@ public class DatabaseConnectionUtils {
      * @param passwd the password of the employee.
      * @return the employee with the specified email and password.
      */
-    public Employee fetchEmployeeWithCredentials(String email, String passwd) {
+    public Employee fetchEmployeeWithCredentials(String email, String passwd) throws DatabaseFetchException {
         final String SQL = """
                             SELECT * FROM employee WHERE Email = ? AND Password = ?;
                             """;
@@ -214,17 +224,18 @@ public class DatabaseConnectionUtils {
                         rs.getString("PhoneNumber"));
                 // Set the employeeid
                 employee.setEmployeeId(rs.getInt("EmployeeID"));
+            } catch (SQLException e) {
+                throw new DatabaseFetchException("Error: could not read ResultSet of employee: " + e.getMessage());
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DatabaseFetchException("Error: could not fetch the employee with credentials: " + e.getMessage());
         }
         return employee;
     }
 
     /**
      * Fetch all restaurant locations.
-     *
-     * @return a list of all restaurant locations
+     * @return a list of all restaurant locations.
      */
     public List<Restaurant> fetchRestaurantLocations() throws DatabaseFetchException {
         final String SQL = """
@@ -238,14 +249,15 @@ public class DatabaseConnectionUtils {
                 restaurants.add(restaurant);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DatabaseFetchException("Error: could not fetch the list of restaurants: " + e.getMessage());
         }
         return restaurants;
     }
 
     /**
      * Get the restaurant orders that are in progress.
-     * @return
+     * @param restaurantID the restaurant ID.
+     * @return a list of the ongoing orders of the restaurant specified.
      */
     private List<Order> fetchRestaurantOrdersInProgress(int restaurantID) throws DatabaseFetchException {
         final String SQL = """
@@ -271,10 +283,11 @@ public class DatabaseConnectionUtils {
                     orders.add(order);
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new DatabaseFetchException("Error: could not read ResultSet while fetching restaurant orders: " +
+                        e.getMessage());
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DatabaseFetchException("Error: could not fetch the list of restaurant orders: " + e.getMessage());
         }
         // Sort by oldest to newest
         Collections.sort(orders, (o1, o2) -> o1.getOrderDateTime().compareTo(o2.getOrderDateTime()));
@@ -283,10 +296,10 @@ public class DatabaseConnectionUtils {
 
     /**
      * Get a client by his ID.
-     * @param clientId
-     * @return
+     * @param clientId the client ID of the client to fetch.
+     * @return the Client with the specified ID.
      */
-    private Client fetchClientById(int clientId) {
+    private Client fetchClientById(int clientId) throws DatabaseFetchException {
         final String SQL = """
                             SELECT * FROM client WHERE ClientID = ?;
                             """;
@@ -305,10 +318,10 @@ public class DatabaseConnectionUtils {
                 // Set the client id
                 client.setClientId(clientId);
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new DatabaseFetchException("Error: could not read ResultSet while fetching client: " + e.getMessage());
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DatabaseFetchException("Error: could not fetch the client: " + e.getMessage());
         }
         return client;
     }
@@ -340,9 +353,12 @@ public class DatabaseConnectionUtils {
                     try {
                         restaurant.addOrder(order);
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        throw new DatabaseFetchException("Error: could not fetch the restaurant because adding an order" +
+                                "to the restaurant's queue was interrupted: " + e.getMessage());
                     }
                 }
+            } catch (SQLException e) {
+                throw new DatabaseFetchException("Error: could not read ResultSet while fetching restaurant: " + e.getMessage());
             }
         } catch (SQLException e) {
             throw new DatabaseFetchException("Error: could not fetch the restaurant by ID: " + e.getMessage());
@@ -371,6 +387,8 @@ public class DatabaseConnectionUtils {
                 while (rs.next()) {
                     foods.add(getFoodFromFoodQuery(rs));
                 }
+            } catch (SQLException e) {
+                throw new DatabaseFetchException("Error: could not read ResultSet while fetching food: " + e.getMessage());
             }
         } catch (SQLException e) {
             throw new DatabaseFetchException("Error: could not fetch order foods: " + e.getMessage());
@@ -447,6 +465,8 @@ public class DatabaseConnectionUtils {
                     // Add order to orders
                     orders.add(order);
                 }
+            } catch (SQLException e) {
+                throw new DatabaseFetchException("Error: could not read ResultSet while fetching order: " + e.getMessage());
             }
         } catch (SQLException e) {
             throw new DatabaseFetchException("Error: could not fetch the orders made by client: " + e.getMessage());
@@ -472,11 +492,19 @@ public class DatabaseConnectionUtils {
             pstmt.setInt(4, order.getRestaurantId());
             pstmt.executeUpdate();
             // Get the primary key
+            int id = -1;
             try (ResultSet rs = pstmt.getGeneratedKeys()) {
                 if (rs.next()) {
-                    order.setOrderId(rs.getInt(1));
+                    id = rs.getInt(1);
                 }
+            } catch (SQLException e) {
+                throw new DatabaseFetchException("Error: could not fetch the primary key of the order: " + e.getMessage());
             }
+            if (id == -1) {
+                throw new DatabaseFetchException("Error: could not get the order ID of the order inserted.");
+            }
+            // Set the order ID
+            order.setOrderId(id);
             // Insert the food items into the orderfood table
             for (Food food : order.getFoods()) {
                 insertOrderFood(order.getOrderId(), food);
@@ -572,7 +600,7 @@ public class DatabaseConnectionUtils {
      * @throws DatabaseInsertException Exception thrown when an error occurs while inserting the client into
      * the database.
      */
-    public void insertClient(Client client) throws DatabaseInsertException {
+    public void insertClient(Client client) throws DatabaseInsertException, DatabaseFetchException {
         final String SQL = """
                             INSERT INTO client (FirstName, LastName, Email, Password, DateOfBirth, PhoneNumber, AddressID)
                             VALUES (?, ?, ?, ?, ?, ?, ?);
@@ -590,6 +618,19 @@ public class DatabaseConnectionUtils {
             pstmt.setInt(7, client.getAddress().getAddressId());
             // Execute the insert
             pstmt.executeUpdate();
+            int id = -1;
+            try (ResultSet rs = pstmt.getGeneratedKeys()) {
+                if (rs.next()) {
+                    id = rs.getInt(1);
+                }
+            } catch (SQLException e) {
+                throw new DatabaseFetchException("Error: could not fetch the client ID of the client: " + e.getMessage());
+            }
+            if (id == -1) {
+                throw new DatabaseFetchException("Error: could not get the client ID of the client inserted.");
+            }
+            // Set the Id
+            client.setClientId(id);
         } catch (SQLException e) {
             throw new DatabaseInsertException("Error: could not insert client: " + e.getMessage());
         }
@@ -876,5 +917,14 @@ public class DatabaseConnectionUtils {
         } catch (SQLException e) {
             throw e;
         }
+    }
+
+    /**
+     * Auto close the database connection when exiting the try-with-resources block.
+     * @throws Exception Exception thrown by body of close method.
+     */
+    @Override
+    public void close() throws Exception {
+        closeConnection();
     }
 }
