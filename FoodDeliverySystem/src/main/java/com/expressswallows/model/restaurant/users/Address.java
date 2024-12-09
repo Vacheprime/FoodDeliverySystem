@@ -9,6 +9,7 @@ import com.expressswallows.utils.Utils;
  * @author shahi
  */
 public class Address {
+    private int addressId;
     private final String street;
     private final String postalCode;
     private final String streetNo;
@@ -43,6 +44,7 @@ public class Address {
         this.postalCode = postalCode;
         this.city = city;
         this.streetNo = streetNo;
+        this.addressId = -1;
     }
 
     /**
@@ -75,6 +77,22 @@ public class Address {
      */
     public City getCity() {
         return city;
+    }
+
+    /**
+     * Getter for the address ID.
+     * @return the address ID.
+     */
+    public int getAddressId() {
+        return addressId;
+    }
+
+    /**
+     * Setter for the address ID.
+     * @param addressId the new address ID.
+     */
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
     }
 
     @Override
