@@ -4,8 +4,11 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.exceptions.DatabaseConnectionException;
+import com.expressswallows.exceptions.DatabaseException;
 import com.expressswallows.model.restaurant.users.Address;
 import com.expressswallows.model.restaurant.users.Client;
+import com.expressswallows.utils.DatabaseConnectionUtils;
 import com.expressswallows.utils.Utils;
 
 import javax.swing.*;
