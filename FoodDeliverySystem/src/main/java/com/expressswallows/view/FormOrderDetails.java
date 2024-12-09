@@ -42,6 +42,7 @@ public class FormOrderDetails extends javax.swing.JFrame {
         Restaurant.OrderProcessTask task = new Restaurant.OrderProcessTask(order);
         try(var data = DatabaseConnectionUtils.getInstance()) {
             restaurant = task.findRestaurant(order, data.fetchRestaurantLocations());
+            //System.out.println(data.fetchRestaurantLocations());
         } catch (Exception e) {
             e.printStackTrace();
         }
