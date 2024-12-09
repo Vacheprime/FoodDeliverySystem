@@ -21,7 +21,7 @@ public class Fries extends Food {
         MEDIUM(3.49, 3),
         LARGE (4.99, 4);
 
-        // Store the price and cook time for each frie size
+        // Store the price and cook time for each fry size
         private final double price;
         private final int cookTime;
 
