@@ -7,7 +7,9 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * Utils class used to contain static functions that could be used in many
@@ -19,6 +21,16 @@ public class Utils {
 
     public static final Locale cultureEn = new Locale("en", "CA");
     public static final Locale cultureFr = new Locale("fr", "CA");
+    public static final Map<String, Integer> drinkNameToNumber = Map.of(
+            "WATER", 0,
+            "COKE", 1 ,
+            "SEVENUP", 2
+    );
+    public static final Map<String, Integer> sizeToNumber = Map.of(
+            "SMALL", 0,
+            "MEDIUM", 1,
+            "LARGE", 1
+    );
     public static Locale currentLocale = cultureEn;
 
     /**
@@ -34,7 +46,7 @@ public class Utils {
         if (postalCode == null) {
             throw new IllegalArgumentException("The zip code cannot be null.");
         }
-        return postalCode.matches("^[A-Z][0-9][A-Z] [0-9][A-Z][0-9]$");
+        return postalCode.matches("^[A-Z][0-9][A-Z][- ][0-9][A-Z][0-9]$");
     }
     
     /**

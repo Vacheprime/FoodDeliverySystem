@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class DatabaseConnectionUtils {
     private static DatabaseConnectionUtils instance;
-    private static final String DATABASE_FILENAME = "FoodDeliveryData.db";
+    private static final String DATABASE_FILENAME = "src/main/resources/FoodDeliveryData.db";
     private static final String DATABASE_URL = "jdbc:sqlite:" + DATABASE_FILENAME;
     private Connection connection;
 
@@ -170,7 +170,7 @@ public class DatabaseConnectionUtils {
      */
     private Address fetchAddressById(int id) {
         final String SQL = """
-                            SELECT * FROM address WHERE id = ?;
+                            SELECT * FROM address WHERE AddressID = ?;
                             """;
         Address address = null;
         try (PreparedStatement pstmt = connection.prepareStatement(SQL)) {
@@ -229,24 +229,11 @@ public class DatabaseConnectionUtils {
                             SELECT RestaurantID FROM restaurant;
                             """;
         List<Restaurant> restaurants = new ArrayList<>();
-        try (Statement stmt = connection.createStatement()) {
-            try (ResultSet rs = stmt.executeQuery(SQL)) {
-                while (rs.next()) {
-                    int restaurantID = rs.getInt("RestaurantID");
-                    Restaurant restaurant = fetchRestaurantById(restaurantID);
-                    List<Order> orders = fetchRestaurantOrdersInProgress(restaurantID);
-
-                    // Add orders to the restaurant
-                    for (Order order : orders) {
-                        try {
-                            restaurant.addOrder(order);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    // Add to all restaurants
-                    restaurants.add(restaurant);
-                }
+        try (Statement stmt = connection.createStatement(); ResultSet rs = stmt.executeQuery(SQL)) {
+            while (rs.next()) {
+                int restaurantID = rs.getInt("RestaurantID");
+                Restaurant restaurant = fetchRestaurantById(restaurantID);
+                restaurants.add(restaurant);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -260,7 +247,7 @@ public class DatabaseConnectionUtils {
      */
     private List<Order> fetchRestaurantOrdersInProgress(int restaurantID) {
         final String SQL = """
-                            SELECT * FROM order WHERE restaurantID = ?;
+                            SELECT * FROM "order" WHERE restaurantID = ?;
                             """;
         List<Order> orders = new ArrayList<>();
         try (PreparedStatement pstmt = connection.prepareStatement(SQL)) {
@@ -281,14 +268,14 @@ public class DatabaseConnectionUtils {
                     // Add order to orders
                     orders.add(order);
                 }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         // Sort by oldest to newest
-        Collections.sort(orders, (o1, o2) -> {
-            return o1.getOrderDateTime().compareTo(o2.getOrderDateTime());
-        });
+        Collections.sort(orders, (o1, o2) -> o1.getOrderDateTime().compareTo(o2.getOrderDateTime()));
         return orders;
     }
 
@@ -340,10 +327,12 @@ public class DatabaseConnectionUtils {
                 if (!rs.next()) {
                     return null;
                 }
-                restaurant = new Restaurant(fetchAddressById(rs.getInt("AddressID")), rs.getString("name"),
-                        rs.getDouble("balance"));
-                // TODO: add orders
+                // Create a new order
+                restaurant = new Restaurant(fetchAddressById(rs.getInt("AddressID")),
+                        rs.getString("name"), rs.getDouble("balance"));
+                // Set the restaurant ID
                 restaurant.setRestaurantId(restaurantId);
+                // Get the list of orders and add it to the restaurant
                 List<Order> orders = fetchRestaurantOrdersInProgress(restaurantId);
                 for (Order order : orders) {
                     try {
@@ -359,6 +348,8 @@ public class DatabaseConnectionUtils {
         return restaurant;
     }
 
+    // TODO: TEST WITH ALL FOODS
+    // TODO: DON'T USE FACTORY, MANUALLY SET VALUES FROM QUERY
     private List<Food> fetchOrderFoods(int orderID) {
         final String SQL = """
                             SELECT * FROM food f
@@ -370,38 +361,49 @@ public class DatabaseConnectionUtils {
             pstmt.setInt(1, orderID);
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
-                    String[] type = rs.getString("Type").split(":");
-                    FoodFactoryCreator creator = new FoodFactoryCreator();
-                    AbstractFactory factory = creator.getFoodFactory(type[0]);
-                    Food food = null;
-                    switch (type[0]) {
-                        case "Pizza" -> {
-                            food = factory.createPizza(type[1]);
-                        }
-
-                        case "Burger" -> {
-                            food = factory.createBurger(type[1]);
-                        }
-
-                        case "Hotdog" -> {
-                            food = factory.createHotdog(type[1]);
-                        }
-
-                        case "Drink" -> {
-                            food = factory.createDrink(type[1], rs.getString("Size"));
-                        }
-
-                        case "Fries" -> {
-                            food = factory.createFries(type[1]);
-                        }
-                    }
-                    foods.add(food);
+                    foods.add(getFoodFromFoodQuery(rs));
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return foods;
+    }
+
+    private Food getFoodFromFoodQuery(ResultSet rs) throws SQLException {
+        // Type of format: CATEGORY:FOODITEM
+        String[] type = rs.getString("Type").split(":");
+
+        FoodFactoryCreator creator = new FoodFactoryCreator();
+        AbstractFactory factory = creator.getFoodFactory(type[0]);
+
+        Food food = null;
+        // Switch for every food item and create the appropriate food item
+        switch (type[0].toUpperCase()) {
+            case "PIZZA" -> {
+                food = factory.createPizza(type[1]);
+            }
+
+            case "BURGER" -> {
+                food = factory.createBurger(type[1]);
+            }
+
+            case "HOTDOG" -> {
+                food = factory.createHotdog(type[1]);
+            }
+
+            case "DRINK" -> {
+                int drinkNumber = Utils.drinkNameToNumber.get(type[1].toUpperCase());
+                int sizeNumber = Utils.sizeToNumber.get(rs.getString("Size").toUpperCase());
+                food = factory.createDrink(drinkNumber, sizeNumber);
+            }
+
+            case "FRIES" -> {
+                int sizeNumber = Utils.sizeToNumber.get(rs.getString("Size").toUpperCase());
+                food = factory.createFries(sizeNumber);
+            }
+        }
+        return food;
     }
 
     /**
@@ -439,34 +441,80 @@ public class DatabaseConnectionUtils {
 
     /**
      * Insert an order.
-     * @param order the order to insert
+     * @param order the order to insert.
      */
-    public void insertOrder(Order order) {
+    public void insertOrder(Order order) throws DatabaseInsertException, DatabaseFetchException {
         final String SQL = """
                             INSERT INTO order (OrderTime, Status, ClientID, RestaurantID)
                             VALUES (?, ?, ?, ?);
                             """;
         try (PreparedStatement pstmt = connection.prepareStatement(SQL)) {
+            // Form the SQL statement
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             pstmt.setString(1, order.getOrderDateTime().format(formatter));
             pstmt.setString(2, order.getStatus().toString());
             pstmt.setInt(3, order.getOrderedBy().getClientId());
             pstmt.setInt(4, order.getRestaurantId());
             pstmt.executeUpdate();
-            // Get primary key
-            try (ResultSet rs = pstmt.executeQuery()) {
+            // Get the primary key
+            try (ResultSet rs = pstmt.getGeneratedKeys()) {
                 if (rs.next()) {
                     order.setOrderId(rs.getInt(1));
                 }
             }
+            // Insert the food items into the orderfood table
+            for (Food food : order.getFoods()) {
+                insertOrderFood(order.getOrderId(), food);
+            }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DatabaseInsertException("Error: could not insert order: " + e.getMessage());
         }
     }
 
-    // TODO
-    private void insertOrderFood(int orderId, int foodId) {
-
+    /**
+     * Insert an order's food item into the orderfood table.
+     * @param orderId the order ID.
+     * @param food the order's food item.
+     * @throws DatabaseInsertException Exception thrown when an error occurs while inserting the into the orderfood table.
+     * @throws DatabaseFetchException Exception thrown when an error occurs while getting the food ID of the order's
+     * food item.
+     */
+    private void insertOrderFood(int orderId, Food food) throws DatabaseInsertException, DatabaseFetchException {
+        final String FOOD_SQL = """
+                                 SELECT FoodID FROM food
+                                 WHERE Type = ?;
+                                 """;
+        final String INSERT_SQL = """
+                                   INSERT INTO orderfood (OrderID, FoodID)
+                                   VALUES (?, ?);
+                                   """;
+        try (PreparedStatement foodIdQuery = connection.prepareStatement(FOOD_SQL);
+        PreparedStatement insertStmt = connection.prepareStatement(INSERT_SQL)) {
+            // Form the SQL for the food ID query
+            foodIdQuery.setString(1, food.getDatabaseType());
+            int foodId = -1;
+            // Fetch the FoodID of the food item
+            try (ResultSet rs = foodIdQuery.executeQuery()) {
+                if (rs.next()) {
+                    foodId = rs.getInt("FoodID");
+                }
+            } catch (SQLException e) {
+                throw new DatabaseFetchException("Error: could not fetch the food ID of the item '" + food +
+                        "': " + e.getMessage());
+            }
+            // Check if the foodID has been found
+            if (foodId == -1) {
+                throw new DatabaseFetchException("Error: the database does not contain a food entry for the item '" + food +
+                        "' contained in the order with ID: " + orderId);
+            }
+            // Form the SQL for the insert statement
+            insertStmt.setInt(1, orderId);
+            insertStmt.setInt(2, foodId);
+            // Execute the insert statement
+            insertStmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new DatabaseInsertException("Error: could not insert the food item of the order: " + e.getMessage());
+        }
     }
 
     // TODO
@@ -689,7 +737,7 @@ public class DatabaseConnectionUtils {
                                 Sauce TEXT,
                                 CONSTRAINT chk_CookTime CHECK (CookTime > 0),
                                 CONSTRAINT chk_Price CHECK (Price > 0),
-                                CONSTRAINT chk_Size CHECK (Size IN ('S', 'M', 'L')),
+                                CONSTRAINT chk_Size CHECK (Size IN ('SMALL', 'MEDIUM', 'LARGE')),
                                 CONSTRAINT chk_SugarContent CHECK (SugarContent >= 0),
                                 CONSTRAINT chk_Bun CHECK (Bun IN ('Soggy', 'White', 'WholeWheat')),
                                 CONSTRAINT chk_Spiciness CHECK (Spiciness BETWEEN 1 AND 5)
