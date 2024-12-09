@@ -268,8 +268,7 @@ public class FormSignup extends javax.swing.JFrame {
         String message2 = rb.getString("successAc");
         String title2 = rb.getString("successTitle");
         
-        if (!checkClient())
-        {
+        if (!checkClient()) {
             return;
         }
         Client client = createClient();
