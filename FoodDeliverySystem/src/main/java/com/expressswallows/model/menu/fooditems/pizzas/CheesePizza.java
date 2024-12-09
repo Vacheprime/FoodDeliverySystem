@@ -18,6 +18,11 @@ public class CheesePizza extends Pizza {
         this.prepare();
     }
 
+    @Override
+    public String getDatabaseType() {
+        return "PIZZA:CHEESEPIZZA";
+    }
+
     /**
      * Prepare the Cheese pizza.
      */
