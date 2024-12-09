@@ -451,7 +451,7 @@ public class DatabaseConnectionUtils implements AutoCloseable {
      */
     public List<Order> fetchOrdersByClientId(int clientId) throws DatabaseFetchException {
         final String SQL = """
-                           SELECT * FROM order WHERE ClientID = ?;
+                           SELECT * FROM "order" WHERE ClientID = ?;
                            """;
         List<Order> orders = new ArrayList<>();
         try (PreparedStatement pstmt = connection.prepareStatement(SQL)) {
@@ -486,7 +486,7 @@ public class DatabaseConnectionUtils implements AutoCloseable {
      */
     public void insertOrder(Order order) throws DatabaseInsertException, DatabaseFetchException {
         final String SQL = """
-                            INSERT INTO order (OrderTime, Status, ClientID, RestaurantID)
+                            INSERT INTO "order" (OrderTime, Status, ClientID, RestaurantID)
                             VALUES (?, ?, ?, ?);
                             """;
         try (PreparedStatement pstmt = connection.prepareStatement(SQL)) {
