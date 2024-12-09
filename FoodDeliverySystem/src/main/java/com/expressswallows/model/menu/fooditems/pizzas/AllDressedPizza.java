@@ -19,6 +19,11 @@ public class AllDressedPizza extends Pizza {
         this.prepare();
     }
 
+    @Override
+    public String getDatabaseType() {
+        return "PIZZA:ALLDRESSEDPIZZA";
+    }
+
     /**
      * Prepare an All-Dressed pizza.
      */

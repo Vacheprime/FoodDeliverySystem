@@ -18,6 +18,11 @@ public class PepperoniPizza extends Pizza {
         this.prepare();
     }
 
+    @Override
+    public String getDatabaseType() {
+        return "PIZZA:PEPPERONIPIZZA";
+    }
+
     /**
      * Prepare the Pepperoni pizza.
      */
@@ -32,7 +37,4 @@ public class PepperoniPizza extends Pizza {
     public String toString() {
         return super.toString();
     }
-    
-    
-    
 }
