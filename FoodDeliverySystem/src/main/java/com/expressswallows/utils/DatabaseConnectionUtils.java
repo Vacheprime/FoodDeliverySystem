@@ -90,11 +90,11 @@ public class DatabaseConnectionUtils implements AutoCloseable {
      * Close the connection to the database.
      * @throws SQLException Exception thrown when an error occurs while
      */
-    public void closeConnection() throws SQLException {
+    public void closeConnection() throws DatabaseConnectionException {
         try {
             connection.close();
         } catch (SQLException e) {
-            throw e;
+            throw new DatabaseConnectionException("Error while closing connection to the database: " + e.getMessage());
         } finally {
             instance = null;
         }
@@ -997,7 +997,7 @@ public class DatabaseConnectionUtils implements AutoCloseable {
      * @throws Exception Exception thrown by body of close method.
      */
     @Override
-    public void close() throws Exception {
+    public void close() throws DatabaseConnectionException {
         closeConnection();
     }
 }
