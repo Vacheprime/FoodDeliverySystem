@@ -685,6 +685,31 @@ public class DatabaseConnectionUtils implements AutoCloseable {
     }
 
     /**
+     * Count the amount of orders made to the restaurant.
+     * @param restaurantId the restaurant ID.
+     * @return the amount of orders made to the restaurant.
+     * @throws DatabaseFetchException Exception thrown when an error occurs while counting the number of orders.
+     */
+    public int countRestaurantOrders(int restaurantId) throws DatabaseFetchException {
+        final String SQL = """
+                            SELECT COUNT(*) AS NbrOrders FROM "order"
+                            WHERE RestaurantID = ?;
+                            """;
+        try (PreparedStatement pstmt = connection.prepareStatement(SQL)) {
+            // Form the SQL
+            pstmt.setInt(1, restaurantId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                return rs.getInt("NbrOrders");
+            } catch (SQLException e) {
+                throw new DatabaseFetchException("Error: could not read ResultSet while counting orders: " + e.getMessage());
+            }
+        } catch (SQLException e) {
+            throw new DatabaseFetchException("Error: could not count the amount of orders of the restaurant: " +
+                    e.getMessage());
+        }
+    }
+
+    /**
      * Create the client table.
      * 
      * @throws DatabaseInitializationException exception thrown when the client
