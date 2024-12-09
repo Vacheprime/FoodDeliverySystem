@@ -259,7 +259,7 @@ public class FormBurgerMenu extends javax.swing.JFrame {
 
     private void bigFattyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bigFattyBtnActionPerformed
         ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
-        String choice = "Big Fatty";
+        String choice = "BigFatty";
         FoodFactoryCreator creator = new FoodFactoryCreator();
         BurgerFactory factory = (BurgerFactory) creator.getFoodFactory("Burger");
         Burger burger = factory.createBurger(choice);
@@ -271,7 +271,7 @@ public class FormBurgerMenu extends javax.swing.JFrame {
 
     private void greenBushBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_greenBushBtnActionPerformed
         ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
-        String choice = "Green Bush";
+        String choice = "GreenBush";
         FoodFactoryCreator creator = new FoodFactoryCreator();
         BurgerFactory factory = (BurgerFactory) creator.getFoodFactory("Burger");
         Burger burger = factory.createBurger(choice);
@@ -283,7 +283,7 @@ public class FormBurgerMenu extends javax.swing.JFrame {
 
     private void skinnyPityBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_skinnyPityBtnActionPerformed
         ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
-        String choice = "Skinny Pity";
+        String choice = "SkinnyPity";
         FoodFactoryCreator creator = new FoodFactoryCreator();
         BurgerFactory factory = (BurgerFactory) creator.getFoodFactory("Burger");
         Burger burger = factory.createBurger(choice);

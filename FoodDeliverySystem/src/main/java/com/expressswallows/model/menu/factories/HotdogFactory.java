@@ -36,9 +36,9 @@ public class HotdogFactory extends AbstractFactory {
 
     @Override
     public Hotdog createHotdog(String request) {
-        if (request.equalsIgnoreCase("Glizzy Gobbler")) {
+        if (request.equalsIgnoreCase("GlizzyGobbler")) {
             return new GlizzyGobbler(Hotdog.HotdogBun.SOGGY);
-        } else if (request.equalsIgnoreCase("Millimeter Defeater")) {
+        } else if (request.equalsIgnoreCase("MillimeterDefeater")) {
             return new MillimeterDefeater(Hotdog.HotdogBun.WHITE);
         }
         return null;

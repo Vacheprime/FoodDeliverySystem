@@ -23,7 +23,6 @@ public class FormViewOrders extends javax.swing.JFrame {
 
     Client client;
     Order order;
-    private double price;
     /**
      * Creates new form FormViewOrders
      */

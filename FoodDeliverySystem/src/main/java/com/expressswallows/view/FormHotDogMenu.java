@@ -214,7 +214,7 @@ public class FormHotDogMenu extends javax.swing.JFrame {
         String message = rb.getString("glizzyMes");
         String title = rb.getString("hotTitle");
         
-        String choice = "Glizzy Gobbler";
+        String choice = "GlizzyGobbler";
         FoodFactoryCreator creator = new FoodFactoryCreator();
         HotdogFactory factory = (HotdogFactory) creator.getFoodFactory("Hotdog");
         Hotdog hotdog = factory.createHotdog(choice);
@@ -227,7 +227,7 @@ public class FormHotDogMenu extends javax.swing.JFrame {
         String message = rb.getString("mmMes");
         String title = rb.getString("hotTitle");
         
-        String choice = "Millimeter Defeater";
+        String choice = "MillimeterDefeater";
         FoodFactoryCreator creator = new FoodFactoryCreator();
         HotdogFactory factory = (HotdogFactory) creator.getFoodFactory("Hotdog");
         Hotdog hotdog = factory.createHotdog(choice);
