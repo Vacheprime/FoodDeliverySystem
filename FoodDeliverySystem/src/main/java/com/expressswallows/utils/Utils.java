@@ -46,7 +46,7 @@ public class Utils {
         if (postalCode == null) {
             throw new IllegalArgumentException("The zip code cannot be null.");
         }
-        return postalCode.matches("^[A-Z][0-9][A-Z][- ][0-9][A-Z][0-9]$");
+        return postalCode.matches("^[A-Z][0-9][A-Z][-][0-9][A-Z][0-9]$");
     }
     
     /**

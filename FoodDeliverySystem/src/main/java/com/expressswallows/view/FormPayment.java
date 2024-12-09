@@ -4,9 +4,11 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.exceptions.DatabaseException;
 import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.Payment;
 import com.expressswallows.model.restaurant.users.Client;
+import com.expressswallows.utils.DatabaseConnectionUtils;
 import com.expressswallows.utils.Utils;
 import java.util.Locale;
 
@@ -188,12 +190,6 @@ public class FormPayment extends javax.swing.JFrame {
             return;
         }
 
-        //Payment payment = new Payment(price, client);
-        //database.insertOrder(order); make sure that we get all the food items
-        //database.insertPayment(payment);
-        //database.CloseConnection();
-
-        FormViewOrders.addOrderToList(order);
         Payment payment = new Payment(price, client);
         this.dispose();
         new FormOrderDetails(client, order, payment).setVisible(true);

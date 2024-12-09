@@ -160,13 +160,6 @@ public class Restaurant {
             this.startTime = null;
         }
 
-        // TODO: DELETE CONSTRUCTOR. KEPT FOR COMPATIBILITY WITH OLD CODE.
-        public OrderProcessTask(Order order) {
-            this.order = order;
-            this.restaurant = null;
-            this.startTime = null;
-        }
-
         /**
          * Get the order of the OrderProcess
          *

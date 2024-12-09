@@ -39,14 +39,21 @@ public class FriesFactory extends AbstractFactory {
 
     @Override
     public Fries createFries(int request) {
-        if (request == 0) {
-            return new Fries(Fries.FriesSize.SMALL);
-        } else if (request == 1) {
-            return new Fries(Fries.FriesSize.MEDIUM);
-        } else if (request == 2) {
-            return new Fries(Fries.FriesSize.LARGE);
+        Fries fries;
+        switch (request) {
+            case 0:
+                fries = new Fries(Fries.FriesSize.SMALL);
+                break;
+            case 1:
+                fries = new Fries(Fries.FriesSize.MEDIUM);
+                break;
+            case 2:
+                fries = new Fries(Fries.FriesSize.LARGE);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid size request.");
         }
-        return null;
+        fries.prepare();
+        return fries;
     }
-
 }
