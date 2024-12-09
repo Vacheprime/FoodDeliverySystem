@@ -21,6 +21,7 @@ public class Utils {
 
     public static final Locale cultureEn = new Locale("en", "CA");
     public static final Locale cultureFr = new Locale("fr", "CA");
+    public static Locale currentLocale = cultureEn;
     public static final Map<String, Integer> drinkNameToNumber = Map.of(
             "WATER", 0,
             "COKE", 1 ,
@@ -31,7 +32,6 @@ public class Utils {
             "MEDIUM", 1,
             "LARGE", 1
     );
-    public static Locale currentLocale = cultureEn;
 
     /**
      * Determine whether a zip code follows the following format:
