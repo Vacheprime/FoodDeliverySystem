@@ -1,5 +1,6 @@
 package com.expressswallows.model.restaurant;
 
+import com.expressswallows.controller.RestaurantController;
 import com.expressswallows.model.menu.fooditems.Food;
 import com.expressswallows.model.restaurant.users.Address;
 
@@ -150,20 +151,13 @@ public class Restaurant {
      * OrderProcessTask is used to represent an order task.
      */
     public static class OrderProcessTask implements Runnable {
-        private Order order;
-        private Restaurant restaurant;
+        private final Order order;
+        private final Restaurant restaurant;
         private LocalTime startTime;
 
         public OrderProcessTask(Order order, Restaurant restaurant) {
             this.order = order;
             this.restaurant = restaurant;
-            this.startTime = null;
-        }
-
-        // TODO: DELETE CONSTRUCTOR. KEPT FOR COMPATIBILITY WITH OLD CODE.
-        public OrderProcessTask(Order order) {
-            this.order = order;
-            this.restaurant = null;
             this.startTime = null;
         }
 
@@ -209,82 +203,8 @@ public class Restaurant {
             LocalTime currentTime = LocalTime.now();
             int minutesPassed = (int) Duration.between(startTime, currentTime).toMinutes();
             // Get the total process time
-            int processTime = getTotalProcessTime(order);
+            int processTime = RestaurantController.getTotalProcessTime(order, restaurant);
             return processTime - minutesPassed;
-        }
-
-        /**
-         * @return
-         */
-        public int calculateQueueTime(Restaurant restaurant) {
-            int totalCookTime = 0;
-            for (OrderProcessTask task : restaurant.orderTaskQueue) {
-                Order order = task.getOrder();
-                totalCookTime += order.calculateTotalCookTime();
-            }
-            return totalCookTime;
-        }
-
-        /**
-         * Get the total processing time.
-         *
-         * @return the total processing time.
-         */
-        public int getTotalProcessTime(Order order) {
-            return order.calculateTotalCookTime() + getDeliveryTime(order, getRestaurant());
-        }
-        
-        /**
-         * 
-         * @param order
-         * @param restaurant
-         * @return 
-         */
-        public int getTotalTime(Order order, Restaurant restaurant){
-            return getTotalProcessTime(order) + calculateQueueTime(restaurant);
-        }
-        
-
-        /**
-         * Get the delivery time of the order.
-         *
-         * @return the delivery time of the order.
-         */
-        public int getDeliveryTime(Order order, Restaurant restaurant) {
-            // Get coordinates
-            double x1 = order.getOrderedBy().getAddress().mapAddressToX();
-            double y1 = order.getOrderedBy().getAddress().mapAddressToY();
-            double x2 = restaurant.getLocation().mapAddressToX();
-            double y2 = restaurant.getLocation().mapAddressToY();
-            // Calculate distance and round it
-            int distance = (int) Math.round(Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)));
-            return (int) (distance * Restaurant.DELIVERY_TIME_PER_KM);
-        }
-
-
-        /***
-         *
-         * @param order
-         * @param availableRestaurants
-         * @return
-         */
-        public Restaurant findRestaurant(Order order, List<Restaurant> availableRestaurants) {
-            Restaurant bestRestaurant = null;
-            int shortestTime = Integer.MAX_VALUE;
-
-            for (Restaurant restaurant : availableRestaurants) {
-                int queueTime = calculateQueueTime(restaurant);
-
-                int deliveryTime = getDeliveryTime(order, restaurant);
-
-                int totalTime = queueTime + deliveryTime;
-
-                if (totalTime < shortestTime) {
-                    shortestTime = totalTime;
-                    bestRestaurant = restaurant;
-                }
-            }
-            return bestRestaurant;
         }
 
         /**
@@ -303,11 +223,11 @@ public class Restaurant {
                 Thread.sleep((long) order.calculateTotalCookTime() * 60 * 1000);
                 // Update to delivering
                 order.setStatus(Order.Status.DELIVERING);
-                Thread.sleep((long) getDeliveryTime(order, restaurant) * 60 * 1000);
+                Thread.sleep((long) RestaurantController.getDeliveryTime(order, restaurant) * 60 * 1000);
                 // Update to delivered
                 order.setStatus(Order.Status.DELIVERED);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                throw new RuntimeException("Order process was interrupted: " + e.getMessage());
             }
         }
     }
