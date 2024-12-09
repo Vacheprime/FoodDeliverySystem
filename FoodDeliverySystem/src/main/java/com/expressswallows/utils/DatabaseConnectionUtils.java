@@ -181,6 +181,8 @@ public class DatabaseConnectionUtils {
                 }
                 address = new Address(rs.getString("Street"), rs.getString("StreetNo"),
                         rs.getString("PostalCode"), Address.City.valueOf(rs.getString("City")));
+                // Set the address ID
+                address.setAddressId(rs.getInt("AddressID"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -530,17 +532,68 @@ public class DatabaseConnectionUtils {
         }
     }
 
-    // TODO
-    public void insertPayment(Payment payment) {
-
+    /**
+     * Insert a payment into the payment table.
+     * @param payment the payment to insert.
+     * @param restaurantId the restaurant ID to which the payment is going to go.
+     * @throws DatabaseInsertException Exception thrown when an error occurs while inserting the payment.
+     */
+    public void insertPayment(Payment payment, int restaurantId) throws DatabaseInsertException {
+        final String SQL = """
+                            INSERT INTO payment (PaymentAmount, PaymentMethod, ClientID, RestaurantID)
+                            VALUES (?, ?, ?, ?);
+                            """;
+        final String UPDATE_SQL = """
+                                   UPDATE restaurant
+                                   SET Balance = Balance + ?
+                                   WHERE RestaurantID = ?;
+                                   """;
+        try (PreparedStatement pstmt = connection.prepareStatement(SQL);
+             PreparedStatement updatePstmt = connection.prepareStatement(UPDATE_SQL)) {
+            // Form the SQL statement
+            pstmt.setDouble(1, payment.getPaymentAmount());
+            pstmt.setString(2, "CREDIT");
+            pstmt.setInt(3, payment.getPayedBy().getClientId());
+            pstmt.setInt(4, restaurantId);
+            // Execute the insert statement.
+            pstmt.executeUpdate();
+            // Update the value of the restaurant's balance
+            updatePstmt.setDouble(1, payment.getPaymentAmount());
+            // Execute the update balance
+            updatePstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new DatabaseInsertException("Error: could not insert payment: " + e.getMessage());
+        }
     }
 
-    // TODO
-    public void insertClient(Client client) {
+    /**
+     * Insert a client into the client table.
+     * @param client the client to insert.
+     * @throws DatabaseInsertException Exception thrown when an error occurs while inserting the client into
+     * the database.
+     */
+    public void insertClient(Client client) throws DatabaseInsertException {
+        final String SQL = """
+                            INSERT INTO client (FirstName, LastName, Email, Password, DateOfBirth, PhoneNumber, AddressID)
+                            VALUES (?, ?, ?, ?, ?, ?, ?);
+                            """;
 
+        try (PreparedStatement pstmt = connection.prepareStatement(SQL)) {
+            // Form the SQL statement
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            pstmt.setString(1, client.getFirstName());
+            pstmt.setString(2, client.getLastName());
+            pstmt.setString(3, client.getEmail());
+            pstmt.setString(4, client.getPassword());
+            pstmt.setString(5, client.getDob().format(formatter));
+            pstmt.setString(6, client.getPhoneNumber());
+            pstmt.setInt(7, client.getAddress().getAddressId());
+            // Execute the insert
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new DatabaseInsertException("Error: could not insert client: " + e.getMessage());
+        }
     }
-
-    // TODO: CREATE TRIGGER FOR PAYMENT
 
     /**
      * Create the client table.
