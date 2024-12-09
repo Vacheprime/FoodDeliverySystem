@@ -83,6 +83,12 @@ public abstract class Food {
         }
         this.price = price;
     }
+
+    /**
+     * Get the database type value for the specific food item
+     * @return
+     */
+    public abstract String getDatabaseType();
     
     /**
      * Abstract method prepare is used by subclasses to let them initialize

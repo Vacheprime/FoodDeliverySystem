@@ -12,12 +12,12 @@ import java.util.Objects;
  * @author Danat
  */
 public class Order {
+    private int orderId;
+    private int restaurantId;
     private ArrayList<Food> foods;
     private Client orderedBy;
-    private int restaurantId;
     private LocalDateTime orderDateTime;
     private Status status;
-    private int orderId;
 
     /**
      * Status enum is used to represent the different states that an order can be in.

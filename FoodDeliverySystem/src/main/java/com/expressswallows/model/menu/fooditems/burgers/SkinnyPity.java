@@ -17,6 +17,11 @@ public class SkinnyPity extends Burger {
         this.prepare();
     }
 
+    @Override
+    public String getDatabaseType() {
+        return "BURGER:SKINNYPITY";
+    }
+
     /**
      * Prepare the Skinny Pity.
      */

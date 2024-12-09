@@ -15,6 +15,11 @@ public class SevenUp extends Drink {
         this.prepare();
     }
 
+    @Override
+    public String getDatabaseType() {
+        return "DRINK:SEVENUP";
+    }
+
     /**
      * Prepare the seven up.
      */

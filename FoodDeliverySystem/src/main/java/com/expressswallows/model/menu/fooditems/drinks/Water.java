@@ -15,6 +15,11 @@ public class Water extends Drink {
         this.prepare();
     }
 
+    @Override
+    public String getDatabaseType() {
+        return "DRINK:WATER";
+    }
+
     /**
      * Prepare the water.
      */

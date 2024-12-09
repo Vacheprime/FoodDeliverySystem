@@ -17,6 +17,11 @@ public class BigFatty extends Burger {
         this.prepare();
     }
 
+    @Override
+    public String getDatabaseType() {
+        return "BURGER:BIGFATTY";
+    }
+
     /**
      * Prepare the BigFatty.
      */

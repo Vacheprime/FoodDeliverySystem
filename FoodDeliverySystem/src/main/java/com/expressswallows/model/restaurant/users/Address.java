@@ -19,7 +19,7 @@ public class Address {
      * field can take. Only Montreal is available for this application.
      */
     public enum City {
-        Montreal
+        MONTREAL
     }
 
     /**
