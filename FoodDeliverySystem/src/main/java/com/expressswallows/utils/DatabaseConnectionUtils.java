@@ -613,6 +613,8 @@ public class DatabaseConnectionUtils implements AutoCloseable {
                             """;
 
         try (PreparedStatement pstmt = connection.prepareStatement(SQL)) {
+            // Insert the client's address
+            insertAddress(client.getAddress());
             // Form the SQL statement
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             pstmt.setString(1, client.getFirstName());
@@ -639,6 +641,42 @@ public class DatabaseConnectionUtils implements AutoCloseable {
             client.setClientId(id);
         } catch (SQLException e) {
             throw new DatabaseInsertException("Error: could not insert client: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Insert an address.
+     * @param addr the address to insert.
+     * @throws DatabaseInsertException Exception thrown when an error occurs while inserting the address or client.
+     * @throws DatabaseFetchException Exception thrown when fetching the primary key of the address or client.
+     */
+    private void insertAddress(Address addr) throws DatabaseInsertException, DatabaseFetchException {
+        final String SQL = """
+                            INSERT INTO address (Street, City, PostalCode, StreetNo)
+                            VALUES (?, ?, ?, ?);
+                            """;
+        try (PreparedStatement pstmt = connection.prepareStatement(SQL)) {
+            // Form the SQL statement
+            pstmt.setString(1, addr.getStreet());
+            pstmt.setString(2, addr.getCity().toString().toUpperCase());
+            pstmt.setString(3, addr.getPostalCode());
+            pstmt.setString(4, addr.getStreetNo());
+            // Execute the statement
+            pstmt.executeUpdate();
+            // Get the primary key
+            int id = -1;
+            try (ResultSet rs = pstmt.getGeneratedKeys()) {
+                id = rs.getInt(1);
+            } catch (SQLException e) {
+                throw new DatabaseFetchException("Error: could not read the ResultSet of the address ID: " + e.getMessage());
+            }
+            if (id == -1) {
+                throw new DatabaseFetchException("Error: could not get the address ID of the address inserted.");
+            }
+            // Set the ID of the address
+            addr.setAddressId(id);
+        } catch (SQLException e) {
+            throw new DatabaseInsertException("Error: could not insert address: " + e.getMessage());
         }
     }
 
