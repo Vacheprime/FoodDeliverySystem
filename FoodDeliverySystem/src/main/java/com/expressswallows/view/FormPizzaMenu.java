@@ -257,24 +257,36 @@ public class FormPizzaMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_langBtnActionPerformed
 
     private void cheeseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cheeseBtnActionPerformed
+        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
+        String message = rb.getString("cheeseMes");
+        String title = rb.getString("pizzaTitle");
+        
         String choice = "Cheese";
         FoodFactoryCreator creator = new FoodFactoryCreator();
         PizzaFactory factory = (PizzaFactory) creator.getFoodFactory("Pizza");
         Pizza pizza = factory.createPizza(choice);
         order.addFoodToOrder(pizza);
-        JOptionPane.showMessageDialog(null, "Successfully added Cheese to your cart.", "Pizza Added", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_cheeseBtnActionPerformed
 
     private void pepperoniBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pepperoniBtnActionPerformed
+        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
+        String message = rb.getString("pepMes");
+        String title = rb.getString("pizzaTitle");
+        
         String choice = "Pepperoni";
         FoodFactoryCreator creator = new FoodFactoryCreator();
         PizzaFactory factory = (PizzaFactory) creator.getFoodFactory("Pizza");
         Pizza pizza = factory.createPizza(choice);
         order.addFoodToOrder(pizza);
-        JOptionPane.showMessageDialog(null, "Successfully added Pepperoni to your cart.", "Pizza Added", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_pepperoniBtnActionPerformed
 
     private void alldressBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alldressBtnActionPerformed
+        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
+        String message = rb.getString("alldMes");
+        String title = rb.getString("pizzaTitle");
+        
         String choice = "All dressed";
         FoodFactoryCreator creator = new FoodFactoryCreator();
         PizzaFactory factory = (PizzaFactory) creator.getFoodFactory("Pizza");

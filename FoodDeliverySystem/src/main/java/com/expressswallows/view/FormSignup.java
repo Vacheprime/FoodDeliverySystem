@@ -12,6 +12,7 @@ import javax.swing.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
@@ -258,17 +259,23 @@ public class FormSignup extends javax.swing.JFrame {
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void signUpBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpBtnActionPerformed
+        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
+        String message = rb.getString("usernull");
+        String title = rb.getString("creationerror");
+        String message2 = rb.getString("successAc");
+        String title2 = rb.getString("successTitle");
+        
         if (!checkClient())
         {
             return;
         }
         Client client = createClient();
         if (client == null) {
-            JOptionPane.showMessageDialog(null, "User was null", "Creation Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
             return;
         }
         FormLogin.clients.add(client);
-        JOptionPane.showMessageDialog(null, "You have successfully created an account.", "Account Creation Success", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, message2, title2, JOptionPane.INFORMATION_MESSAGE);
         this.dispose();
         new FormLogin().setVisible(true);
 
@@ -328,54 +335,67 @@ public class FormSignup extends javax.swing.JFrame {
      * @return true if all the information is valid or false if one of the information is invalid
      */
     private boolean checkClient() {
+        
+        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
+        String firstLast = rb.getString("firstLast");
+        String val = rb.getString("val");
+        String doberror = rb.getString("doberror");
+        String dober = rb.getString("dober");
+        String phoneerr = rb.getString("phoneerr");
+        String emailerr = rb.getString("emailerr");
+        String postalerr = rb.getString("postalerr");
+        String streeterr = rb.getString("streeterr");
+        String passerr = rb.getString("passerr");
+        
+        
         String first = firstNameTB.getText();
         String last = lastNameTB.getText();
         if (!Utils.validateName(first) || !Utils.validateName(last)) {
-            JOptionPane.showMessageDialog(null, "First name and last name must not be empty.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, firstLast, val, JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
         String dob = dobTB.getText();
         if (!Utils.validateDate(dob)) {
-            JOptionPane.showMessageDialog(null, "Invalid dob.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, doberror, val, JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate birthday = LocalDate.parse(dob, format);
         if (!Utils.validateClientAge(birthday)) {
-            JOptionPane.showMessageDialog(null, "Date of birth is invalid or indicates an age that does not meet the requirement.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, dober, val, JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
         String phone = phoneNumberTB.getText();
         if (!Utils.validatePhoneNumber(phone)) {
-            JOptionPane.showMessageDialog(null, "Phone number is invalid. Ensure it follows the required format.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, phoneerr, val, JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
         String email = emailTB.getText();
         if (!Utils.validateEmailAddress(email)) {
-            JOptionPane.showMessageDialog(null, "Email address is invalid. Ensure it follows the required format.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, emailerr, val, JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
         String postal = postalCodeTB.getText();
         if (!Utils.validatePostalCode(postal)) {
-            JOptionPane.showMessageDialog(null, "Postal code is invalid. Ensure it follows the required format.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, postalerr, val, JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
         String streetNum = streetNumTB.getText();
         String streetName = streetNameTB.getText();
         if (!streetNum.isEmpty() || !streetName.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Street number and name must not be empty.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, streeterr, val, JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
         String password = passwordTB.getText();
         if (!password.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Password must not be empty.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, passerr, val, JOptionPane.ERROR_MESSAGE);
             return false;
         }
 

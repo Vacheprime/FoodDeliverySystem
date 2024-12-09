@@ -258,30 +258,39 @@ public class FormBurgerMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_langBtnActionPerformed
 
     private void bigFattyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bigFattyBtnActionPerformed
+        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
         String choice = "Big Fatty";
         FoodFactoryCreator creator = new FoodFactoryCreator();
         BurgerFactory factory = (BurgerFactory) creator.getFoodFactory("Burger");
         Burger burger = factory.createBurger(choice);
         order.addFoodToOrder(burger);
-        JOptionPane.showMessageDialog(null, "Successfully added Big Fatty to your cart.", "Burger Added", JOptionPane.INFORMATION_MESSAGE);
+        String message = rb.getString("bigfattymessage");
+        String title = rb.getString("burgerTitle");
+        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_bigFattyBtnActionPerformed
 
     private void greenBushBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_greenBushBtnActionPerformed
+        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
         String choice = "Green Bush";
         FoodFactoryCreator creator = new FoodFactoryCreator();
         BurgerFactory factory = (BurgerFactory) creator.getFoodFactory("Burger");
         Burger burger = factory.createBurger(choice);
         order.addFoodToOrder(burger);
-        JOptionPane.showMessageDialog(null, "Successfully added Green Bush to your cart.", "Burger Added", JOptionPane.INFORMATION_MESSAGE);
+        String message = rb.getString("greenbushmes");
+        String title = rb.getString("burgerTitle");
+        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_greenBushBtnActionPerformed
 
     private void skinnyPityBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_skinnyPityBtnActionPerformed
+        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
         String choice = "Skinny Pity";
         FoodFactoryCreator creator = new FoodFactoryCreator();
         BurgerFactory factory = (BurgerFactory) creator.getFoodFactory("Burger");
         Burger burger = factory.createBurger(choice);
         order.addFoodToOrder(burger);
-        JOptionPane.showMessageDialog(null, "Successfully added Skinny Pity to your cart.", "Burger Added", JOptionPane.INFORMATION_MESSAGE);
+        String message = rb.getString("skinnypitymes");
+        String title = rb.getString("burgerTitle");
+        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_skinnyPityBtnActionPerformed
 
 
