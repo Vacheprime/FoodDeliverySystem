@@ -4,6 +4,7 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.controller.ClientController;
 import com.expressswallows.exceptions.DatabaseConnectionException;
 import com.expressswallows.exceptions.DatabaseException;
 import com.expressswallows.model.restaurant.users.Address;
@@ -267,11 +268,24 @@ public class FormSignup extends javax.swing.JFrame {
         String title = rb.getString("creationerror");
         String message2 = rb.getString("successAc");
         String title2 = rb.getString("successTitle");
+
+        String first = firstNameTB.getText();
+        String last = lastNameTB.getText();
+        String phone = phoneNumberTB.getText();
+
+        String dob = dobTB.getText(); //LocalDate (yyyy/mm/dd)
+        LocalDate birthday = Utils.parseDobToLocalDate(dob);
+
+        String streetNum = streetNumTB.getText();
+        String streetName = streetNameTB.getText();
+        String postal = postalCodeTB.getText();
+        String email = emailTB.getText();
+        String password = passwordTB.getText();
         
         if (!checkClient()) {
             return;
         }
-        Client client = createClient();
+        Client client = ClientController.createClient(first, last, phone, dob, streetNum, streetName, postal, email, password);
         if (client == null) {
             JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
             return;
@@ -300,36 +314,6 @@ public class FormSignup extends javax.swing.JFrame {
             passwordTB.setEchoChar('*');
         }
     }//GEN-LAST:event_passwordBoxActionPerformed
-
-
-    /***
-     * Creates a Client based on the textboxes from the JFrame and inserts them to the database
-     * @return The created client or null if there was a sql exception
-     */
-    private Client createClient() {
-        String first = firstNameTB.getText();
-        String last = lastNameTB.getText();
-        String phone = phoneNumberTB.getText();
-
-        String dob = dobTB.getText(); //LocalDate (yyyy/mm/dd)
-        LocalDate birthday = Utils.parseDobToLocalDate(dob);
-
-        String streetNum = streetNumTB.getText();
-        String streetName = streetNameTB.getText();
-        String postal = postalCodeTB.getText();
-        String email = emailTB.getText();
-        String password = passwordTB.getText();
-
-        try {
-            Client client = new Client(first, last, email, password, birthday, phone,
-                    new Address(streetName, streetNum, postal, Address.City.MONTREAL));
-            return client;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
-    }
-
 
     /***
      * Checks the client's input and validates them to see if they are properly formatted.

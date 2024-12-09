@@ -597,6 +597,7 @@ public class DatabaseConnectionUtils implements AutoCloseable {
             pstmt.executeUpdate();
             // Update the value of the restaurant's balance
             updatePstmt.setDouble(1, payment.getPaymentAmount());
+            updatePstmt.setInt(2, restaurantId);
             // Execute the update balance
             updatePstmt.executeUpdate();
         } catch (SQLException e) {

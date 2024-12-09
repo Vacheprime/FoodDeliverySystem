@@ -126,7 +126,7 @@ public class FormRestaurantDetails extends javax.swing.JFrame {
         locationLbl.setText(rb.getString("location") + restaurant.getLocation().toString());
         langBtn.setText(rb.getString("lang"));
         balanceLbl.setText(rb.getString("balance") + restaurant.getBalance());
-        numOrdersLbl.setText(rb.getString("numorders")); //need a getNumberOfOrders
+        numOrdersLbl.setText(rb.getString("numorders"));
     }
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
