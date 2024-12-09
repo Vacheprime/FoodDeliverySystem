@@ -95,7 +95,7 @@ public class DatabaseConnectionUtils implements AutoCloseable {
         } catch (SQLException e) {
             throw e;
         } finally {
-            connection = null;
+            instance = null;
         }
     }
     
