@@ -1,0 +1,55 @@
+INSERT INTO address Values (2,"Avenue street","MONTREAL","T4R-6E7",176);
+INSERT INTO address Values (3,"Nowhere Street","MONTREAL","S7P-5M2",429);
+INSERT INTO address Values (4,"Balling avenue","MONTREAL","R4C-5F6",7542);
+INSERT INTO address Values (5,"Elm street","MONTREAL","Y2A-1L5",5);
+
+INSERT INTO employee VALUES (1,"Andrew","Shahini","andrewshahini@gmail.com",123456,"2005-12-13","(123) 123-1234");
+INSERT INTO employee VALUES (2,"Danat","Muradov","danat@gmail.com",123456,"2005-12-13","(123) 123-1235");
+
+INSERT INTO restaurant VALUES (1,"Guac Guac",0.0,2);
+INSERT INTO restaurant VALUES (2,"Jamal",0.0,3);
+INSERT INTO restaurant VALUES (3,"Meat Lover",0.0,4);
+INSERT INTO restaurant VALUES (4,"Egg Planet",0.0,5);
+
+INSERT INTO food Values (1,"BURGER:BIGFATTY",10,14.99,null,null,null,7,"SPICY");
+INSERT INTO food Values (2,"BURGER:GREENBUSH",7,19.99,null,null,null,5,"CLASSIC");
+INSERT INTO food Values (3,"BURGER:SKINNYPITY",5,7.99,null,null,null,0,"CLASSIC");
+
+INSERT INTO food Values (4,"DRINK:COKE",1,3.99,"SMALL",30,null,null,null);
+INSERT INTO food Values (5,"DRINK:COKE",2,4.99,"MEDIUM",30,null,null,null);
+INSERT INTO food Values (6,"DRINK:COKE",3,5.49,"LARGE",30,null,null,null);
+
+INSERT INTO food Values (7,"DRINK:SEVENUP",1,3.99,"SMALL",25,null,null,null);
+INSERT INTO food Values (8,"DRINK:SEVENUP",2,4.99,"MEDIUM",25,null,null,null);
+INSERT INTO food Values (9,"DRINK:SEVENUP",3,5.49,"LARGE",25,null,null,null);
+
+INSERT INTO food Values (10,"DRINK:WATER",1,3.99,"SMALL",0,null,null,null);
+INSERT INTO food Values (11,"DRINK:WATER",2,4.99,"MEDIUM",0,null,null,null);
+INSERT INTO food Values (12,"DRINK:WATER",3,5.49,"LARGE",0,null,null,null);
+
+
+INSERT INTO food Values (13,"HOTDOG:GLIZZYGOBBLER",5,7.99,null,null,"Soggy",3,null);
+INSERT INTO food Values (14,"HOTDOG:MILLIMETERDEFEATER",3,3.99,null,null,"White",10,null);
+
+INSERT INTO food Values (15,"PIZZA:CHEESEPIZZA",15,10.99,null,null,null,null,null);
+INSERT INTO food Values (16,"PIZZA:PEPPERONIPIZZA",20,17.99,null,null,null,null,null);
+INSERT INTO food Values (17,"PIZZA:ALLDRESSEDPIZZA",25,22.99,null,null,null,null,null);
+
+INSERT INTO topping Values (1,"MOZZARELLA");
+INSERT INTO topping Values (2,"PEPPERONI");
+INSERT INTO topping Values (3,"BELL PEPPERS");
+INSERT INTO topping Values (4,"MUSHROOMS");
+INSERT INTO topping Values (5,"CHICKEN");
+
+INSERT INTO foodtopping VALUES (1,15);
+INSERT INTO foodtopping VALUES (1,16);
+INSERT INTO foodtopping VALUES (2,16);
+INSERT INTO foodtopping VALUES (1,17);
+INSERT INTO foodtopping VALUES (2,17);
+INSERT INTO foodtopping VALUES (3,17);
+INSERT INTO foodtopping VALUES (4,17);
+INSERT INTO foodtopping VALUES (5,17);
+
+INSERT INTO food VALUES (18,"FRIES:FRIES",2,2.99,"SMALL",null,null,null,null);
+INSERT INTO food VALUES (19,"FRIES:FRIES",3,3.49,"MEDIUM",null,null,null,null);
+INSERT INTO food VALUES (20,"FRIES:FRIES",4,4.99,"LARGE",null,null,null,null);
