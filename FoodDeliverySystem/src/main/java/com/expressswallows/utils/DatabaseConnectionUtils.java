@@ -17,6 +17,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -281,6 +282,9 @@ public class DatabaseConnectionUtils implements AutoCloseable {
                     Order order = new Order(restaurantID, fetchClientById(rs.getInt("ClientID")));
                     // Set the order id
                     order.setOrderId(rs.getInt("OrderID"));
+                    // Set the order time
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                    order.setOrderDateTime(LocalDateTime.parse(rs.getString("OrderTime"), formatter));
                     // Add food items to oder
                     for (Food d: fetchOrderFoods(order.getOrderId())) {
                         order.addFoodToOrder(d);

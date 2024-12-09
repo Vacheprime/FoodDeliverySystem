@@ -11,6 +11,7 @@ import com.expressswallows.model.restaurant.Payment;
 import com.expressswallows.model.restaurant.Restaurant;
 import com.expressswallows.model.restaurant.users.Address;
 import com.expressswallows.model.restaurant.users.Client;
+import com.expressswallows.utils.DatabaseConnectionUtils;
 import com.expressswallows.utils.Utils;
 
 import java.util.ArrayList;
@@ -22,10 +23,6 @@ import java.util.ResourceBundle;
  * @author shahi
  */
 public class FormOrderDetails extends javax.swing.JFrame {
-
-
-
-
 
     Client client;
     Order order;
@@ -40,10 +37,26 @@ public class FormOrderDetails extends javax.swing.JFrame {
         initComponents();
         this.client = client;
         this.order = order;
+        this.payment = payment;
         orderListTA.setText(foodList(order));
         Restaurant.OrderProcessTask task = new Restaurant.OrderProcessTask(order);
-        this.restaurant = task.findRestaurant(order, Main.restaurants);
-        this.restaurant.addPayment(this.payment = payment);
+        try(var data = DatabaseConnectionUtils.getInstance()) {
+            restaurant = task.findRestaurant(order, data.fetchRestaurantLocations());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            restaurant.addOrder(order);
+            order.setRestaurantId(restaurant.getRestaurantId());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        try(var database = DatabaseConnectionUtils.getInstance()) {
+            database.insertOrder(order);
+            database.insertPayment(payment, restaurant.getRestaurantId());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         update();
 
     }
@@ -54,7 +67,12 @@ public class FormOrderDetails extends javax.swing.JFrame {
         this.order = order;
         orderListTA.setText(foodList(order));
         Restaurant.OrderProcessTask task = new Restaurant.OrderProcessTask(order);
-        this.restaurant = task.findRestaurant(order, Main.restaurants);
+        try(var database = DatabaseConnectionUtils.getInstance()) {
+            this.restaurant = task.findRestaurant(order, database.fetchRestaurantLocations());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         update();
 
     }
