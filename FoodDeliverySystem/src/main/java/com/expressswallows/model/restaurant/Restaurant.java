@@ -1,17 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.expressswallows.model.restaurant;
 
-import com.expressswallows.model.menu.factories.FoodFactoryCreator;
 import com.expressswallows.model.menu.fooditems.Food;
 import com.expressswallows.model.restaurant.users.Address;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.Queue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -21,6 +16,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 public class Restaurant {
     public static double DELIVERY_TIME_PER_KM = 0.2; // Three minutes per km
+    private int restaurantId;
     private Address location;
     private String name;
     private double balance;
@@ -42,6 +38,14 @@ public class Restaurant {
 
     public BlockingQueue<OrderProcessTask> getOrderTaskQueue() {
         return orderTaskQueue;
+    }
+
+    public int getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(int restaurantId) {
+        this.restaurantId = restaurantId;
     }
 
     /**
@@ -110,7 +114,8 @@ public class Restaurant {
         if (order == null) {
             throw new IllegalArgumentException("Order cannot be null");
         }
-        orderTaskQueue.put(new OrderProcessTask(order));
+        order.setOrderDateTime(LocalDateTime.now()); // Set the date and time the order was placed
+        orderTaskQueue.put(new OrderProcessTask(order, this));
     }
 
     /**
@@ -146,10 +151,19 @@ public class Restaurant {
      */
     public static class OrderProcessTask implements Runnable {
         private Order order;
+        private Restaurant restaurant;
         private LocalTime startTime;
 
+        public OrderProcessTask(Order order, Restaurant restaurant) {
+            this.order = order;
+            this.restaurant = restaurant;
+            this.startTime = null;
+        }
+
+        // TODO: DELETE CONSTRUCTOR. KEPT FOR COMPATIBILITY WITH OLD CODE.
         public OrderProcessTask(Order order) {
             this.order = order;
+            this.restaurant = null;
             this.startTime = null;
         }
 
@@ -168,7 +182,7 @@ public class Restaurant {
          * @return the restaurant of the OrderProcess.
          */
         public Restaurant getRestaurant() {
-            return order.getAssignedTo();
+            return restaurant;
         }
 
         /**
@@ -289,7 +303,7 @@ public class Restaurant {
                 Thread.sleep((long) order.calculateTotalCookTime() * 60 * 1000);
                 // Update to delivering
                 order.setStatus(Order.Status.DELIVERING);
-                Thread.sleep((long) getDeliveryTime(order, getRestaurant()) * 60 * 1000);
+                Thread.sleep((long) getDeliveryTime(order, restaurant) * 60 * 1000);
                 // Update to delivered
                 order.setStatus(Order.Status.DELIVERED);
             } catch (InterruptedException e) {
@@ -298,4 +312,3 @@ public class Restaurant {
         }
     }
 }
-

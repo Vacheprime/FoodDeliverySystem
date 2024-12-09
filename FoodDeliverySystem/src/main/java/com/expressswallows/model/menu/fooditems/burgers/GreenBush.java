@@ -17,6 +17,11 @@ public class GreenBush extends Burger {
         this.prepare();
     }
 
+    @Override
+    public String getDatabaseType() {
+        return "BURGER:GREENBUSH";
+    }
+
     /**
      * Prepare the Green Bush.
      */

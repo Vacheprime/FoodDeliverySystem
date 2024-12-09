@@ -8,7 +8,6 @@ import java.time.LocalDate;
  * @author shahi
  */
 public class Employee extends Person{
-    private static int nextID = 1;
     private int employeeId;
 
     /**
@@ -27,7 +26,7 @@ public class Employee extends Person{
         if (!Utils.validateEmployeeAge(dob)) {
             throw new IllegalArgumentException("The employee must be at least 18 years of age.");
         }
-        this.employeeId = nextID++;
+        this.employeeId = -1;
     }
 
     /**
@@ -36,6 +35,10 @@ public class Employee extends Person{
      */
     public int getEmployeeId() {
         return employeeId;
+    }
+
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
     }
 
     @Override

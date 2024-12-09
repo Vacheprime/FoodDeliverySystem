@@ -17,6 +17,11 @@ public class MillimeterDefeater extends Hotdog {
         this.prepare();
     }
 
+    @Override
+    public String getDatabaseType() {
+        return "HOTDOG:MILLIMETERDEFEATER";
+    }
+
     /**
      * Prepare the MillimeterDefeater.
      */

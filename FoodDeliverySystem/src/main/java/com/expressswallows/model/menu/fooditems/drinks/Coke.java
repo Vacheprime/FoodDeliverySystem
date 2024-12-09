@@ -15,6 +15,11 @@ public class Coke extends Drink {
         this.prepare();
     }
 
+    @Override
+    public String getDatabaseType() {
+        return "DRINK:COKE";
+    }
+
     /**
      * Prepare the Coke.
      */

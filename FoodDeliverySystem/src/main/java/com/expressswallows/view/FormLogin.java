@@ -36,7 +36,7 @@ public class FormLogin extends javax.swing.JFrame {
      */
     public FormLogin() {
         initComponents();
-        clients.add(new Client("Andy", "Shah", "andrew@gmail.com", "123456", d1, "(123) 122-1323", new Address("Street", "122", "H2R 2B1", Address.City.Montreal)));
+        clients.add(new Client("Andy", "Shah", "andrew@gmail.com", "123456", d1, "(123) 122-1323", new Address("Street", "122", "H2R 2B1", Address.City.MONTREAL)));
 
         errorLbl.setVisible(false);
         update();

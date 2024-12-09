@@ -17,6 +17,11 @@ public class GlizzyGobbler extends Hotdog {
         this.prepare();
     }
 
+    @Override
+    public String getDatabaseType() {
+        return "HOTDOG:GLIZZYGOBBLER";
+    }
+
     /**
      * Prepare the GlizzyGobbler.
      */
