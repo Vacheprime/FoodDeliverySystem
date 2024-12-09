@@ -11,6 +11,7 @@ import com.expressswallows.model.restaurant.Payment;
 import com.expressswallows.model.restaurant.Restaurant;
 import com.expressswallows.model.restaurant.users.Address;
 import com.expressswallows.model.restaurant.users.Client;
+import com.expressswallows.utils.DatabaseConnectionUtils;
 import com.expressswallows.utils.Utils;
 
 import java.util.ArrayList;
@@ -36,10 +37,16 @@ public class FormOrderDetails extends javax.swing.JFrame {
         initComponents();
         this.client = client;
         this.order = order;
+        this.payment = payment;
         orderListTA.setText(foodList(order));
         Restaurant.OrderProcessTask task = new Restaurant.OrderProcessTask(order);
         this.restaurant = task.findRestaurant(order, Main.restaurants);
-        this.restaurant.addPayment(this.payment = payment);
+        //this.restaurant.addPayment(this.payment);
+        try(var database = DatabaseConnectionUtils.getInstance()) {
+            database.insertPayment(this.payment, this.restaurant.getRestaurantId());
+        } catch (Exception e) {
+
+        }
         update();
 
     }

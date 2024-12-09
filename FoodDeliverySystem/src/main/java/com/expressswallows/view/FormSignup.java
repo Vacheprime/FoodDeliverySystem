@@ -277,7 +277,12 @@ public class FormSignup extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
             return;
         }
-        FormLogin.clients.add(client);
+        //FormLogin.clients.add(client);
+        try(var database = DatabaseConnectionUtils.getInstance()) {
+            database.insertClient(client);
+        } catch (Exception de) {
+            //JOptionPane.showMessageDialog(null, "Database error", "Database error", JOptionPane.INFORMATION_MESSAGE);
+        }
         JOptionPane.showMessageDialog(null, message2, title2, JOptionPane.INFORMATION_MESSAGE);
         this.dispose();
         new FormLogin().setVisible(true);
@@ -319,14 +324,8 @@ public class FormSignup extends javax.swing.JFrame {
         try {
             Client client = new Client(first, last, email, password, birthday, phone,
                     new Address(streetName, streetNum, postal, Address.City.MONTREAL));
-            //add them to database
-            /*
-            var database = DatabaseUtilsConnection.getInstance();
-            database.InsertClient(client);
-            database.CloseConnection();
-            */
             return client;
-        } catch (Exception e/*SQLException ex*/) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return null;
@@ -391,13 +390,13 @@ public class FormSignup extends javax.swing.JFrame {
 
         String streetNum = streetNumTB.getText();
         String streetName = streetNameTB.getText();
-        if (!streetNum.isEmpty() || !streetName.isEmpty()) {
+        if (streetNum.isEmpty() || streetName.isEmpty()) {
             JOptionPane.showMessageDialog(null, streeterr, val, JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
         String password = passwordTB.getText();
-        if (!password.isEmpty()) {
+        if (password.isEmpty()) {
             JOptionPane.showMessageDialog(null, passerr, val, JOptionPane.ERROR_MESSAGE);
             return false;
         }

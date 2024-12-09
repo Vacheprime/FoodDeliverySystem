@@ -7,6 +7,7 @@ package com.expressswallows.view;
 import com.expressswallows.Main;
 import com.expressswallows.model.restaurant.Restaurant;
 import com.expressswallows.model.restaurant.users.Employee;
+import com.expressswallows.utils.DatabaseConnectionUtils;
 import com.expressswallows.utils.Utils;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -19,7 +20,7 @@ import javax.swing.JOptionPane;
  */
 public class FormEmployeeMainMenu extends javax.swing.JFrame {
 
-    List<Restaurant> restaurants = Main.restaurants;
+    List<Restaurant> restaurants;
     Employee employee;
     ImageIcon restaurant = new ImageIcon("FoodDeliverySystem/restaurants.jpg");
     ImageIcon rest2 = new ImageIcon("FoodDeliverySystem/rest2.jpg");
@@ -41,6 +42,12 @@ public class FormEmployeeMainMenu extends javax.swing.JFrame {
         rest4Lbl.setText("");
         rest4Lbl.setIcon(rest4);
         update();
+        try(var database = DatabaseConnectionUtils.getInstance()) {
+            this.restaurants = database.fetchRestaurantLocations();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
     }
 
@@ -245,51 +252,45 @@ public class FormEmployeeMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_langBtnActionPerformed
 
     private void view1BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view1BtnActionPerformed
-        /*
-        var database = DatabaseUtilsConnection().getInstance();
-        Restaurant restaurant1 = database.getRestaurantById(1);
-        database.CloseConntion();
-        this.dispose();
-        new FormRestaurentDetails(restaurant1, employee).setVisible(true);
 
-         */
-        this.dispose();
-        new FormRestaurantDetails(restaurants.get(0),employee).setVisible(true);
+        try(var database = DatabaseConnectionUtils.getInstance()) {
+            Restaurant restaurant1 = database.fetchRestaurantLocations().getFirst();
+            this.dispose();
+            new FormRestaurantDetails(restaurant1,employee).setVisible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }//GEN-LAST:event_view1BtnActionPerformed
 
     private void view2BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view2BtnActionPerformed
-       /*
-        var database = DatabaseUtilsConnection().getInstance();
-        Restaurant restaurant1 = database.getRestaurantById(2);
-        database.CloseConntion();
-        this.dispose();
-        new FormRestaurentDetails(restaurant1, employee).setVisible(true);
-
-         */
-        this.dispose();
-        new FormRestaurantDetails(restaurants.get(1),employee).setVisible(true);
+        try(var database = DatabaseConnectionUtils.getInstance()) {
+            Restaurant restaurant1 = database.fetchRestaurantLocations().get(1);
+            this.dispose();
+            new FormRestaurantDetails(restaurant1,employee).setVisible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_view2BtnActionPerformed
 
     private void view3BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view3BtnActionPerformed
-        /*
-        var database = DatabaseUtilsConnection().getInstance();
-        Restaurant restaurant1 = database.getRestaurantById(3);
-        database.CloseConntion();
-        this.dispose();
-        new FormRestaurentDetails(restaurant1, employee).setVisible(true);
-
-         */
+        try(var database = DatabaseConnectionUtils.getInstance()) {
+            Restaurant restaurant1 = database.fetchRestaurantLocations().get(2);
+            this.dispose();
+            new FormRestaurantDetails(restaurant1,employee).setVisible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_view3BtnActionPerformed
 
     private void view4BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view4BtnActionPerformed
-        /*
-        var database = DatabaseUtilsConnection().getInstance();
-        Restaurant restaurant1 = database.getRestaurantById(4);
-        database.CloseConntion();
-        this.dispose();
-        new FormRestaurentDetails(restaurant1, employee).setVisible(true);
-
-         */
+        try(var database = DatabaseConnectionUtils.getInstance()) {
+            Restaurant restaurant1 = database.fetchRestaurantLocations().get(3);
+            this.dispose();
+            new FormRestaurantDetails(restaurant1,employee).setVisible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_view4BtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
