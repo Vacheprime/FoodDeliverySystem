@@ -308,7 +308,7 @@ public class FormSignup extends javax.swing.JFrame {
 
         try {
             Client client = new Client(first, last, email, password, birthday, phone,
-                    new Address(streetName, streetNum, postal, Address.City.Montreal));
+                    new Address(streetName, streetNum, postal, Address.City.MONTREAL));
             //add them to database
             /*
             var database = DatabaseUtilsConnection.getInstance();

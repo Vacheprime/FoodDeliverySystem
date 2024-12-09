@@ -313,10 +313,10 @@ public class DatabaseConnectionUtils {
 
     /**
      * Get a restaurant by its ID.
-     * @param restaurantId
-     * @return
+     * @param restaurantId the restaurant with the ID specified.
+     * @return the restaurant with the specified ID.
      */
-    private Restaurant fetchRestaurantById(int restaurantId) {
+    private Restaurant fetchRestaurantById(int restaurantId) throws DatabaseFetchException {
         final String SQL = """
                             SELECT * FROM restaurant WHERE restaurantID = ?;
                             """;
@@ -343,14 +343,20 @@ public class DatabaseConnectionUtils {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DatabaseFetchException("Error: could not fetch the restaurant by ID: " + e.getMessage());
         }
         return restaurant;
     }
 
     // TODO: TEST WITH ALL FOODS
     // TODO: DON'T USE FACTORY, MANUALLY SET VALUES FROM QUERY
-    private List<Food> fetchOrderFoods(int orderID) {
+    /**
+     * Fetch the list of foods contained in an order.
+     * @param orderID the order ID of the order.
+     * @return a list of foods contained in the order specified.
+     * @throws DatabaseFetchException Exception thrown when the list of foods could not be fetched.
+     */
+    private List<Food> fetchOrderFoods(int orderID) throws DatabaseFetchException {
         final String SQL = """
                             SELECT * FROM food f
                             JOIN orderfood of ON f.FoodID = of.FoodID
@@ -365,11 +371,17 @@ public class DatabaseConnectionUtils {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DatabaseFetchException("Error: could not fetch order foods: " + e.getMessage());
         }
         return foods;
     }
 
+    /**
+     * Get a single food item from a result set that executed a query that includes all columns of the
+     * food table.
+     * @param rs the ResultSet of the executed query
+     * @throws SQLException Exception thrown when an error occurs during database operations.
+     */
     private Food getFoodFromFoodQuery(ResultSet rs) throws SQLException {
         // Type of format: CATEGORY:FOODITEM
         String[] type = rs.getString("Type").split(":");
@@ -411,12 +423,13 @@ public class DatabaseConnectionUtils {
      * @param clientId the client ID of the order.
      * @return the orders made by the client with the specified client ID.
      */
-    public List<Order> fetchOrdersByClientId(int clientId) {
+    public List<Order> fetchOrdersByClientId(int clientId) throws DatabaseFetchException {
         final String SQL = """
                            SELECT * FROM order WHERE ClientID = ?;
                            """;
         List<Order> orders = new ArrayList<>();
         try (PreparedStatement pstmt = connection.prepareStatement(SQL)) {
+            // Form the SQL
             pstmt.setInt(1, clientId);
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
@@ -434,7 +447,7 @@ public class DatabaseConnectionUtils {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DatabaseFetchException("Error: could not fetch the orders made by client: " + e.getMessage());
         }
         return orders;
     }
