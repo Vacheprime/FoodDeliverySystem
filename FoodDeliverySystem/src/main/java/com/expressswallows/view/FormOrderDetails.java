@@ -5,6 +5,7 @@
 package com.expressswallows.view;
 
 import com.expressswallows.Main;
+import com.expressswallows.controller.RestaurantController;
 import com.expressswallows.model.menu.fooditems.Food;
 import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.Payment;
@@ -40,10 +41,8 @@ public class FormOrderDetails extends javax.swing.JFrame {
         this.order = order;
         this.payment = payment;
         orderListTA.setText(foodList(order));
-        this.task = new Restaurant.OrderProcessTask(order, restaurant);
         try(var data = DatabaseConnectionUtils.getInstance()) {
-            this.restaurant = task.findRestaurant(order, data.fetchRestaurantLocations());
-            //System.out.println(data.fetchRestaurantLocations());
+            restaurant = RestaurantController.findRestaurant(order, data.fetchRestaurantLocations());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -70,7 +69,7 @@ public class FormOrderDetails extends javax.swing.JFrame {
         orderListTA.setText(foodList(order));
         Restaurant.OrderProcessTask task = new Restaurant.OrderProcessTask(order, restaurant);
         try(var database = DatabaseConnectionUtils.getInstance()) {
-            this.restaurant = task.findRestaurant(order, database.fetchRestaurantLocations());
+            this.restaurant = RestaurantController.findRestaurant(order, database.fetchRestaurantLocations());
         } catch (Exception e) {
             e.printStackTrace();
         }
