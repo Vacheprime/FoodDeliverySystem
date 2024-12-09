@@ -41,7 +41,6 @@ public class FormOrderDetails extends javax.swing.JFrame {
         orderListTA.setText(foodList(order));
         Restaurant.OrderProcessTask task = new Restaurant.OrderProcessTask(order);
         this.restaurant = task.findRestaurant(order, Main.restaurants);
-        //this.restaurant.addPayment(this.payment);
         try(var database = DatabaseConnectionUtils.getInstance()) {
             database.insertPayment(this.payment, this.restaurant.getRestaurantId());
         } catch (Exception e) {
@@ -58,6 +57,11 @@ public class FormOrderDetails extends javax.swing.JFrame {
         orderListTA.setText(foodList(order));
         Restaurant.OrderProcessTask task = new Restaurant.OrderProcessTask(order);
         this.restaurant = task.findRestaurant(order, Main.restaurants);
+        try(var database = DatabaseConnectionUtils.getInstance()) {
+            database.insertPayment(this.payment, this.restaurant.getRestaurantId());
+        } catch (Exception e) {
+
+        }
         update();
 
     }
