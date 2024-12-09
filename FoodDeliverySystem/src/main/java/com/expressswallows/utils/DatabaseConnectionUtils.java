@@ -90,7 +90,13 @@ public class DatabaseConnectionUtils implements AutoCloseable {
      * @throws SQLException Exception thrown when an error occurs while
      */
     public void closeConnection() throws SQLException {
-        connection.close();
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            connection = null;
+        }
     }
     
     /**

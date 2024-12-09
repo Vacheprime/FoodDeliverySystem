@@ -26,7 +26,5 @@ public static List<Restaurant> restaurants = new ArrayList<>();
                 new FormLogin().setVisible(true);
             }
         });
-        restaurants.add(new Restaurant(new Address("dasds","12","H2R 2B1", Address.City.MONTREAL),"BBQ",0));
-        restaurants.add(new Restaurant(new Address("street","13","D2R 2C1", Address.City.MONTREAL),"Poop",0));
     }
 }
