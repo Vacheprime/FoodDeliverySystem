@@ -224,7 +224,7 @@ public class DatabaseConnectionUtils {
      *
      * @return a list of all restaurant locations
      */
-    public List<Restaurant> fetchRestaurantLocations() {
+    public List<Restaurant> fetchRestaurantLocations() throws DatabaseFetchException {
         final String SQL = """
                             SELECT RestaurantID FROM restaurant;
                             """;
@@ -245,7 +245,7 @@ public class DatabaseConnectionUtils {
      * Get the restaurant orders that are in progress.
      * @return
      */
-    private List<Order> fetchRestaurantOrdersInProgress(int restaurantID) {
+    private List<Order> fetchRestaurantOrdersInProgress(int restaurantID) throws DatabaseFetchException {
         final String SQL = """
                             SELECT * FROM "order" WHERE restaurantID = ?;
                             """;
