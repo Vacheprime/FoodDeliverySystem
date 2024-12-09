@@ -55,7 +55,7 @@ public class FormOrderDetails extends javax.swing.JFrame {
             database.insertOrder(order);
             database.insertPayment(payment, restaurant.getRestaurantId());
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
         update();
 
