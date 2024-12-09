@@ -895,7 +895,7 @@ public class DatabaseConnectionUtils implements AutoCloseable {
                                 CONSTRAINT chk_Size CHECK (Size IN ('SMALL', 'MEDIUM', 'LARGE')),
                                 CONSTRAINT chk_SugarContent CHECK (SugarContent >= 0),
                                 CONSTRAINT chk_Bun CHECK (Bun IN ('Soggy', 'White', 'WholeWheat')),
-                                CONSTRAINT chk_Spiciness CHECK (Spiciness BETWEEN 1 AND 5)
+                                CONSTRAINT chk_Spiciness CHECK (Spiciness BETWEEN 0 AND 10)
                            );
                            """;
         try {
