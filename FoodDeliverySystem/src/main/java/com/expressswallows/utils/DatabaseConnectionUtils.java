@@ -907,7 +907,7 @@ public class DatabaseConnectionUtils implements AutoCloseable {
         final String SQL = """
                            CREATE TABLE IF NOT EXISTS food (
                                 FoodID INTEGER PRIMARY KEY,
-                                Type TEXT NOT NULL UNIQUE,
+                                Type TEXT NOT NULL,
                                 CookTime INTEGER NOT NULL,
                                 Price REAL NOT NULL,
                                 Size TEXT,
