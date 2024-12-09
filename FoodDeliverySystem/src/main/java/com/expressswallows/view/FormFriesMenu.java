@@ -25,7 +25,7 @@ public class FormFriesMenu extends javax.swing.JFrame {
 
     Client client;
     Order order;
-    ImageIcon friesI = new ImageIcon("FoodDeliverySystem/fries.jpg");
+    ImageIcon friesI = new ImageIcon("..\\FoodDeliverySystem\\src\\main\\resources\\images\\fries.jpg");
     
     private final double SMALL_PRICE = 2.99;
     private final double MEDIUM_PRICE = 3.49;

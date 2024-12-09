@@ -22,9 +22,9 @@ public class FormBurgerMenu extends javax.swing.JFrame {
 
     Client client;
     Order order;
-    ImageIcon bigFatty = new ImageIcon("FoodDeliverySystem/bigfatty.jpg");
-    ImageIcon greenBush = new ImageIcon("FoodDeliverySystem/greenbush.jpg");
-    ImageIcon skinnyPity = new ImageIcon("FoodDeliverySystem/skinnypity.jpg");
+    ImageIcon bigFatty = new ImageIcon("..\\FoodDeliverySystem\\src\\main\\resources\\images\\bigfatty.jpg");
+    ImageIcon greenBush = new ImageIcon("..\\FoodDeliverySystem\\src\\main\\resources\\images\\greenbush.jpg");
+    ImageIcon skinnyPity = new ImageIcon("..\\FoodDeliverySystem\\src\\main\\resources\\images\\skinnypity.jpg");
     private final double PRICEBF = 14.99;
     private final double PRICEGB = 19.99;
     private final double PRICESP = 7.99;

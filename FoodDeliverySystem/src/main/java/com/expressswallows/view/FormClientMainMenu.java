@@ -19,11 +19,11 @@ import java.util.ResourceBundle;
 public class FormClientMainMenu extends javax.swing.JFrame {
     Order order;
     Client client;
-    ImageIcon burgerImage = new ImageIcon("FoodDeliverySystem/burger.jpg");
-    ImageIcon pizzaImage = new ImageIcon("FoodDeliverySystem/pizza.jpg");
-    ImageIcon hotdogImage = new ImageIcon("FoodDeliverySystem/hotdog.jpg");
-    ImageIcon friesImage = new ImageIcon("FoodDeliverySystem/fries.jpg");
-    ImageIcon drinksImage = new ImageIcon("FoodDeliverySystem/drinks.jpg");
+    ImageIcon burgerImage = new ImageIcon("..\\FoodDeliverySystem\\src\\main\\resources\\images\\burger.jpg");
+    ImageIcon pizzaImage = new ImageIcon("..\\FoodDeliverySystem\\src\\main\\resources\\images\\pizza.jpg");
+    ImageIcon hotdogImage = new ImageIcon("..\\FoodDeliverySystem\\src\\main\\resources\\images\\hotdog.jpg");
+    ImageIcon friesImage = new ImageIcon("..\\FoodDeliverySystem\\src\\main\\resources\\images\\fries.jpg");
+    ImageIcon drinksImage = new ImageIcon("..\\FoodDeliverySystem\\src\\main\\resources\\images\\drinks.jpg");
     
     /**
      * Creates new form frmClientMainMenu

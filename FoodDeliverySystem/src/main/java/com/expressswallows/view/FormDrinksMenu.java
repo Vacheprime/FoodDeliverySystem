@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
 public class FormDrinksMenu extends javax.swing.JFrame {
     Order order;
     Client client;
-    ImageIcon drink = new ImageIcon("FoodDeliverySystem/drinks.jpg");
+    ImageIcon drink = new ImageIcon("..\\FoodDeliverySystem\\src\\main\\resources\\images\\drinks.jpg");
     private final double SMALL = 3.99;
     private final double MEDIUM = 4.99;
     private final double LARGE = 5.49;
