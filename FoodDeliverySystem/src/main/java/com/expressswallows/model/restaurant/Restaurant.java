@@ -219,6 +219,17 @@ public class Restaurant {
         public int getTotalProcessTime(Order order) {
             return order.calculateTotalCookTime() + getDeliveryTime(order, getRestaurant());
         }
+        
+        /**
+         * 
+         * @param order
+         * @param restaurant
+         * @return 
+         */
+        public int getTotalTime(Order order, Restaurant restaurant){
+            return getTotalProcessTime(order) + calculateQueueTime(restaurant);
+        }
+        
 
         /**
          * Get the delivery time of the order.

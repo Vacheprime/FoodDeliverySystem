@@ -19,7 +19,6 @@ import javax.swing.JOptionPane;
  */
 public class FormEmployeeMainMenu extends javax.swing.JFrame {
 
-
     List<Restaurant> restaurants = Main.restaurants;
     Employee employee;
     ImageIcon restaurant = new ImageIcon("FoodDeliverySystem/restaurants.jpg");
@@ -229,7 +228,11 @@ public class FormEmployeeMainMenu extends javax.swing.JFrame {
     }
     
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
-        int a = JOptionPane.showConfirmDialog(null, "Do you want to log out the application","Select",JOptionPane.YES_NO_OPTION);
+        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
+        String message = rb.getString("logmes");
+        String title = rb.getString("select");
+        
+        int a = JOptionPane.showConfirmDialog(null, message, title,JOptionPane.YES_NO_OPTION);
         if(a == 0){
             this.dispose();
             new FormLogin().setVisible(true);

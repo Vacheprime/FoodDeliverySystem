@@ -8,6 +8,7 @@ import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.Payment;
 import com.expressswallows.model.restaurant.users.Client;
 import com.expressswallows.utils.Utils;
+import java.util.Locale;
 
 import javax.swing.*;
 import javax.swing.text.html.FormView;
@@ -176,12 +177,14 @@ public class FormPayment extends javax.swing.JFrame {
 
 
     private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
-
+        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
+        String message = rb.getString("payFail");
+        String title = rb.getString("er");
 
         //var database = DatabaseUtilsConnection.getInstance();
 
         if (!checkPayment()) {
-            JOptionPane.showMessageDialog(null, "Payment failed", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
             return;
         }
 

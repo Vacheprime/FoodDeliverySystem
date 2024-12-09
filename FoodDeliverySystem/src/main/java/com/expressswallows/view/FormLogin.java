@@ -14,6 +14,7 @@ import com.expressswallows.utils.Utils;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -194,7 +195,11 @@ public class FormLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_passwordBoxActionPerformed
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
-        int a = JOptionPane.showConfirmDialog(null, "Do you want to exit the application","Select",JOptionPane.YES_NO_OPTION);
+        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
+        String message = rb.getString("exitMes");
+        String title = rb.getString("seletc");
+        
+        int a = JOptionPane.showConfirmDialog(null, message, title,JOptionPane.YES_NO_OPTION);
         if(a == 0){
             System.exit(0); //exits
         }

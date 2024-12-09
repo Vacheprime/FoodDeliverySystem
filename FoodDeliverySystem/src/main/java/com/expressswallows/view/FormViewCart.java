@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
@@ -140,6 +141,10 @@ public class FormViewCart extends javax.swing.JFrame {
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBtnActionPerformed
+        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
+        String err = rb.getString("removeErr");
+        String success = rb.getString("removeSuc");
+        
         int selectedIndex = listOrders.getSelectedIndex(); // selected with the mouse
         if (selectedIndex != -1) {
             String selectedFood = listOrders.getSelectedValue();
@@ -147,7 +152,7 @@ public class FormViewCart extends javax.swing.JFrame {
             for (Food food : order.getFoods()) {
                 if (food.getClass().getSimpleName().equals(selectedFood)) {
                     order.getFoods().remove(food);
-                    JOptionPane.showMessageDialog(this, "You've removed a food");
+                    JOptionPane.showMessageDialog(this, success);
 
                     DefaultListModel<String> model = (DefaultListModel<String>) listOrders.getModel();
                     model.removeElement(selectedFood);
@@ -156,7 +161,7 @@ public class FormViewCart extends javax.swing.JFrame {
             }
             //save it to the database?
         } else {
-            JOptionPane.showMessageDialog(this, "Please select a food to remove.");
+            JOptionPane.showMessageDialog(this, err);
         }
 
     }//GEN-LAST:event_removeBtnActionPerformed

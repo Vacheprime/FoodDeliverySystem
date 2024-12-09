@@ -12,6 +12,7 @@ import com.expressswallows.model.menu.fooditems.drinks.Drink;
 import com.expressswallows.model.restaurant.users.Client;
 import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.utils.Utils;
+import java.util.Locale;
 
 import javax.swing.*;
 import java.util.ResourceBundle;
@@ -209,13 +210,17 @@ public class FormDrinksMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_langBtnActionPerformed
 
     private void orderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderBtnActionPerformed
+        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
+        String message = rb.getString("drinkMes");
+        String title = rb.getString("drinkTitle");
+        
         int drinkChoice = typeBox.getSelectedIndex();
         int size = sizeBox.getSelectedIndex();
         FoodFactoryCreator creator = new FoodFactoryCreator();
         DrinkFactory factory = (DrinkFactory) creator.getFoodFactory("Drink");
         Drink drink = factory.createDrink(drinkChoice, size);
         order.addFoodToOrder(drink);
-        JOptionPane.showMessageDialog(null, "Successfully added drink to your cart.", "Drink Added", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_orderBtnActionPerformed
 
     private void sizeBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sizeBoxActionPerformed

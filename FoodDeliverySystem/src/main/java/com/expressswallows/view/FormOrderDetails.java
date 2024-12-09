@@ -23,10 +23,6 @@ import java.util.ResourceBundle;
  */
 public class FormOrderDetails extends javax.swing.JFrame {
 
-
-
-
-
     Client client;
     Order order;
     Restaurant restaurant;

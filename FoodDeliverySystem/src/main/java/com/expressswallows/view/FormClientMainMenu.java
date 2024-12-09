@@ -251,7 +251,11 @@ public class FormClientMainMenu extends javax.swing.JFrame {
     }
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
-        int a = JOptionPane.showConfirmDialog(null, "Do you want to log out the application","Select",JOptionPane.YES_NO_OPTION);
+        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
+        String message = rb.getString("logmes");
+        String title = rb.getString("select");
+        
+        int a = JOptionPane.showConfirmDialog(null, message,title,JOptionPane.YES_NO_OPTION);
         if(a == 0){
             this.dispose();
             new FormLogin().setVisible(true);
@@ -289,11 +293,15 @@ public class FormClientMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_langBtnActionPerformed
 
     private void viewCartBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewCartBtnActionPerformed
+        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
+        String message = rb.getString("emptyCartMes");
+        String title = rb.getString("empty");
+        
         if (order.getFoods() != null && !order.getFoods().isEmpty() && order != null) {
             this.dispose();
             new FormViewCart(client, order).setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(null, "You have nothing in your cart","Empty Cart", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_viewCartBtnActionPerformed
 

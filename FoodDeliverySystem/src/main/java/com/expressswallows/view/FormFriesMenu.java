@@ -12,6 +12,7 @@ import com.expressswallows.model.menu.fooditems.drinks.Drink;
 import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.users.Client;
 import com.expressswallows.utils.Utils;
+import java.util.Locale;
 
 import javax.swing.*;
 import java.util.ResourceBundle;
@@ -200,12 +201,17 @@ public class FormFriesMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_sizeBoxActionPerformed
 
     private void addToCartBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToCartBtnActionPerformed
+        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
+        String message = rb.getString("friesMes");
+        String title = rb.getString("friesTitle");
+        
+
         int size = sizeBox.getSelectedIndex();
         FoodFactoryCreator creator = new FoodFactoryCreator();
         FriesFactory factory = (FriesFactory) creator.getFoodFactory("Fries");
         Fries fries = factory.createFries(size);
         order.addFoodToOrder(fries);
-        JOptionPane.showMessageDialog(null, "Successfully added fries to your cart.", "Fries Added", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_addToCartBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
