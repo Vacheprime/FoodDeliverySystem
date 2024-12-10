@@ -16,8 +16,8 @@ import java.util.List;
  * Main entry point for the Delivery System Application.
  *
  */
-public class Main 
-{
+public class Main {
+
     public static void main(String[] args ) throws DatabaseException {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
