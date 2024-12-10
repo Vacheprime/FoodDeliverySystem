@@ -119,21 +119,28 @@ public class RestaurantController {
         // Find the restaurant that can process the order the fastest
         orderDetailsForm.restaurant = findRestaurant(orderDetailsForm.order, restaurants);
 
-        // Assign the order to the restaurant select and set the order's restaurant ID to that selected restaurant
-        // Must be assigned before inserted into the database so that the order time is set
+        // Synchronize inputting an order
+        DatabaseConnectionUtils.dbLock.lock();
         try {
-            orderDetailsForm.restaurant.addOrder(orderDetailsForm.order);
-            orderDetailsForm.order.setRestaurantId(orderDetailsForm.restaurant.getRestaurantId());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            // Assign the order to the restaurant select and set the order's restaurant ID to that selected restaurant
+            // Must be assigned before inserted into the database so that the order time is set
+            try {
+                orderDetailsForm.restaurant.addOrder(orderDetailsForm.order);
+                orderDetailsForm.order.setRestaurantId(orderDetailsForm.restaurant.getRestaurantId());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            // Insert the order and the payment in the database
+            try(var database = DatabaseConnectionUtils.getInstance()) {
+                database.insertOrder(orderDetailsForm.order);
+                database.insertPayment(orderDetailsForm.payment, orderDetailsForm.restaurant.getRestaurantId());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } finally {
+            DatabaseConnectionUtils.dbLock.unlock();
         }
-        // Insert the order and the payment in the database
-        try(var database = DatabaseConnectionUtils.getInstance()) {
-            database.insertOrder(orderDetailsForm.order);
-            database.insertPayment(orderDetailsForm.payment, orderDetailsForm.restaurant.getRestaurantId());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
         // Display the UI
         updateOrderDetailsFormLanguage();
         // Continuously update the UI

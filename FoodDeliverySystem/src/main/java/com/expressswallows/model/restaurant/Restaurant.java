@@ -1,13 +1,15 @@
 package com.expressswallows.model.restaurant;
 
 import com.expressswallows.controller.RestaurantController;
+import com.expressswallows.exceptions.DatabaseException;
+import com.expressswallows.exceptions.DatabaseInsertException;
 import com.expressswallows.model.menu.fooditems.Food;
 import com.expressswallows.model.restaurant.users.Address;
+import com.expressswallows.utils.DatabaseConnectionUtils;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
@@ -60,7 +62,7 @@ public class Restaurant {
     public void setCurrentOrderTask(OrderProcessTask currentOrderTask) {
         this.currentOrderTask = currentOrderTask;
     }
-    
+
     /**
      * Getter for the location.
      * @return the location of the restaurant.
@@ -284,6 +286,21 @@ public class Restaurant {
             }
         }
 
+        private void updateStatus(Order.Status status) {
+            // Synchronize db access
+            DatabaseConnectionUtils.dbLock.lock();
+            try {
+                // Update the status in the database
+                try (DatabaseConnectionUtils db = DatabaseConnectionUtils.getInstance()) {
+                    db.updateOrderStatus(order.getOrderId(), status);
+                } catch (DatabaseException e) {
+                    e.printStackTrace();
+                }
+            } finally {
+                DatabaseConnectionUtils.dbLock.unlock();
+            }
+        }
+
         /**
          * Process the order.
          */
@@ -291,16 +308,22 @@ public class Restaurant {
             try {
                 // Set status to cooking
                 order.setStatus(Order.Status.IN_PROGRESS);
+                // Update the status in the database
+                updateStatus(Order.Status.IN_PROGRESS);
                 // Wait for cooking to finish
                 long cookTime = (long) order.calculateTotalCookTime() * 60 * 1000;
                 Thread.sleep(cookTime);
                 // Set status to delivering
                 order.setStatus(Order.Status.DELIVERING);
+                // Update the status in the database
+                updateStatus(Order.Status.DELIVERING);
                 // Wait for delivery
                 long deliveryTime = (long) RestaurantController.getDeliveryTime(order, restaurant) * 60 * 1000;
                 Thread.sleep(deliveryTime);
                 // Set status to arrived
                 order.setStatus(Order.Status.ARRIVED);
+                // Update the status in the database
+                updateStatus(Order.Status.ARRIVED);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e.getMessage());
             }
