@@ -279,13 +279,15 @@ public class DatabaseConnectionUtils implements AutoCloseable {
             pstmt.setInt(1, restaurantID);
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
-                    if (rs.getString("Status").equals("DELIVERED")) {
+                    if (rs.getString("Status").equals("ARRIVED")) {
                         continue;
                     }
                     // Create the order
                     Order order = new Order(restaurantID, fetchClientById(rs.getInt("ClientID")));
                     // Set the order id
                     order.setOrderId(rs.getInt("OrderID"));
+                    // Set the order status
+                    order.setStatus(Order.Status.valueOf(rs.getString("Status").toUpperCase()));
                     // Set the order time
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                     order.setOrderDateTime(LocalDateTime.parse(rs.getString("OrderTime"), formatter));
