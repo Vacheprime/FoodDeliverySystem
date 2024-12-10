@@ -105,6 +105,7 @@ public class OrderProcessingController {
                 task.process();
                 // Finish the order
                 restaurant.finishCurrentOrder();
+                System.out.println("Order processed!");
             }
         }
     }

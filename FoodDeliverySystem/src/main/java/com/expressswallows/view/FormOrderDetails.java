@@ -143,22 +143,7 @@ public class FormOrderDetails extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void update() {
-        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
-        langBtn.setText(rb.getString("lang"));
-        backBtn.setText(rb.getString("back"));
-        
-        if (Utils.currentLocale.getLanguage().equals("en")) {
-            orderLbl.setText(rb.getString("order") + order.getOrderId());
-            etaLbl.setText(rb.getString("eta") + restaurant.getCurrentOrderTask().getEstimatedRemainingTime(order));
-            locationAssignedLbl.setText(rb.getString("locationassigned") + restaurant.toString());
-            statusLbl.setText(rb.getString("status") + order.getStatus());
-        } else if (Utils.currentLocale.getLanguage().equals("fr")) {
-            orderLbl.setText(rb.getString("order") + order.getOrderId());
-            etaLbl.setText(rb.getString("eta") + restaurant.getCurrentOrderTask().getEstimatedRemainingTime(order));
-            locationAssignedLbl.setText(rb.getString("locationassigned") + restaurant.toString());
-            statusLbl.setText(rb.getString("status") + order.getStatus());
-        }
-
+        controller.updateOrderDetailsFormLanguage();
     }
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
