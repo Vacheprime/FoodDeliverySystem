@@ -4,6 +4,7 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.controller.RestaurantController;
 import com.expressswallows.controller.RestaurantDetailsController;
 import com.expressswallows.model.restaurant.Restaurant;
 import com.expressswallows.model.restaurant.users.Employee;
@@ -18,6 +19,7 @@ import java.util.ResourceBundle;
 public class FormRestaurantDetails extends javax.swing.JFrame {
 
     public RestaurantDetailsController controller;
+    public RestaurantController restaurantController;
     public Restaurant restaurant;
     public Employee employee;
     /**
