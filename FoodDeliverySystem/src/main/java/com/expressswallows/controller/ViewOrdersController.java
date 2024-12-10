@@ -21,7 +21,7 @@ public class ViewOrdersController {
     }
 
     /**
-     *
+     * Updates the language between English and French
      */
     public void update() {
         ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
@@ -31,15 +31,16 @@ public class ViewOrdersController {
     }
 
     /**
-     *
+     * Opens the ClientMainMenu form
      */
     public void backButtonClicked() {
         formViewOrders.dispose();
         new FormClientMainMenu(formViewOrders.client, formViewOrders.order).setVisible(true);
     }
 
-    /**
-     *
+    /***
+     * Opens the OrderDetails form
+     * @param order the order
      */
     public void openOrderDetails(Order order) {
         formViewOrders.dispose();

@@ -29,6 +29,12 @@ public class DrinkFactory extends AbstractFactory {
         return null;
     }
 
+    /**
+     * Creates a drink from the factory based on the user's choice
+     * @param request Type of drink
+     * @param size Size 0 for small, 1 for medium, and 2 for large
+     * @return
+     */
     @Override
     public Drink createDrink(int request, int size) {
         if (request == 1) {

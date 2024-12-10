@@ -34,6 +34,11 @@ public class HotdogFactory extends AbstractFactory {
         return null;
     }
 
+    /**
+     * Creates the hotdog from the hotdog factory based on the client's request
+     * @param request the name of the hotdog of choice
+     * @return the hotdog the client selected
+     */
     @Override
     public Hotdog createHotdog(String request) {
         if (request.equalsIgnoreCase("GlizzyGobbler")) {

@@ -25,6 +25,11 @@ public class PizzaFactory extends AbstractFactory {
         return null;
     }
 
+    /***
+     * Creates the pizza of choice from the pizza factory
+     * @param request the pizza the client requested
+     * @return the pizza
+     */
     @Override
     public Pizza createPizza(String request) {
         if (request.equalsIgnoreCase("CheesePizza")) {

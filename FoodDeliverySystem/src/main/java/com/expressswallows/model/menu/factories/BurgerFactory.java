@@ -19,6 +19,11 @@ import com.expressswallows.model.menu.fooditems.pizzas.Pizza;
  */
 public class BurgerFactory extends AbstractFactory{
 
+    /**
+     * Creates a burger of the client's selected choice
+     * @param request the burger name
+     * @return The burger of choice
+     */
     @Override
     public Burger createBurger(String request) {
         if (request.equalsIgnoreCase("BigFatty")) {

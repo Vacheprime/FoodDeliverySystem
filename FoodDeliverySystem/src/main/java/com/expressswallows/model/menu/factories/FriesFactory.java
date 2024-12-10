@@ -37,6 +37,11 @@ public class FriesFactory extends AbstractFactory {
         return null;
     }
 
+    /**
+     * Creates the fries from the factory based on the size the client inputs
+     * @param request size of fries, 0 for small, 1 for medium, 2 for large
+     * @return the fries
+     */
     @Override
     public Fries createFries(int request) {
         Fries fries;
