@@ -1,83 +1,43 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package com.expressswallows.view;
 
-import com.expressswallows.Main;
 import com.expressswallows.controller.RestaurantController;
-import com.expressswallows.exceptions.DatabaseException;
-import com.expressswallows.model.menu.fooditems.Food;
 import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.Payment;
 import com.expressswallows.model.restaurant.Restaurant;
-import com.expressswallows.model.restaurant.users.Address;
 import com.expressswallows.model.restaurant.users.Client;
-import com.expressswallows.utils.DatabaseConnectionUtils;
 import com.expressswallows.utils.Utils;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
 
 /**
  *
  * @author shahi
  */
 public class FormOrderDetails extends javax.swing.JFrame {
+    public Client client;
+    public Order order;
+    public Restaurant restaurant;
+    public Payment payment;
+    public RestaurantController controller;
 
-    Client client;
-    Order order;
-    Restaurant restaurant;
-    Payment payment;
-    Restaurant.OrderProcessTask task;
-    //List of restaurants from the database
     /**
      * Creates new form FormOrderDetails
      */
-    
     public FormOrderDetails(Client client, Order order, Payment payment) {
         initComponents();
         this.client = client;
         this.order = order;
         this.payment = payment;
-        orderListTA.setText(foodList(order));
-        try(var data = DatabaseConnectionUtils.getInstance()) {
-            restaurant = RestaurantController.findRestaurant(order, data.fetchRestaurantLocations());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-            restaurant.addOrder(order);
-            order.setRestaurantId(restaurant.getRestaurantId());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        try(var database = DatabaseConnectionUtils.getInstance()) {
-            database.insertOrder(order);
-            database.insertPayment(payment, restaurant.getRestaurantId());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        update();
-
+        this.controller = new RestaurantController(this);
+        this.controller.initializeOrderFormWithPayment();
+        this.controller.updateOrderDetailsFormLanguage();
     }
     
     public FormOrderDetails(Client client, Order order) {
         initComponents();
         this.client = client;
         this.order = order;
-
-        try (var database = DatabaseConnectionUtils.getInstance()) {
-            this.restaurant = database.fetchRestaurantLocations().stream().filter(r -> r.getRestaurantId() == order.getRestaurantId()).findFirst().get();
-        } catch (DatabaseException e) {
-            e.printStackTrace();
-        }
-
-        orderListTA.setText(foodList(order));
-
-
-        update();
+        this.controller = new RestaurantController(this);
+        this.controller.initializeOrderFormWithOrder();
+        this.controller.updateOrderDetailsFormLanguage();
     }
 
     /**
@@ -182,25 +142,6 @@ public class FormOrderDetails extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void update() {
-        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
-        langBtn.setText(rb.getString("lang"));
-        backBtn.setText(rb.getString("back"));
-
-        if (Utils.currentLocale.getLanguage().equals("en")) {
-            orderLbl.setText(rb.getString("order") + order.getOrderId());
-            etaLbl.setText(rb.getString("eta") + RestaurantController.getTotalTime(order,restaurant));
-            locationAssignedLbl.setText(rb.getString("locationassigned") + restaurant.toString());
-            statusLbl.setText(rb.getString("status") + order.getStatus());
-        } else if (Utils.currentLocale.getLanguage().equals("fr")) {
-            orderLbl.setText(rb.getString("order") + order.getOrderId());
-            etaLbl.setText(rb.getString("eta") + RestaurantController.getTotalTime(order,restaurant));
-            locationAssignedLbl.setText(rb.getString("locationassigned") + restaurant.toString());
-            statusLbl.setText(rb.getString("status") + order.getStatus());
-        }
-
-    }
-
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         Order newOrder = new Order(client);
         this.dispose();
@@ -209,29 +150,19 @@ public class FormOrderDetails extends javax.swing.JFrame {
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
         Utils.switchLanguage();
-        update();
+        controller.updateOrderDetailsFormLanguage();
     }//GEN-LAST:event_langBtnActionPerformed
-
-    private String foodList(Order order) {
-        StringBuilder foodDetails = new StringBuilder();
-    
-        for (Food food : order.getFoods()) {
-            foodDetails.append(food.toString()).append("\n");           
-        }
-        return foodDetails.toString();
-    }
-    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton backBtn;
-    private javax.swing.JLabel etaLbl;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JButton langBtn;
-    private javax.swing.JLabel locationAssignedLbl;
-    private javax.swing.JLabel orderLbl;
-    private javax.swing.JTextArea orderListTA;
-    private javax.swing.JLabel statusLbl;
+    public javax.swing.JButton backBtn;
+    public javax.swing.JLabel etaLbl;
+    public javax.swing.JScrollPane jScrollPane1;
+    public javax.swing.JScrollPane jScrollPane2;
+    public javax.swing.JTextArea jTextArea1;
+    public javax.swing.JButton langBtn;
+    public javax.swing.JLabel locationAssignedLbl;
+    public javax.swing.JLabel orderLbl;
+    public javax.swing.JTextArea orderListTA;
+    public javax.swing.JLabel statusLbl;
     // End of variables declaration//GEN-END:variables
 }
