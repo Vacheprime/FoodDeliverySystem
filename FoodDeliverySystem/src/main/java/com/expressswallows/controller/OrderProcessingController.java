@@ -105,9 +105,6 @@ public class OrderProcessingController {
                     continue;
                 }
                 System.out.println("Processing order: " + task.getOrder() + " TIME: " + task.getEstimatedRemainingTime());
-                for (OrderProcessTask t : restaurant.getOrderTaskQueue()) {
-                    System.out.println("Order: " + t.getOrder() + " TIME: " + t.getEstimatedRemainingTime());
-                }
                 // Execute the task
                 task.process();
                 // Finish the order
