@@ -198,27 +198,9 @@ public class Order {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Order other = (Order) obj;
-        if (!Objects.equals(this.foods, other.foods)) {
-            return false;
-        }
-        if (!Objects.equals(this.orderedBy, other.orderedBy)) {
-            return false;
-        }
-        if (!Objects.equals(this.restaurantId, other.restaurantId)) {
-            return false;
-        }
-        return Objects.equals(this.orderDateTime, other.orderDateTime);
+    public boolean equals(Object o) {
+        if (!(o instanceof Order order)) return false;
+        return restaurantId == order.restaurantId && Objects.equals(foods, order.foods) && Objects.equals(orderedBy, order.orderedBy) && Objects.equals(orderDateTime, order.orderDateTime) && status == order.status;
     }
 
     @Override
