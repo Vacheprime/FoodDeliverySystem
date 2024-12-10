@@ -208,7 +208,10 @@ public class RestaurantController {
             OrderProcessingController processingController = OrderProcessingController.getInstance();
             Restaurant assignedRestaurant = processingController.getRestaurantById(orderDetailsForm.order.getRestaurantId());
             OrderProcessTask processTask = assignedRestaurant.findTaskWithOrder(orderDetailsForm.order);
-            remainingTime = processTask.getEstimatedRemainingTime();
+            if (processTask != null) {
+                remainingTime = processTask.getEstimatedRemainingTime();
+            }
+
         }
         // Set the text of the form
         ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
