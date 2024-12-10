@@ -144,14 +144,6 @@ public class Restaurant {
     }
 
     /**
-     * Get the current order task.
-     * @return
-     */
-    public OrderProcessTask getCurrentOrderTask() {
-        return currentOrderTask;
-    }
-
-    /**
      * Find the OrderProcessTask that is responsible for
      * processing the order specified, if any exist.
      * @param order the order to search for.
