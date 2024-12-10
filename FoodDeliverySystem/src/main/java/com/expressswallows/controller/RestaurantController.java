@@ -5,11 +5,11 @@ import com.expressswallows.model.menu.fooditems.Food;
 import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.Payment;
 import com.expressswallows.model.restaurant.Restaurant;
+import com.expressswallows.model.restaurant.Restaurant.OrderProcessTask;
 import com.expressswallows.utils.DatabaseConnectionUtils;
 import com.expressswallows.utils.Utils;
 import com.expressswallows.view.FormOrderDetails;
 import com.expressswallows.view.FormPayment;
-import com.expressswallows.view.FormRestaurantDetails;
 import com.expressswallows.view.FormViewCart;
 
 import javax.swing.*;
@@ -23,27 +23,12 @@ public class RestaurantController {
     private FormPayment paymentForm;
     private FormOrderDetails orderDetailsForm;
 
-    private List<Restaurant> restaurants;
-
     public RestaurantController(FormPayment paymentForm) {
         this.paymentForm = paymentForm;
-        this.restaurants = null;
     }
 
     public RestaurantController(FormOrderDetails orderDetailsForm) {
         this.orderDetailsForm = orderDetailsForm;
-        loadRestaurants();
-    }
-
-    /**
-     * Load the restaurant locations from the database.
-     */
-    public void loadRestaurants() {
-        try (DatabaseConnectionUtils database = DatabaseConnectionUtils.getInstance()) {
-            this.restaurants = database.fetchRestaurantLocations();
-        } catch (DatabaseException e) {
-            throw new RuntimeException("Could not access database: " + e.getMessage());
-        }
     }
 
     /**
@@ -126,55 +111,110 @@ public class RestaurantController {
      * Initialize the order details form after making a payment for an order.
      */
     public void initializeOrderFormWithPayment() {
+        // Get the list of restaurants
+        List<Restaurant> restaurants = OrderProcessingController.getInstance().getRestaurants();
+
         // Set the text of the current order
         orderDetailsForm.orderListTA.setText(foodList(orderDetailsForm.order));
+
         // Find the restaurant that can process the order the fastest
         orderDetailsForm.restaurant = findRestaurant(orderDetailsForm.order, restaurants);
-        // Assign the order to the restaurant select and set the order's restaurant ID to that selected restaurant
+
+        // Synchronize inputting an order
+        DatabaseConnectionUtils.dbLock.lock();
         try {
-            orderDetailsForm.restaurant.addOrder(orderDetailsForm.order);
-            orderDetailsForm.order.setRestaurantId(orderDetailsForm.restaurant.getRestaurantId());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            // Assign the order to the restaurant select and set the order's restaurant ID to that selected restaurant
+            // Must be assigned before inserted into the database so that the order time is set
+            try {
+                orderDetailsForm.restaurant.addOrder(orderDetailsForm.order);
+                orderDetailsForm.order.setRestaurantId(orderDetailsForm.restaurant.getRestaurantId());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            // Insert the order and the payment in the database
+            try(var database = DatabaseConnectionUtils.getInstance()) {
+                database.insertOrder(orderDetailsForm.order);
+                database.insertPayment(orderDetailsForm.payment, orderDetailsForm.restaurant.getRestaurantId());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } finally {
+            DatabaseConnectionUtils.dbLock.unlock();
         }
-        // Insert the order and the payment in the database
-        try(var database = DatabaseConnectionUtils.getInstance()) {
-            database.insertOrder(orderDetailsForm.order);
-            database.insertPayment(orderDetailsForm.payment, orderDetailsForm.restaurant.getRestaurantId());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+        // Display the UI
+        updateOrderDetailsFormLanguage();
+        // Continuously update the UI
+        OrderDetailsRefreshThread refreshThread = new OrderDetailsRefreshThread(orderDetailsForm);
+        refreshThread.start();
     }
 
     /**
      * Initialize the order details form of an order.
      */
     public void initializeOrderFormWithOrder() {
+        // Get the list of restaurants
+        OrderProcessingController processingController = OrderProcessingController.getInstance();
         // Find the restaurant that is responsible for the order
-        orderDetailsForm.restaurant = restaurants.stream().filter(r -> r.getRestaurantId() == orderDetailsForm.order.getRestaurantId()).findFirst().get();
+        orderDetailsForm.restaurant = processingController.getRestaurantById(orderDetailsForm.order.getRestaurantId());
         // Set the text of the current order
         orderDetailsForm.orderListTA.setText(foodList(orderDetailsForm.order));
+        // Display the UI
+        updateOrderDetailsFormLanguage();
+        // Continuously update the UI
+        OrderDetailsRefreshThread refreshThread = new OrderDetailsRefreshThread(orderDetailsForm);
+        refreshThread.start();
     }
 
     /**
      * Update the language of the order details form.
      */
     public void updateOrderDetailsFormLanguage() {
+        // Determine remaining time
+        int remainingTime = 0;
+
+        // Determine whether the order has been completed or not
+        Order currentOrder = orderDetailsForm.order;
+
+        if (currentOrder.getStatus() != Order.Status.ARRIVED) {
+            // Get the remaining time of the order
+            OrderProcessingController processingController = OrderProcessingController.getInstance();
+            Restaurant assignedRestaurant = processingController.getRestaurantById(orderDetailsForm.order.getRestaurantId());
+            OrderProcessTask processTask = assignedRestaurant.findTaskWithOrder(orderDetailsForm.order);
+            if (processTask != null) {
+                // Set the current order to the order being processed in order to get live reloads
+                orderDetailsForm.order = processTask.getOrder();
+                remainingTime = processTask.getEstimatedRemainingTime();
+            }
+        }
+
+        // Set the text of the form
         ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
         orderDetailsForm.langBtn.setText(rb.getString("lang"));
         orderDetailsForm.backBtn.setText(rb.getString("back"));
+        orderDetailsForm.orderLbl.setText(rb.getString("order") + " " + orderDetailsForm.order.getOrderId());
+        orderDetailsForm.etaLbl.setText(rb.getString("eta") + " " + remainingTime + " mins.");
+        orderDetailsForm.locationAssignedLbl.setText(rb.getString("locationassigned") + " " + orderDetailsForm.restaurant.toString());
+        orderDetailsForm.statusLbl.setText(rb.getString("status") + " " + orderDetailsForm.order.getStatus());
+    }
 
-        if (Utils.currentLocale.getLanguage().equals("en")) {
-            orderDetailsForm.orderLbl.setText(rb.getString("order") + orderDetailsForm.order.getOrderId());
-            orderDetailsForm.etaLbl.setText(rb.getString("eta") + RestaurantController.getTotalTime(orderDetailsForm.order,orderDetailsForm.restaurant));
-            orderDetailsForm.locationAssignedLbl.setText(rb.getString("locationassigned") + orderDetailsForm.restaurant.toString());
-            orderDetailsForm.statusLbl.setText(rb.getString("status") + orderDetailsForm.order.getStatus());
-        } else if (Utils.currentLocale.getLanguage().equals("fr")) {
-            orderDetailsForm.orderLbl.setText(rb.getString("order") + orderDetailsForm.order.getOrderId());
-            orderDetailsForm.etaLbl.setText(rb.getString("eta") + RestaurantController.getTotalTime(orderDetailsForm.order, orderDetailsForm.restaurant));
-            orderDetailsForm.locationAssignedLbl.setText(rb.getString("locationassigned") + orderDetailsForm.restaurant.toString());
-            orderDetailsForm.statusLbl.setText(rb.getString("status") + orderDetailsForm.order.getStatus());
+    public void updateOrderDetails() {
+        // Determine remaining time
+        int remainingTime = 0;
+
+        // Determine whether the order has been completed or not
+        Order currentOrder = orderDetailsForm.order;
+        if (currentOrder.getStatus() != Order.Status.ARRIVED) {
+            // Get the remaining time of the order
+            OrderProcessingController processingController = OrderProcessingController.getInstance();
+            Restaurant assignedRestaurant = processingController.getRestaurantById(orderDetailsForm.order.getRestaurantId());
+            OrderProcessTask processTask = assignedRestaurant.findTaskWithOrder(orderDetailsForm.order);
+            remainingTime = processTask.getEstimatedRemainingTime();
         }
+        // Set the text of the form
+        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
+        orderDetailsForm.etaLbl.setText(rb.getString("eta") + " " + remainingTime + " mins.");
+        orderDetailsForm.statusLbl.setText(rb.getString("status") + " " + orderDetailsForm.order.getStatus());
     }
 
     /**
@@ -254,5 +294,26 @@ public class RestaurantController {
             }
         }
         return bestRestaurant;
+    }
+
+    private class OrderDetailsRefreshThread extends Thread {
+        private FormOrderDetails orderDetailsForm;
+
+        public OrderDetailsRefreshThread(FormOrderDetails orderDetailsForm) {
+            this.orderDetailsForm = orderDetailsForm;
+            this.setDaemon(true);
+        }
+
+        @Override
+        public void run() {
+            while (true) {
+                try {
+                    Thread.sleep(1000);
+                    updateOrderDetails();
+                } catch (InterruptedException e) {
+                    break;
+                }
+            }
+        }
     }
 }
