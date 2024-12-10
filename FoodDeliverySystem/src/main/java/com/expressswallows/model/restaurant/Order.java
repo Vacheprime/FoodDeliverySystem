@@ -23,9 +23,10 @@ public class Order {
      * Status enum is used to represent the different states that an order can be in.
      */
     public enum Status {
+        IN_QUEUE,
         IN_PROGRESS,
         DELIVERING,
-        DELIVERED
+        ARRIVED
     }
 
     /**
