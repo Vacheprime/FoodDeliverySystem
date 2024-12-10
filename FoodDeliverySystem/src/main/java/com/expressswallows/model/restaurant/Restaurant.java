@@ -144,6 +144,54 @@ public class Restaurant {
     }
 
     /**
+     * Get the current order task.
+     * @return
+     */
+    public OrderProcessTask getCurrentOrderTask() {
+        return currentOrderTask;
+    }
+
+    /**
+     * Find the OrderProcessTask that is responsible for
+     * processing the order specified, if any exist.
+     * @param order the order to search for.
+     * @return the OrderProcessTask responsible for processing the order specified.
+     * Null if no OrderProcessTask can be found.
+     */
+    public OrderProcessTask findTaskWithOrder(Order order) {
+        if (isQueueEmpty()) {
+            return null;
+        }
+        if (currentOrderTask.getOrder().equals(order)) {
+            return currentOrderTask;
+        }
+        for (OrderProcessTask task : orderTaskQueue) {
+            if (task.getOrder().equals(order)) {
+                return task;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Check if the restaurant does not have and is not processing
+     * any orders.
+     * @return
+     */
+    public boolean isQueueEmpty() {
+        return currentOrderTask == null && orderTaskQueue.isEmpty();
+    }
+
+    /**
+     * Reset the current order task when a task is finished.
+     * This method should be called every time a task is finished
+     * as to clear the current task when the queue is emptied.
+     */
+    public synchronized void finishCurrentOrder() {
+        this.currentOrderTask = null;
+    }
+
+    /**
      * Add a payment to the restaurant.
      * @param payment the payment to add.
      */
@@ -162,7 +210,7 @@ public class Restaurant {
     /**
      * OrderProcessTask is used to represent an order task.
      */
-    public static class OrderProcessTask implements Runnable {
+    public static class OrderProcessTask {
         private final Order order;
         private final Restaurant restaurant;
         private LocalTime startTime;
@@ -206,7 +254,7 @@ public class Restaurant {
          *
          * @return the estimated remaining time in minutes until order completion.
          */
-        public int getEstimatedRemainingTime(Order order) {
+        public int getEstimatedRemainingTime() {
             if (startTime == null) {
                 return Integer.MAX_VALUE;
             }
@@ -218,10 +266,11 @@ public class Restaurant {
         }
 
         /**
-        * Process the order.
-        */
-        @Override
-        public void run() {
+         * Process the order.
+         */
+        public void process() {
+            // Set the current time
+            this.startTime = LocalTime.now();
             try {
                 this.startTime = LocalTime.now();
 
