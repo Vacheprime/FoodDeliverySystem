@@ -40,7 +40,7 @@ public class Order {
         if (orderedBy == null || assignedTo == null) {
             throw new IllegalArgumentException("The arguments cannot be null.");
         }
-        this.status = Status.IN_PROGRESS;
+        this.status = Status.IN_QUEUE;
         this.orderId = -1;
         this.foods = new ArrayList<>();
         this.orderedBy = orderedBy;
@@ -53,7 +53,7 @@ public class Order {
         if (orderedBy == null) {
             throw new IllegalArgumentException("The arguments cannot be null.");
         }
-        this.status = Status.IN_PROGRESS;
+        this.status = Status.IN_QUEUE;
         this.orderId = -1;
         this.foods = new ArrayList<>();
         this.orderedBy = orderedBy;
@@ -69,7 +69,7 @@ public class Order {
      * @param orderedBy
      */
     public Order(Client orderedBy) {
-        this.status = Status.IN_PROGRESS;
+        this.status = Status.IN_QUEUE;
         this.orderId = -1;
         this.foods = new ArrayList<>();
         this.orderedBy = orderedBy;
@@ -199,27 +199,9 @@ public class Order {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Order other = (Order) obj;
-        if (!Objects.equals(this.foods, other.foods)) {
-            return false;
-        }
-        if (!Objects.equals(this.orderedBy, other.orderedBy)) {
-            return false;
-        }
-        if (!Objects.equals(this.restaurantId, other.restaurantId)) {
-            return false;
-        }
-        return Objects.equals(this.orderDateTime, other.orderDateTime);
+    public boolean equals(Object o) {
+        if (!(o instanceof Order order)) return false;
+        return orderId == order.orderId && restaurantId == order.restaurantId && Objects.equals(foods, order.foods) && Objects.equals(orderedBy, order.orderedBy);
     }
 
     @Override
