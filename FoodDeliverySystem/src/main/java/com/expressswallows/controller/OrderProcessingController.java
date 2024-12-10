@@ -10,16 +10,28 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+/**
+ * The OrderProcessingController is responsible for keeping the list
+ * of restaurants and their state as well as the state of all ongoing orders.
+ * This controller also processes restaurant orders.
+ */
 public class OrderProcessingController {
     private static OrderProcessingController instance;
     private List<Restaurant> restaurants;
     private List<Executor> orderProcessors;
 
+    /**
+     * Private constructor for Singleton design pattern.
+     */
     private OrderProcessingController() {
         loadRestaurants();
         startOrderProcessors();
     }
 
+    /**
+     * Get the instance of this controller.
+     * @return the instance of this controller.
+     */
     public static OrderProcessingController getInstance() {
         if (instance == null) {
             synchronized (OrderProcessingController.class) {
