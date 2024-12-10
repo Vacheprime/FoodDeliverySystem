@@ -2,16 +2,7 @@ package com.expressswallows;
 
 import com.expressswallows.controller.OrderProcessingController;
 import com.expressswallows.exceptions.DatabaseException;
-import com.expressswallows.model.restaurant.Restaurant;
-import com.expressswallows.model.restaurant.users.Address;
-import com.expressswallows.model.restaurant.users.Client;
-import com.expressswallows.model.restaurant.users.Employee;
-import com.expressswallows.utils.DatabaseConnectionUtils;
-import com.expressswallows.utils.Utils;
 import com.expressswallows.view.FormLogin;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Main entry point for the Delivery System Application.
@@ -20,6 +11,7 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args ) throws DatabaseException {
+        // Call the getInstance method to start the order processor
         OrderProcessingController orderProcessor = OrderProcessingController.getInstance();
 
         java.awt.EventQueue.invokeLater(new Runnable() {
