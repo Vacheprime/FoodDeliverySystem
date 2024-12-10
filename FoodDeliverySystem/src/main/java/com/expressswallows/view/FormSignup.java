@@ -32,7 +32,6 @@ public class FormSignup extends javax.swing.JFrame {
         initComponents();
         update();
     }
-
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -274,7 +273,6 @@ public class FormSignup extends javax.swing.JFrame {
         String phone = phoneNumberTB.getText();
 
         String dob = dobTB.getText(); //LocalDate (yyyy/mm/dd)
-        LocalDate birthday = Utils.parseDobToLocalDate(dob);
 
         String streetNum = streetNumTB.getText();
         String streetName = streetNameTB.getText();
@@ -290,11 +288,10 @@ public class FormSignup extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
             return;
         }
-        //FormLogin.clients.add(client);
         try(var database = DatabaseConnectionUtils.getInstance()) {
             database.insertClient(client);
         } catch (Exception de) {
-            //JOptionPane.showMessageDialog(null, "Database error", "Database error", JOptionPane.INFORMATION_MESSAGE);
+            de.printStackTrace();
         }
         JOptionPane.showMessageDialog(null, message2, title2, JOptionPane.INFORMATION_MESSAGE);
         this.dispose();
@@ -332,20 +329,18 @@ public class FormSignup extends javax.swing.JFrame {
         String streeterr = rb.getString("streeterr");
         String passerr = rb.getString("passerr");
         
-        
         String first = firstNameTB.getText();
         String last = lastNameTB.getText();
-        if (!Utils.validateName(first) || !Utils.validateName(last)) {
+        if (!ClientController.validateClientFirstAndLast(first,last)){
             JOptionPane.showMessageDialog(null, firstLast, val, JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
         String dob = dobTB.getText();
-        if (!Utils.validateDate(dob)) {
+        if (!ClientController.validateClientDob(dob)) {
             JOptionPane.showMessageDialog(null, doberror, val, JOptionPane.ERROR_MESSAGE);
             return false;
         }
-
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate birthday = LocalDate.parse(dob, format);
         if (!Utils.validateClientAge(birthday)) {
@@ -354,38 +349,38 @@ public class FormSignup extends javax.swing.JFrame {
         }
 
         String phone = phoneNumberTB.getText();
-        if (!Utils.validatePhoneNumber(phone)) {
+        if (!ClientController.validateClientPhone(phone)) {
             JOptionPane.showMessageDialog(null, phoneerr, val, JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
         String email = emailTB.getText();
-        if (!Utils.validateEmailAddress(email)) {
+
+        if (!ClientController.validateClientEmail(email)) {
             JOptionPane.showMessageDialog(null, emailerr, val, JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
         String postal = postalCodeTB.getText();
-        if (!Utils.validatePostalCode(postal)) {
+        if (!ClientController.validateClientPostalCode(postal)) {
             JOptionPane.showMessageDialog(null, postalerr, val, JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
         String streetNum = streetNumTB.getText();
         String streetName = streetNameTB.getText();
-        if (streetNum.isEmpty() || streetName.isEmpty()) {
+        if (!ClientController.validateClientAddress(streetName,streetNum)) {
             JOptionPane.showMessageDialog(null, streeterr, val, JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
         String password = passwordTB.getText();
-        if (password.isEmpty()) {
+        if (!ClientController.validateClientPassword(password)) {
             JOptionPane.showMessageDialog(null, passerr, val, JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
         return true;
-
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

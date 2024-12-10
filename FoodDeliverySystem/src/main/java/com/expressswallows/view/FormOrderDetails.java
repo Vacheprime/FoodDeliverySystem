@@ -67,7 +67,6 @@ public class FormOrderDetails extends javax.swing.JFrame {
         this.client = client;
         this.order = order;
         orderListTA.setText(foodList(order));
-        Restaurant.OrderProcessTask task = new Restaurant.OrderProcessTask(order, restaurant);
         try(var database = DatabaseConnectionUtils.getInstance()) {
             this.restaurant = RestaurantController.findRestaurant(order, database.fetchRestaurantLocations());
         } catch (Exception e) {
@@ -187,13 +186,13 @@ public class FormOrderDetails extends javax.swing.JFrame {
         
         if (Utils.currentLocale.getLanguage().equals("en")) {
             orderLbl.setText(rb.getString("order") + order.getOrderId());
-            //etaLbl.setText(rb.getString("eta") + task.getTotalTime(order,restaurant));
+            etaLbl.setText(rb.getString("eta") + RestaurantController.getTotalTime(order,restaurant));
             locationAssignedLbl.setText(rb.getString("locationassigned") + restaurant.toString());
             statusLbl.setText(rb.getString("status") + order.getStatus());
         } else if (Utils.currentLocale.getLanguage().equals("fr")) {
             orderLbl.setText(rb.getString("order") + order.getOrderId());
-           // etaLbl.setText(rb.getString("eta") + task.getTotalTime(order,restaurant));
-            locationAssignedLbl.setText(rb.getString("locationassigned") + restaurant.getLocation());
+            etaLbl.setText(rb.getString("eta") + RestaurantController.getTotalTime(order,restaurant));
+            locationAssignedLbl.setText(rb.getString("locationassigned") + restaurant.toString());
             statusLbl.setText(rb.getString("status") + order.getStatus());
         }
 
