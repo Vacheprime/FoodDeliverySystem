@@ -6,6 +6,12 @@ import com.expressswallows.utils.DatabaseConnectionUtils;
 
 public class EmployeeController {
 
+    /***
+     * Checks the employee's credentials and allows them to login and go into the employee main menu
+     * @param email email
+     * @param password password
+     * @return returns the employee if there's a match if not it returns null
+     */
     public static Employee login (String email, String password) {
         Employee employee = null;
         try(var database = DatabaseConnectionUtils.getInstance()) {

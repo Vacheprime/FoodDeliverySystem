@@ -10,6 +10,11 @@ package com.expressswallows.model.menu.factories;
  */
 public class FoodFactoryCreator {
 
+    /**
+     * Gets the food factory based on the client's choice
+     * @param category which food item
+     * @return the food item's factory
+     */
     public AbstractFactory getFoodFactory(String category) {
         if (category.equalsIgnoreCase("Burger")) {
             return new BurgerFactory();

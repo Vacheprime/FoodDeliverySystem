@@ -19,7 +19,6 @@ import java.util.ResourceBundle;
 public class FormRestaurantDetails extends javax.swing.JFrame {
 
     public RestaurantDetailsController controller;
-    public RestaurantController restaurantController;
     public Restaurant restaurant;
     public Employee employee;
     /**

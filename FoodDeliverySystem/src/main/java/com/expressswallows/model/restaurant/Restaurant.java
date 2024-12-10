@@ -2,20 +2,13 @@ package com.expressswallows.model.restaurant;
 
 import com.expressswallows.controller.RestaurantController;
 import com.expressswallows.exceptions.DatabaseException;
-import com.expressswallows.exceptions.DatabaseInsertException;
-import com.expressswallows.model.menu.fooditems.Food;
 import com.expressswallows.model.restaurant.users.Address;
 import com.expressswallows.utils.DatabaseConnectionUtils;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.List;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Restaurant class is used to represent a restaurant location.
