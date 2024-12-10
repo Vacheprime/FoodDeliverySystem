@@ -4,6 +4,7 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.controller.ViewCartController;
 import com.expressswallows.model.menu.fooditems.Food;
 import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.users.Client;
@@ -23,9 +24,9 @@ import javax.swing.JOptionPane;
  */
 public class FormViewCart extends javax.swing.JFrame {
 
-    Order order;
-    Client client;
-    //List<Food> foods = order.getFoods();
+    public ViewCartController controller;
+    public Order order;
+    public Client client;
 
     /**
      * Creates new form FormViewCart
@@ -34,8 +35,9 @@ public class FormViewCart extends javax.swing.JFrame {
         initComponents();
         this.order = order;
         this.client = client;
-        update();
-        loadOrder(order.getFoods());
+        this.controller = new ViewCartController(this);
+        controller.update();
+        controller.loadOrder(order.getFoods());
     }
 
     /**
@@ -122,64 +124,26 @@ public class FormViewCart extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void update() {
-        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
-        viewcartLbl.setText(rb.getString("yourcart"));
-        payBtn.setText(rb.getString("pay"));
-        backBtn.setText(rb.getString("back"));
-        removeBtn.setText(rb.getString("remove"));
-    }
-
     private void payBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payBtnActionPerformed
-        dispose();
-        new FormPayment(client, order).setVisible(true);
+        controller.pay();
     }//GEN-LAST:event_payBtnActionPerformed
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
-        dispose();
-        new FormClientMainMenu(client, order).setVisible(true);
+        controller.backButtonClicked();
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBtnActionPerformed
-        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
-        String err = rb.getString("removeErr");
-        String success = rb.getString("removeSuc");
-        
-        int selectedIndex = listOrders.getSelectedIndex(); // selected with the mouse
-        if (selectedIndex != -1) {
-            String selectedFood = listOrders.getSelectedValue();
-
-            for (Food food : order.getFoods()) {
-                if (food.getClass().getSimpleName().equals(selectedFood)) {
-                    order.getFoods().remove(food);
-                    JOptionPane.showMessageDialog(this, success);
-
-                    DefaultListModel<String> model = (DefaultListModel<String>) listOrders.getModel();
-                    model.removeElement(selectedFood);
-                    break;
-                }
-            }
-            //save it to the database?
-        } else {
-            JOptionPane.showMessageDialog(this, err);
-        }
-
+        controller.remove();
     }//GEN-LAST:event_removeBtnActionPerformed
 
-    private void loadOrder(List<Food> foods) {
-        DefaultListModel<String> listModel = new DefaultListModel<>();
-        for (Food food : foods) {
-            listModel.addElement(food.getClass().getSimpleName());
-        }
-        listOrders.setModel(listModel);
-    }
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton backBtn;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList<String> listOrders;
-    private javax.swing.JButton payBtn;
-    private javax.swing.JButton removeBtn;
-    private javax.swing.JLabel viewcartLbl;
+    public javax.swing.JButton backBtn;
+    public javax.swing.JScrollPane jScrollPane1;
+    public javax.swing.JList<String> listOrders;
+    public javax.swing.JButton payBtn;
+    public javax.swing.JButton removeBtn;
+    public javax.swing.JLabel viewcartLbl;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,6 +5,7 @@
 package com.expressswallows.view;
 
 import com.expressswallows.controller.ClientController;
+import com.expressswallows.controller.SignupController;
 import com.expressswallows.exceptions.DatabaseConnectionException;
 import com.expressswallows.exceptions.DatabaseException;
 import com.expressswallows.model.restaurant.users.Address;
@@ -25,12 +26,14 @@ import java.util.ResourceBundle;
  */
 public class FormSignup extends javax.swing.JFrame {
 
+    SignupController controller;
     /**
      * Creates new form frmSignup
      */
     public FormSignup() {
         initComponents();
-        update();
+        this.controller = new SignupController(this);
+        controller.updateLang();
     }
     
     @SuppressWarnings("unchecked")
@@ -238,174 +241,48 @@ public class FormSignup extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void update() {
-        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
-        firstNameLbl.setText(rb.getString("firstname"));
-        lastNameLbl.setText(rb.getString("lastname"));
-        phoneNumberLbl.setText(rb.getString("phone"));
-        dobLbl.setText(rb.getString("dob"));
-        emailLbl.setText(rb.getString("email"));
-        passwordLbl.setText(rb.getString("password"));
-        passwordBox.setText(rb.getString("showpass"));
-        streetNumLbl.setText(rb.getString("streetnum"));
-        streetNameLbl.setText(rb.getString("streetname"));
-        postalCodeLbl.setText(rb.getString("postal"));
-        signupLbl.setText(rb.getString("signup"));
-        backBtn.setText(rb.getString("back"));
-        signUpBtn.setText(rb.getString("signup"));
 
-    }
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
-        this.dispose();
-        new FormLogin().setVisible(true);
+        controller.backButton();
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void signUpBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpBtnActionPerformed
-        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
-        String message = rb.getString("usernull");
-        String title = rb.getString("creationerror");
-        String message2 = rb.getString("successAc");
-        String title2 = rb.getString("successTitle");
-
-        String first = firstNameTB.getText();
-        String last = lastNameTB.getText();
-        String phone = phoneNumberTB.getText();
-
-        String dob = dobTB.getText(); //LocalDate (yyyy/mm/dd)
-
-        String streetNum = streetNumTB.getText();
-        String streetName = streetNameTB.getText();
-        String postal = postalCodeTB.getText();
-        String email = emailTB.getText();
-        String password = passwordTB.getText();
-        
-        if (!checkClient()) {
-            return;
-        }
-        Client client = ClientController.createClient(first, last, phone, dob, streetNum, streetName, postal, email, password);
-        if (client == null) {
-            JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        try(var database = DatabaseConnectionUtils.getInstance()) {
-            database.insertClient(client);
-        } catch (Exception de) {
-            de.printStackTrace();
-        }
-        JOptionPane.showMessageDialog(null, message2, title2, JOptionPane.INFORMATION_MESSAGE);
-        this.dispose();
-        new FormLogin().setVisible(true);
-
+        controller.createAccount();
     }//GEN-LAST:event_signUpBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
         Utils.switchLanguage();
-        update();
+        controller.updateLang();
     }//GEN-LAST:event_langBtnActionPerformed
 
     private void passwordBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordBoxActionPerformed
-        if(passwordBox.isSelected()){
-            passwordTB.setEchoChar((char)0);
-        }else{
-            passwordTB.setEchoChar('*');
-        }
+        controller.showPassword();
     }//GEN-LAST:event_passwordBoxActionPerformed
 
-    /***
-     * Checks the client's input and validates them to see if they are properly formatted.
-     * @return true if all the information is valid or false if one of the information is invalid
-     */
-    private boolean checkClient() {
-        
-        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
-        String firstLast = rb.getString("firstLast");
-        String val = rb.getString("val");
-        String doberror = rb.getString("doberror");
-        String dober = rb.getString("dober");
-        String phoneerr = rb.getString("phoneerr");
-        String emailerr = rb.getString("emailerr");
-        String postalerr = rb.getString("postalerr");
-        String streeterr = rb.getString("streeterr");
-        String passerr = rb.getString("passerr");
-        
-        String first = firstNameTB.getText();
-        String last = lastNameTB.getText();
-        if (!ClientController.validateClientFirstAndLast(first,last)){
-            JOptionPane.showMessageDialog(null, firstLast, val, JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        String dob = dobTB.getText();
-        if (!ClientController.validateClientDob(dob)) {
-            JOptionPane.showMessageDialog(null, doberror, val, JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate birthday = LocalDate.parse(dob, format);
-        if (!Utils.validateClientAge(birthday)) {
-            JOptionPane.showMessageDialog(null, dober, val, JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        String phone = phoneNumberTB.getText();
-        if (!ClientController.validateClientPhone(phone)) {
-            JOptionPane.showMessageDialog(null, phoneerr, val, JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        String email = emailTB.getText();
-
-        if (!ClientController.validateClientEmail(email)) {
-            JOptionPane.showMessageDialog(null, emailerr, val, JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        String postal = postalCodeTB.getText();
-        if (!ClientController.validateClientPostalCode(postal)) {
-            JOptionPane.showMessageDialog(null, postalerr, val, JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        String streetNum = streetNumTB.getText();
-        String streetName = streetNameTB.getText();
-        if (!ClientController.validateClientAddress(streetName,streetNum)) {
-            JOptionPane.showMessageDialog(null, streeterr, val, JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        String password = passwordTB.getText();
-        if (!ClientController.validateClientPassword(password)) {
-            JOptionPane.showMessageDialog(null, passerr, val, JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-
-        return true;
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton backBtn;
-    private javax.swing.JLabel dobLbl;
-    private javax.swing.JTextField dobTB;
-    private javax.swing.JLabel emailLbl;
-    private javax.swing.JTextField emailTB;
-    private javax.swing.JLabel firstNameLbl;
-    private javax.swing.JTextField firstNameTB;
-    private javax.swing.JButton langBtn;
-    private javax.swing.JLabel lastNameLbl;
-    private javax.swing.JTextField lastNameTB;
-    private javax.swing.JCheckBox passwordBox;
-    private javax.swing.JLabel passwordLbl;
-    private javax.swing.JPasswordField passwordTB;
-    private javax.swing.JLabel phoneNumberLbl;
-    private javax.swing.JTextField phoneNumberTB;
-    private javax.swing.JLabel postalCodeLbl;
-    private javax.swing.JTextField postalCodeTB;
-    private javax.swing.JButton signUpBtn;
-    private javax.swing.JLabel signupLbl;
-    private javax.swing.JLabel streetNameLbl;
-    private javax.swing.JTextField streetNameTB;
-    private javax.swing.JLabel streetNumLbl;
-    private javax.swing.JTextField streetNumTB;
+    public javax.swing.JButton backBtn;
+    public javax.swing.JLabel dobLbl;
+    public javax.swing.JTextField dobTB;
+    public javax.swing.JLabel emailLbl;
+    public javax.swing.JTextField emailTB;
+    public javax.swing.JLabel firstNameLbl;
+    public javax.swing.JTextField firstNameTB;
+    public javax.swing.JButton langBtn;
+    public javax.swing.JLabel lastNameLbl;
+    public javax.swing.JTextField lastNameTB;
+    public javax.swing.JCheckBox passwordBox;
+    public javax.swing.JLabel passwordLbl;
+    public javax.swing.JPasswordField passwordTB;
+    public javax.swing.JLabel phoneNumberLbl;
+    public javax.swing.JTextField phoneNumberTB;
+    public javax.swing.JLabel postalCodeLbl;
+    public javax.swing.JTextField postalCodeTB;
+    public javax.swing.JButton signUpBtn;
+    public javax.swing.JLabel signupLbl;
+    public javax.swing.JLabel streetNameLbl;
+    public javax.swing.JTextField streetNameTB;
+    public javax.swing.JLabel streetNumLbl;
+    public javax.swing.JTextField streetNumTB;
     // End of variables declaration//GEN-END:variables
 }

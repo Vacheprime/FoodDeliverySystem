@@ -4,6 +4,7 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.controller.HotdogMenuController;
 import com.expressswallows.model.menu.factories.FoodFactoryCreator;
 import com.expressswallows.model.menu.factories.HotdogFactory;
 import com.expressswallows.model.menu.fooditems.hotdogs.Hotdog;
@@ -21,12 +22,13 @@ import java.util.ResourceBundle;
  */
 public class FormHotDogMenu extends javax.swing.JFrame {
 
-    Client client;
-    Order order;
+    public HotdogMenuController controller;
+    public Client client;
+    public Order order;
     ImageIcon glizzyImg = new ImageIcon("..\\FoodDeliverySystem\\src\\main\\resources\\images\\glizzy.jpg");
     ImageIcon millimeter = new ImageIcon("..\\FoodDeliverySystem\\src\\main\\resources\\images\\millimeter.jpg");
-    private final double PRICEGG = 7.99;
-    private final double PRICEMD = 3.99;
+    public final double PRICEGG = 7.99;
+    public final double PRICEMD = 3.99;
 
     /**
      * Creates new form frmHotDogMenu
@@ -35,11 +37,12 @@ public class FormHotDogMenu extends javax.swing.JFrame {
         initComponents();
         this.client = client;
         this.order = order;
+        this.controller = new HotdogMenuController(this);
         glizzyLblImg.setText("");
         glizzyLblImg.setIcon(glizzyImg);
         millimeterLblImg.setText("");
         millimeterLblImg.setIcon(millimeter);
-        update();
+        controller.updateLanguage();
     }
 
     /**
@@ -182,70 +185,35 @@ public class FormHotDogMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void update() {
-        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
-        backBtn.setText(rb.getString("back"));
-        langBtn.setText(rb.getString("lang"));
-        hotdogMenuLbl.setText(rb.getString("hotdogmenu"));
-        glizzyBtn.setText(rb.getString("addtocart"));
-        millimeterBtn.setText(rb.getString("addtocart"));
-
-        if (Utils.currentLocale.getLanguage().equals("en")) {
-            priceGGLbl.setText(rb.getString("price") + "$" + PRICEGG);
-            priceMDLbl.setText(rb.getString("price") + "$" + PRICEMD);
-        } else if (Utils.currentLocale.getLanguage().equals("fr")) {
-            priceGGLbl.setText(rb.getString("price") + PRICEGG + "$");
-            priceMDLbl.setText(rb.getString("price") + PRICEMD + "$");
-        }
-    }
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
-        this.dispose();
-        new FormClientMainMenu(client, order).setVisible(true);
+        controller.backButton();
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
         Utils.switchLanguage();
-        update();
+        controller.updateLanguage();
     }//GEN-LAST:event_langBtnActionPerformed
 
     private void glizzyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_glizzyBtnActionPerformed
-        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
-        String message = rb.getString("glizzyMes");
-        String title = rb.getString("hotTitle");
-        
-        String choice = "GlizzyGobbler";
-        FoodFactoryCreator creator = new FoodFactoryCreator();
-        HotdogFactory factory = (HotdogFactory) creator.getFoodFactory("Hotdog");
-        Hotdog hotdog = factory.createHotdog(choice);
-        order.addFoodToOrder(hotdog);
-        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
+        controller.addGG();
     }//GEN-LAST:event_glizzyBtnActionPerformed
 
     private void millimeterBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_millimeterBtnActionPerformed
-        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
-        String message = rb.getString("mmMes");
-        String title = rb.getString("hotTitle");
-        
-        String choice = "MillimeterDefeater";
-        FoodFactoryCreator creator = new FoodFactoryCreator();
-        HotdogFactory factory = (HotdogFactory) creator.getFoodFactory("Hotdog");
-        Hotdog hotdog = factory.createHotdog(choice);
-        order.addFoodToOrder(hotdog);
-        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
+        controller.addMD();
     }//GEN-LAST:event_millimeterBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton backBtn;
-    private javax.swing.JButton glizzyBtn;
-    private javax.swing.JLabel glizzyGobblerLbl;
-    private javax.swing.JLabel glizzyLblImg;
-    private javax.swing.JLabel hotdogMenuLbl;
-    private javax.swing.JButton langBtn;
-    private javax.swing.JButton millimeterBtn;
-    private javax.swing.JLabel millimeterDefeaterLbl;
-    private javax.swing.JLabel millimeterLblImg;
-    private javax.swing.JLabel priceGGLbl;
-    private javax.swing.JLabel priceMDLbl;
+    public javax.swing.JButton backBtn;
+    public javax.swing.JButton glizzyBtn;
+    public javax.swing.JLabel glizzyGobblerLbl;
+    public javax.swing.JLabel glizzyLblImg;
+    public javax.swing.JLabel hotdogMenuLbl;
+    public javax.swing.JButton langBtn;
+    public javax.swing.JButton millimeterBtn;
+    public javax.swing.JLabel millimeterDefeaterLbl;
+    public javax.swing.JLabel millimeterLblImg;
+    public javax.swing.JLabel priceGGLbl;
+    public javax.swing.JLabel priceMDLbl;
     // End of variables declaration//GEN-END:variables
 }

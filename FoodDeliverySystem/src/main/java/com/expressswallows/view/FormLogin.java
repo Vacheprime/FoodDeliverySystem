@@ -6,6 +6,8 @@ package com.expressswallows.view;
 
 import com.expressswallows.controller.ClientController;
 import com.expressswallows.controller.EmployeeController;
+import com.expressswallows.controller.LoginController;
+import com.expressswallows.controller.RestaurantController;
 import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.users.Address;
 import com.expressswallows.model.restaurant.users.Client;
@@ -27,21 +29,17 @@ import javax.swing.JPanel;
  * @author shahi
  */
 public class FormLogin extends javax.swing.JFrame {
-    LocalDate d1 = LocalDate.of(2005, 03, 15);
-    Employee e1 = new Employee("Andrew","Shahini","andrewshahini@gmail.com","123456",d1,"(123) 123-1234");
-    Employee e2 = new Employee("Danat","Muradov","danatmuradov@gmail.com","123456",d1,"(123) 123-1234");
 
-    public static List<Client> clients = new ArrayList<>();
-    
-    
+    LoginController loginController;
+
     /**
      * Creates new form frmLogin
      */
     public FormLogin() {
         initComponents();
-
+        this.loginController = new LoginController(this);
         errorLbl.setVisible(false);
-        update();
+        loginController.updateLang();
     }
 
     /**
@@ -175,78 +173,38 @@ public class FormLogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void update() {
-        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
-        langBtn.setText(rb.getString("lang"));
-        loginBtn.setText(rb.getString("login"));
-        logoutBtn.setText(rb.getString("logout"));
-        emailLbl.setText(rb.getString("email"));
-        passwordLbl.setText(rb.getString("password"));
-        errorLbl.setText(rb.getString("error"));
-        passwordBox.setText(rb.getString("showpass"));
-        signupBtn.setText(rb.getString("signup"));
-        loginLbl.setText(rb.getString("login"));
-    }
-
     private void passwordBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordBoxActionPerformed
-        if(passwordBox.isSelected()){
-            passwordTB.setEchoChar((char)0);
-        }else{
-            passwordTB.setEchoChar('*');
-        }
+        loginController.passwordChange();
     }//GEN-LAST:event_passwordBoxActionPerformed
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
-        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
-        String message = rb.getString("exitMes");
-        String title = rb.getString("seletc");
-        
-        int a = JOptionPane.showConfirmDialog(null, message, title,JOptionPane.YES_NO_OPTION);
-        if(a == 0){
-            System.exit(0); //exits
-        }
+        loginController.logout();
     }//GEN-LAST:event_logoutBtnActionPerformed
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
-
-        String email = emailTB.getText();
-        String password = passwordTB.getText();
-
-        Client client = ClientController.login(email, password);
-        Employee employee = EmployeeController.login(email, password);
-        if (client != null) {
-            Order order = new Order(client);
-            this.dispose();
-            new FormClientMainMenu(client, order).setVisible(true);
-        } else if (employee != null) {
-            this.dispose();
-            new FormEmployeeMainMenu(employee).setVisible(true);
-        } else {
-            errorLbl.setVisible(true);
-        }
+        loginController.login();
     }//GEN-LAST:event_loginBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
         Utils.switchLanguage();
-        update();
+        loginController.updateLang();
     }//GEN-LAST:event_langBtnActionPerformed
 
     private void signupBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signupBtnActionPerformed
-        setVisible(false);
-        new FormSignup().setVisible(true);
+        loginController.signup();
     }//GEN-LAST:event_signupBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel emailLbl;
-    private javax.swing.JTextField emailTB;
-    private javax.swing.JLabel errorLbl;
-    private javax.swing.JButton langBtn;
-    private javax.swing.JButton loginBtn;
-    private javax.swing.JLabel loginLbl;
-    private javax.swing.JButton logoutBtn;
-    private javax.swing.JCheckBox passwordBox;
-    private javax.swing.JLabel passwordLbl;
-    private javax.swing.JPasswordField passwordTB;
-    private javax.swing.JButton signupBtn;
+    public javax.swing.JLabel emailLbl;
+    public javax.swing.JTextField emailTB;
+    public javax.swing.JLabel errorLbl;
+    public javax.swing.JButton langBtn;
+    public javax.swing.JButton loginBtn;
+    public javax.swing.JLabel loginLbl;
+    public javax.swing.JButton logoutBtn;
+    public javax.swing.JCheckBox passwordBox;
+    public javax.swing.JLabel passwordLbl;
+    public javax.swing.JPasswordField passwordTB;
+    public javax.swing.JButton signupBtn;
     // End of variables declaration//GEN-END:variables
 }
