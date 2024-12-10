@@ -83,9 +83,9 @@ public class ClientController {
 
     public static Client login(String email, String password) {
         Client client = null;
-        try(var database = DatabaseConnectionUtils.getInstance()) {
+        try (var database = DatabaseConnectionUtils.getInstance()) {
             client = database.fetchClientWithCredentials(email, password);
-            if(client != null) {
+            if (client != null) {
                 return client;
             }
         } catch (Exception e) {
@@ -93,6 +93,4 @@ public class ClientController {
         }
         return null;
     }
-
-
 }

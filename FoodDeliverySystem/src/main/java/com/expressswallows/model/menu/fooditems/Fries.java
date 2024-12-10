@@ -75,7 +75,7 @@ public class Fries extends Food {
 
     @Override
     public String getDatabaseType() {
-        return "FRIES:FRIES";
+        return "FRIES:FRIES:"+size;
     }
 
     /**

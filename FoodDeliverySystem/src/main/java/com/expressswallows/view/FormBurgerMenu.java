@@ -4,6 +4,7 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.controller.BurgerMenuController;
 import com.expressswallows.model.menu.factories.BurgerFactory;
 import com.expressswallows.model.menu.factories.FoodFactoryCreator;
 import com.expressswallows.model.menu.fooditems.burgers.Burger;
@@ -20,14 +21,15 @@ import java.util.ResourceBundle;
  */
 public class FormBurgerMenu extends javax.swing.JFrame {
 
-    Client client;
-    Order order;
+    public BurgerMenuController controller;
+    public Client client;
+    public Order order;
     ImageIcon bigFatty = new ImageIcon("..\\FoodDeliverySystem\\src\\main\\resources\\images\\bigfatty.jpg");
     ImageIcon greenBush = new ImageIcon("..\\FoodDeliverySystem\\src\\main\\resources\\images\\greenbush.jpg");
     ImageIcon skinnyPity = new ImageIcon("..\\FoodDeliverySystem\\src\\main\\resources\\images\\skinnypity.jpg");
-    private final double PRICEBF = 14.99;
-    private final double PRICEGB = 19.99;
-    private final double PRICESP = 7.99;
+    public final double PRICEBF = 14.99;
+    public final double PRICEGB = 19.99;
+    public final double PRICESP = 7.99;
 
     
     
@@ -39,13 +41,14 @@ public class FormBurgerMenu extends javax.swing.JFrame {
         initComponents();
         this.client = client;
         this.order = order;
+        this.controller = new BurgerMenuController(this);
         bigFattyImg.setText("");
         bigFattyImg.setIcon(bigFatty);
         greenBushImg.setText("");
         greenBushImg.setIcon(greenBush);
         skinnyPityImg.setText("");
         skinnyPityImg.setIcon(skinnyPity);
-        update();
+        controller.updateLang();
     }
 
     /**
@@ -226,89 +229,43 @@ public class FormBurgerMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void update(){
-        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
-        backBtn.setText(rb.getString("back"));
-        burgerMenuLbl.setText(rb.getString("burgermenu"));
-        langBtn.setText(rb.getString("lang"));
-        bigFattyBtn.setText(rb.getString("addtocart"));
-        greenBushBtn.setText(rb.getString("addtocart"));
-        skinnyPityBtn.setText(rb.getString("addtocart"));
-
-        if (Utils.currentLocale.getLanguage().equals("en")) {
-            priceBFLbl.setText(rb.getString("price") + "$" + PRICEBF);
-            priceGBLbl.setText(rb.getString("price") + "$" + PRICEGB);
-            priceSPLbl.setText(rb.getString("price") + "$" + PRICESP);
-        } else if (Utils.currentLocale.getLanguage().equals("fr")) {
-            priceBFLbl.setText(rb.getString("price") + PRICEBF + "$");
-            priceGBLbl.setText(rb.getString("price") + PRICEGB + "$");
-            priceSPLbl.setText(rb.getString("price") + PRICESP + "$");
-        }
-
-    }
-
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
-        this.dispose();
-        new FormClientMainMenu(client, order).setVisible(true);
+        controller.backButton();
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
         Utils.switchLanguage();
-        update();
+        controller.updateLang();
     }//GEN-LAST:event_langBtnActionPerformed
 
     private void bigFattyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bigFattyBtnActionPerformed
-        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
-        String choice = "BigFatty";
-        FoodFactoryCreator creator = new FoodFactoryCreator();
-        BurgerFactory factory = (BurgerFactory) creator.getFoodFactory("Burger");
-        Burger burger = factory.createBurger(choice);
-        order.addFoodToOrder(burger);
-        String message = rb.getString("bigfattymessage");
-        String title = rb.getString("burgerTitle");
-        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
+        controller.addBigFatty();
     }//GEN-LAST:event_bigFattyBtnActionPerformed
 
     private void greenBushBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_greenBushBtnActionPerformed
-        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
-        String choice = "GreenBush";
-        FoodFactoryCreator creator = new FoodFactoryCreator();
-        BurgerFactory factory = (BurgerFactory) creator.getFoodFactory("Burger");
-        Burger burger = factory.createBurger(choice);
-        order.addFoodToOrder(burger);
-        String message = rb.getString("greenbushmes");
-        String title = rb.getString("burgerTitle");
-        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
+        controller.addGreenBush();
     }//GEN-LAST:event_greenBushBtnActionPerformed
 
     private void skinnyPityBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_skinnyPityBtnActionPerformed
-        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
-        String choice = "SkinnyPity";
-        FoodFactoryCreator creator = new FoodFactoryCreator();
-        BurgerFactory factory = (BurgerFactory) creator.getFoodFactory("Burger");
-        Burger burger = factory.createBurger(choice);
-        order.addFoodToOrder(burger);
-        String message = rb.getString("skinnypitymes");
-        String title = rb.getString("burgerTitle");
-        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
+        controller.addSkinnyPity();
     }//GEN-LAST:event_skinnyPityBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton backBtn;
-    private javax.swing.JButton bigFattyBtn;
-    private javax.swing.JLabel bigFattyImg;
-    private javax.swing.JLabel bigFattyLbl;
-    private javax.swing.JLabel bigFattyLbl1;
-    private javax.swing.JLabel burgerMenuLbl;
-    private javax.swing.JButton greenBushBtn;
-    private javax.swing.JLabel greenBushImg;
-    private javax.swing.JLabel greenBushLbl;
-    private javax.swing.JButton langBtn;
-    private javax.swing.JLabel priceBFLbl;
-    private javax.swing.JLabel priceGBLbl;
-    private javax.swing.JLabel priceSPLbl;
-    private javax.swing.JButton skinnyPityBtn;
-    private javax.swing.JLabel skinnyPityImg;
+    public javax.swing.JButton backBtn;
+    public javax.swing.JButton bigFattyBtn;
+    public javax.swing.JLabel bigFattyImg;
+    public javax.swing.JLabel bigFattyLbl;
+    public javax.swing.JLabel bigFattyLbl1;
+    public javax.swing.JLabel burgerMenuLbl;
+    public javax.swing.JButton greenBushBtn;
+    public javax.swing.JLabel greenBushImg;
+    public javax.swing.JLabel greenBushLbl;
+    public javax.swing.JButton langBtn;
+    public javax.swing.JLabel priceBFLbl;
+    public javax.swing.JLabel priceGBLbl;
+    public javax.swing.JLabel priceSPLbl;
+    public javax.swing.JButton skinnyPityBtn;
+    public javax.swing.JLabel skinnyPityImg;
     // End of variables declaration//GEN-END:variables
 }

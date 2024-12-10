@@ -10,7 +10,6 @@ import com.expressswallows.utils.DatabaseConnectionUtils;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
@@ -23,7 +22,7 @@ import java.util.concurrent.TimeUnit;
  * @author shahi
  */
 public class Restaurant {
-    public static double DELIVERY_TIME_PER_KM = 0.2; // Three minutes per km
+    public static double DELIVERY_TIME_PER_KM = 0.1;
     private int restaurantId;
     private Address location;
     private String name;

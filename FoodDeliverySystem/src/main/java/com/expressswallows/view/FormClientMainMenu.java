@@ -4,6 +4,7 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.controller.ClientMainMenuController;
 import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.users.Client;
 import com.expressswallows.utils.Utils;
@@ -17,8 +18,10 @@ import java.util.ResourceBundle;
  * @author shahi
  */
 public class FormClientMainMenu extends javax.swing.JFrame {
-    Order order;
-    Client client;
+
+    public ClientMainMenuController controller;
+    public Order order;
+    public Client client;
     ImageIcon burgerImage = new ImageIcon("..\\FoodDeliverySystem\\src\\main\\resources\\images\\burger.jpg");
     ImageIcon pizzaImage = new ImageIcon("..\\FoodDeliverySystem\\src\\main\\resources\\images\\pizza.jpg");
     ImageIcon hotdogImage = new ImageIcon("..\\FoodDeliverySystem\\src\\main\\resources\\images\\hotdog.jpg");
@@ -32,6 +35,7 @@ public class FormClientMainMenu extends javax.swing.JFrame {
         initComponents();
         this.client = client;
         this.order = order;
+        this.controller = new ClientMainMenuController(this);
         burgerLbl.setText("");
         burgerLbl.setIcon(burgerImage);
         pizzaLbl.setText("");
@@ -42,7 +46,7 @@ public class FormClientMainMenu extends javax.swing.JFrame {
         friesLbl.setIcon(friesImage);
         drinksLbl.setText("");
         drinksLbl.setIcon(drinksImage);
-        update();
+        controller.updateLang();
     }
 
     /**
@@ -236,95 +240,60 @@ public class FormClientMainMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void update() {
-        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
-        langBtn.setText(rb.getString("lang"));
-        logoutBtn.setText(rb.getString("logout"));
-        burgerBtn.setText(rb.getString("burgermenu"));
-        pizzaBtn.setText(rb.getString("pizzamenu"));
-        hotdogBtn.setText(rb.getString("hotdogmenu"));
-        friesBtn.setText(rb.getString("friesmenu"));
-        drinksBtn.setText(rb.getString("drinksmenu"));
-        viewCartBtn.setText(rb.getString("viewcart"));
-        viewPreOrderBtn.setText(rb.getString("viewprev"));
 
-    }
 
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
-        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
-        String message = rb.getString("logmes");
-        String title = rb.getString("select");
-        
-        int a = JOptionPane.showConfirmDialog(null, message,title,JOptionPane.YES_NO_OPTION);
-        if(a == 0){
-            this.dispose();
-            new FormLogin().setVisible(true);
-        }
+        controller.logout();
     }//GEN-LAST:event_logoutBtnActionPerformed
 
     private void burgerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_burgerBtnActionPerformed
-        this.dispose();
-        new FormBurgerMenu(client, order).setVisible(true);
+        controller.burgerMenu();
     }//GEN-LAST:event_burgerBtnActionPerformed
 
     private void pizzaBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pizzaBtnActionPerformed
-        this.dispose();
-        new FormPizzaMenu(client, order).setVisible(true);
+        controller.pizzaMenu();
     }//GEN-LAST:event_pizzaBtnActionPerformed
 
     private void hotdogBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hotdogBtnActionPerformed
-        this.dispose();
-        new FormHotDogMenu(client, order).setVisible(true);
+        controller.hotdogMenu();
     }//GEN-LAST:event_hotdogBtnActionPerformed
 
     private void friesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_friesBtnActionPerformed
-        this.dispose();
-        new FormFriesMenu(client, order).setVisible(true);
+        controller.friesMenu();
     }//GEN-LAST:event_friesBtnActionPerformed
 
     private void drinksBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drinksBtnActionPerformed
-        this.dispose();
-        new FormDrinksMenu(client, order).setVisible(true);
+        controller.drinkMenu();
     }//GEN-LAST:event_drinksBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
         Utils.switchLanguage();
-        update();
+        controller.updateLang();
     }//GEN-LAST:event_langBtnActionPerformed
 
     private void viewCartBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewCartBtnActionPerformed
-        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
-        String message = rb.getString("emptyCartMes");
-        String title = rb.getString("empty");
-        
-        if (order.getFoods() != null && !order.getFoods().isEmpty() && order != null) {
-            this.dispose();
-            new FormViewCart(client, order).setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
-        }
+        controller.viewCart();
     }//GEN-LAST:event_viewCartBtnActionPerformed
 
     private void viewPreOrderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewPreOrderBtnActionPerformed
-        this.dispose();
-        new FormViewOrders(client, order).setVisible(true);
+        controller.previousOrderButton();
     }//GEN-LAST:event_viewPreOrderBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton burgerBtn;
-    private javax.swing.JLabel burgerLbl;
-    private javax.swing.JButton drinksBtn;
-    private javax.swing.JLabel drinksLbl;
-    private javax.swing.JButton friesBtn;
-    private javax.swing.JLabel friesLbl;
-    private javax.swing.JButton hotdogBtn;
-    private javax.swing.JLabel hotdogLbl;
-    private javax.swing.JButton langBtn;
-    private javax.swing.JButton logoutBtn;
-    private javax.swing.JButton pizzaBtn;
-    private javax.swing.JLabel pizzaLbl;
-    private javax.swing.JLabel titleLbl;
-    private javax.swing.JButton viewCartBtn;
-    private javax.swing.JButton viewPreOrderBtn;
+    public javax.swing.JButton burgerBtn;
+    public javax.swing.JLabel burgerLbl;
+    public javax.swing.JButton drinksBtn;
+    public javax.swing.JLabel drinksLbl;
+    public javax.swing.JButton friesBtn;
+    public javax.swing.JLabel friesLbl;
+    public javax.swing.JButton hotdogBtn;
+    public javax.swing.JLabel hotdogLbl;
+    public javax.swing.JButton langBtn;
+    public javax.swing.JButton logoutBtn;
+    public javax.swing.JButton pizzaBtn;
+    public javax.swing.JLabel pizzaLbl;
+    public javax.swing.JLabel titleLbl;
+    public javax.swing.JButton viewCartBtn;
+    public javax.swing.JButton viewPreOrderBtn;
     // End of variables declaration//GEN-END:variables
 }

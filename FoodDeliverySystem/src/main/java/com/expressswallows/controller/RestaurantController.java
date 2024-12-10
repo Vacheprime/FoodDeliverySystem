@@ -1,6 +1,5 @@
 package com.expressswallows.controller;
 
-import com.expressswallows.exceptions.DatabaseException;
 import com.expressswallows.model.menu.fooditems.Food;
 import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.Payment;

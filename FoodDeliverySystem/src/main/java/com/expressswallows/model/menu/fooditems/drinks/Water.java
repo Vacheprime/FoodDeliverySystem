@@ -17,7 +17,7 @@ public class Water extends Drink {
 
     @Override
     public String getDatabaseType() {
-        return "DRINK:WATER";
+        return "DRINK:WATER:"+getSize();
     }
 
     /**
