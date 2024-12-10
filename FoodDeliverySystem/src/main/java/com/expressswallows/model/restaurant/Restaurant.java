@@ -7,7 +7,6 @@ import com.expressswallows.model.restaurant.users.Address;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -132,6 +131,15 @@ public class Restaurant {
     }
 
     /**
+     * Reset the current order task when a task is finished.
+     * This method should be called every time a task is finished
+     * as to clear the current task when the queue is emptied.
+     */
+    public synchronized void finishCurrentOrder() {
+        this.currentOrderTask = null;
+    }
+
+    /**
      * Add a payment to the restaurant.
      * @param payment the payment to add.
      */
@@ -150,7 +158,7 @@ public class Restaurant {
     /**
      * OrderProcessTask is used to represent an order task.
      */
-    public static class OrderProcessTask implements Runnable {
+    public static class OrderProcessTask {
         private final Order order;
         private final Restaurant restaurant;
         private LocalTime startTime;
@@ -210,8 +218,7 @@ public class Restaurant {
         /**
          * Process the order.
          */
-        @Override
-        public void run() {
+        public void process() {
             // Set the current time
             this.startTime = LocalTime.now();
             try {
