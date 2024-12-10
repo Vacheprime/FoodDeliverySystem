@@ -105,28 +105,28 @@ public class FormEmployeeMainMenu extends javax.swing.JFrame {
 
         rest1Lbl.setText("jLabel1");
 
-        view1Btn.setText("View");
+        view1Btn.setText("Guac Guac");
         view1Btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 view1BtnActionPerformed(evt);
             }
         });
 
-        view2Btn.setText("View");
+        view2Btn.setText("Jamal");
         view2Btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 view2BtnActionPerformed(evt);
             }
         });
 
-        view4Btn.setText("View");
+        view4Btn.setText("Egg Planet");
         view4Btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 view4BtnActionPerformed(evt);
             }
         });
 
-        view3Btn.setText("View");
+        view3Btn.setText("Meat Lover");
         view3Btn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 view3BtnActionPerformed(evt);
@@ -144,31 +144,32 @@ public class FormEmployeeMainMenu extends javax.swing.JFrame {
                 .addComponent(rest4Lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(134, 134, 134))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(140, 140, 140)
-                .addComponent(view1Btn)
+                .addGap(130, 130, 130)
+                .addComponent(view1Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(view2Btn)
                 .addGap(253, 253, 253))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(135, 135, 135)
-                .addComponent(view3Btn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(view4Btn)
-                .addGap(254, 254, 254))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(65, 65, 65)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(rest1Lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(rest2Lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(135, 135, 135)
+                        .addComponent(view3Btn)
+                        .addGap(216, 216, 216)
+                        .addComponent(view4Btn))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(56, 56, 56)
-                        .addComponent(allRestLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
-                        .addComponent(langBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(147, Short.MAX_VALUE))
+                        .addGap(65, 65, 65)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(rest1Lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(rest2Lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(56, 56, 56)
+                                .addComponent(allRestLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(31, 31, 31)
+                                .addComponent(langBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,10 +228,6 @@ public class FormEmployeeMainMenu extends javax.swing.JFrame {
         logoutBtn.setText(rb.getString("logout"));
         langBtn.setText(rb.getString("lang"));
         allRestLbl.setText(rb.getString("allrest"));
-        view1Btn.setText(rb.getString("view"));
-        view2Btn.setText(rb.getString("view"));
-        view3Btn.setText(rb.getString("view"));
-        view4Btn.setText(rb.getString("view"));
 
     }
     
@@ -254,7 +251,7 @@ public class FormEmployeeMainMenu extends javax.swing.JFrame {
     private void view1BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view1BtnActionPerformed
 
         try(var database = DatabaseConnectionUtils.getInstance()) {
-            Restaurant restaurant1 = database.fetchRestaurantLocations().getFirst();
+            Restaurant restaurant1 = database.fetchRestaurantLocations().get(0);
             this.dispose();
             new FormRestaurantDetails(restaurant1,employee).setVisible(true);
         } catch (Exception e) {
