@@ -467,6 +467,9 @@ public class DatabaseConnectionUtils implements AutoCloseable {
                     Order order = new Order(rs.getInt("RestaurantID"), fetchClientById(clientId));
                     // Set the order ID
                     order.setOrderId(rs.getInt("OrderID"));
+                    // Set the order date time
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                    order.setOrderDateTime(LocalDateTime.parse(rs.getString("OrderTime"), formatter));
                     // Add the foods
                     List<Food> foods = fetchOrderFoods(order.getOrderId());
                     for (Food f : foods) {
