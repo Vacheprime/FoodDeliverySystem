@@ -22,6 +22,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * The DatabaseConnectionUtils class is used to interact with the database.
@@ -32,6 +34,8 @@ import java.util.List;
  * @author Danat
  */
 public class DatabaseConnectionUtils implements AutoCloseable {
+    // Lock needed for synchronization in specific situations
+    public static final Lock dbLock = new ReentrantLock(true);
     private static DatabaseConnectionUtils instance;
     private static final String DATABASE_FILENAME = "src/main/resources/FoodDeliveryData.db";
     private static final String DATABASE_URL = "jdbc:sqlite:" + DATABASE_FILENAME;
@@ -470,6 +474,8 @@ public class DatabaseConnectionUtils implements AutoCloseable {
                     // Set the order date time
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
                     order.setOrderDateTime(LocalDateTime.parse(rs.getString("OrderTime"), formatter));
+                    // Set the order status
+                    order.setStatus(Order.Status.valueOf(rs.getString("Status")));
                     // Add the foods
                     List<Food> foods = fetchOrderFoods(order.getOrderId());
                     for (Food f : foods) {
@@ -710,6 +716,29 @@ public class DatabaseConnectionUtils implements AutoCloseable {
         } catch (SQLException e) {
             throw new DatabaseFetchException("Error: could not count the amount of orders of the restaurant: " +
                     e.getMessage());
+        }
+    }
+
+    /**
+     * Update the status of an order.
+     * @param orderId the order ID of the order to update.
+     * @param status the new status of the order to update.
+     * @throws DatabaseInsertException Exception thrown when an error occurs while updating the status of the order.
+     */
+    public void updateOrderStatus(int orderId, Order.Status status) throws DatabaseInsertException {
+        final String SQL = """
+                            UPDATE "order"
+                            SET Status = ?
+                            WHERE OrderID = ?;
+                            """;
+        try (PreparedStatement pstmt = connection.prepareStatement(SQL)) {
+            // Form the SQL
+            pstmt.setString(1, status.toString().toUpperCase());
+            pstmt.setInt(2, orderId);
+            // Update the row
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new DatabaseInsertException("Error: could not update order status: " + e.getMessage());
         }
     }
 
