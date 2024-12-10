@@ -1,6 +1,7 @@
 package com.expressswallows.controller;
 
 import com.expressswallows.exceptions.DatabaseException;
+import com.expressswallows.model.menu.fooditems.Food;
 import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.Payment;
 import com.expressswallows.model.restaurant.Restaurant;
@@ -20,10 +21,17 @@ import java.util.ResourceBundle;
  */
 public class RestaurantController {
     private FormPayment paymentForm;
+    private FormOrderDetails orderDetailsForm;
+
     private List<Restaurant> restaurants;
 
     public RestaurantController(FormPayment paymentForm) {
         this.paymentForm = paymentForm;
+        this.restaurants = null;
+    }
+
+    public RestaurantController(FormOrderDetails orderDetailsForm) {
+        this.orderDetailsForm = orderDetailsForm;
         loadRestaurants();
     }
 
@@ -97,6 +105,76 @@ public class RestaurantController {
     public void returnToCart() {
         paymentForm.dispose();
         new FormViewCart(paymentForm.client, paymentForm.order).setVisible(true);
+    }
+
+    /**
+     * Generate a string representation of the foods contained in an
+     * order.
+     *
+     * @param order the order whose foods are to be represented.
+     * @return string representation of the foods contained in an order.
+     */
+    private String foodList(Order order) {
+        StringBuilder foodDetails = new StringBuilder();
+        for (Food food : order.getFoods()) {
+            foodDetails.append(food.toString()).append("\n");
+        }
+        return foodDetails.toString();
+    }
+
+    /**
+     * Initialize the order details form after making a payment for an order.
+     */
+    public void initializeOrderFormWithPayment() {
+        // Set the text of the current order
+        orderDetailsForm.orderListTA.setText(foodList(orderDetailsForm.order));
+        // Find the restaurant that can process the order the fastest
+        orderDetailsForm.restaurant = findRestaurant(orderDetailsForm.order, restaurants);
+        // Assign the order to the restaurant select and set the order's restaurant ID to that selected restaurant
+        try {
+            orderDetailsForm.restaurant.addOrder(orderDetailsForm.order);
+            orderDetailsForm.order.setRestaurantId(orderDetailsForm.restaurant.getRestaurantId());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        // Insert the order and the payment in the database
+        try(var database = DatabaseConnectionUtils.getInstance()) {
+            database.insertOrder(orderDetailsForm.order);
+            database.insertPayment(orderDetailsForm.payment, orderDetailsForm.restaurant.getRestaurantId());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Initialize the order details form of an order.
+     */
+    public void initializeOrderFormWithOrder() {
+        // Find the restaurant that is responsible for the order
+        orderDetailsForm.restaurant = restaurants.stream().filter(r -> r.getRestaurantId() == orderDetailsForm.order.getRestaurantId()).findFirst().get();
+        // Set the text of the current order
+        orderDetailsForm.orderListTA.setText(foodList(orderDetailsForm.order));
+    }
+
+    /**
+     * Update the language of the order details form.
+     */
+    public void updateOrderDetailsFormLanguage() {
+        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
+        orderDetailsForm.langBtn.setText(rb.getString("lang"));
+        orderDetailsForm.backBtn.setText(rb.getString("back"));
+
+        if (Utils.currentLocale.getLanguage().equals("en")) {
+            orderDetailsForm.orderLbl.setText(rb.getString("order") + orderDetailsForm.order.getOrderId());
+            orderDetailsForm.etaLbl.setText(rb.getString("eta") + RestaurantController.getTotalTime(orderDetailsForm.order,orderDetailsForm.restaurant));
+            orderDetailsForm.locationAssignedLbl.setText(rb.getString("locationassigned") + orderDetailsForm.restaurant.toString());
+            orderDetailsForm.statusLbl.setText(rb.getString("status") + orderDetailsForm.order.getStatus());
+        } else if (Utils.currentLocale.getLanguage().equals("fr")) {
+            orderDetailsForm.orderLbl.setText(rb.getString("order") + orderDetailsForm.order.getOrderId());
+            orderDetailsForm.etaLbl.setText(rb.getString("eta") + RestaurantController.getTotalTime(orderDetailsForm.order, orderDetailsForm.restaurant));
+            orderDetailsForm.locationAssignedLbl.setText(rb.getString("locationassigned") + orderDetailsForm.restaurant.toString());
+            orderDetailsForm.statusLbl.setText(rb.getString("status") + orderDetailsForm.order.getStatus());
+        }
     }
 
     /**
