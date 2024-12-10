@@ -4,6 +4,8 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.controller.ViewCartController;
+import com.expressswallows.controller.ViewOrdersController;
 import com.expressswallows.model.menu.fooditems.Food;
 import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.users.Client;
@@ -21,8 +23,10 @@ import java.util.ResourceBundle;
  */
 public class FormViewOrders extends javax.swing.JFrame {
 
-    Client client;
-    Order order;
+    public ViewOrdersController controller;
+    public Client client;
+    public Order order;
+
     /**
      * Creates new form FormViewOrders
      */
@@ -30,9 +34,10 @@ public class FormViewOrders extends javax.swing.JFrame {
         initComponents();
         this.client = client;
         this.order = order;
+        this.controller = new ViewOrdersController(this);
 
-        loadOrders(client);
-        update();
+        controller.loadOrders(client);
+        controller.update();
     }
 
     /**
@@ -105,60 +110,20 @@ public class FormViewOrders extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void update() {
-        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
-        backBtn.setText(rb.getString("back"));
-        yourOrdersLbl.setText(rb.getString("orderhistory"));
-        langBtn.setText(rb.getString("lang"));
-    }
-
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
-        this.dispose();
-        new FormClientMainMenu(client, order).setVisible(true);
+        controller.backButtonClicked();
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
         Utils.switchLanguage();
-        update();
+        controller.update();
     }//GEN-LAST:event_langBtnActionPerformed
 
-    private void loadOrders(Client client) {
-
-        try(var database = DatabaseConnectionUtils.getInstance()) {
-           List<Order> orders = database.fetchOrdersByClientId(client.getClientId());
-            DefaultListModel<String> listModel = new DefaultListModel<>();
-
-            for (Order order : orders) {
-                listModel.addElement("Order ID: " + order.getOrderId() + " Total: $" + order.calculateTotalPrice());
-            }
-            listOfOrders.setModel(listModel);
-
-            listOfOrders.addListSelectionListener(e -> {
-                if (!e.getValueIsAdjusting()) {
-                    int selectedIndex = listOfOrders.getSelectedIndex();
-                    if (selectedIndex != -1) {
-                        Order selectedOrder = orders.get(selectedIndex);
-                        openOrderDetails(selectedOrder);
-                    }
-                }
-
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void openOrderDetails(Order order) {
-        this.dispose();
-        FormOrderDetails orderDetailsForm = new FormOrderDetails(client, order);
-        orderDetailsForm.setVisible(true);
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton backBtn;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton langBtn;
-    private javax.swing.JList<String> listOfOrders;
-    private javax.swing.JLabel yourOrdersLbl;
+    public javax.swing.JButton backBtn;
+    public javax.swing.JScrollPane jScrollPane1;
+    public javax.swing.JButton langBtn;
+    public javax.swing.JList<String> listOfOrders;
+    public javax.swing.JLabel yourOrdersLbl;
     // End of variables declaration//GEN-END:variables
 }

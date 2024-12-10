@@ -91,13 +91,10 @@ public class LoginController {
     }
 
     /**
-     * opens the signup frame
+     * Opens the signup frame
      */
     public void signup() {
         formLogin.setVisible(false);
         new FormSignup().setVisible(true);
     }
-
-
-    
 }

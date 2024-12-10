@@ -4,6 +4,7 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.controller.DrinksMenuController;
 import com.expressswallows.model.menu.factories.BurgerFactory;
 import com.expressswallows.model.menu.factories.DrinkFactory;
 import com.expressswallows.model.menu.factories.FoodFactoryCreator;
@@ -22,13 +23,15 @@ import java.util.ResourceBundle;
  * @author shahi
  */
 public class FormDrinksMenu extends javax.swing.JFrame {
-    Order order;
-    Client client;
+
+    public DrinksMenuController controller;
+    public Order order;
+    public Client client;
     ImageIcon drink = new ImageIcon("..\\FoodDeliverySystem\\src\\main\\resources\\images\\drinks.jpg");
-    private final double SMALL = 3.99;
-    private final double MEDIUM = 4.99;
-    private final double LARGE = 5.49;
-    private double currentPrice = 0;
+    public final double SMALL = 3.99;
+    public final double MEDIUM = 4.99;
+    public final double LARGE = 5.49;
+    public double currentPrice = 0;
     /**
      * Creates new form frmDrinksMenu
      */
@@ -36,11 +39,11 @@ public class FormDrinksMenu extends javax.swing.JFrame {
         initComponents();
         this.client = client;
         this.order = order;
+        this.controller = new DrinksMenuController(this);
         drinkImg.setText("");
         drinkImg.setIcon(drink);
 
-        update();
-
+        controller.updateLang();
     }
 
     /**
@@ -169,87 +172,32 @@ public class FormDrinksMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void update() {
-        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
-        backBtn.setText(rb.getString("back"));
-        langBtn.setText(rb.getString("lang"));
-        drinksMenuLbl.setText(rb.getString("drinksmenu"));
-        sizeLbl.setText(rb.getString("size"));
-
-        String priceText = String.format("%.2f", currentPrice);
-        if (Utils.currentLocale.getLanguage().equals("en")) {
-            priceLbl.setText(rb.getString("price") + " $" + priceText); 
-        } else if (Utils.currentLocale.getLanguage().equals("fr")) {
-            priceLbl.setText(rb.getString("price") + " " + priceText + "$");
-        }
-
-        orderBtn.setText(rb.getString("addtocart"));
-
-        typeBox.removeItemAt(0);
-        typeBox.insertItemAt(rb.getString("water"),0);
-
-        sizeBox.removeAllItems();
-
-        sizeBox.addItem(rb.getString("small"));
-        sizeBox.addItem(rb.getString("medium"));
-        sizeBox.addItem(rb.getString("large"));
-    }
-
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
-        this.dispose();
-        new FormClientMainMenu(client, order).setVisible(true);
+        controller.backButton();
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
-        int selectedSize = sizeBox.getSelectedIndex();
-        int selectedType = typeBox.getSelectedIndex();
-        Utils.switchLanguage();
-        update();
-        sizeBox.setSelectedIndex(selectedSize);
-        typeBox.setSelectedIndex(selectedType);
+        controller.updateLangAndIndex();
     }//GEN-LAST:event_langBtnActionPerformed
 
     private void orderBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderBtnActionPerformed
-        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
-        String message = rb.getString("drinkMes");
-        String title = rb.getString("drinkTitle");
-        
-        int drinkChoice = typeBox.getSelectedIndex();
-        int size = sizeBox.getSelectedIndex();
-        FoodFactoryCreator creator = new FoodFactoryCreator();
-        DrinkFactory factory = (DrinkFactory) creator.getFoodFactory("Drink");
-        Drink drink = factory.createDrink(drinkChoice, size);
-        order.addFoodToOrder(drink);
-        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
+        controller.addToCart();
     }//GEN-LAST:event_orderBtnActionPerformed
 
     private void sizeBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sizeBoxActionPerformed
-        int selectedSize = sizeBox.getSelectedIndex();
-
-        switch (selectedSize) {
-            case 0 -> currentPrice = SMALL;
-            case 1 -> currentPrice = MEDIUM;
-            case 2 -> currentPrice = LARGE;
-        }
-
-        String priceText = String.format("%.2f", currentPrice);
-        if (Utils.currentLocale.getLanguage().equals("en")) {
-            priceLbl.setText("Price: $" + priceText);
-        } else if (Utils.currentLocale.getLanguage().equals("fr")) {
-            priceLbl.setText("Prix: " + priceText + "$");
-        }
+        controller.sizeControls();
     }//GEN-LAST:event_sizeBoxActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton backBtn;
-    private javax.swing.JLabel drinkImg;
-    private javax.swing.JLabel drinksMenuLbl;
-    private javax.swing.JButton langBtn;
-    private javax.swing.JButton orderBtn;
-    private javax.swing.JLabel priceLbl;
-    private javax.swing.JComboBox<String> sizeBox;
-    private javax.swing.JLabel sizeLbl;
-    private javax.swing.JComboBox<String> typeBox;
-    private javax.swing.JLabel typesLbl;
+    public javax.swing.JButton backBtn;
+    public javax.swing.JLabel drinkImg;
+    public javax.swing.JLabel drinksMenuLbl;
+    public javax.swing.JButton langBtn;
+    public javax.swing.JButton orderBtn;
+    public javax.swing.JLabel priceLbl;
+    public javax.swing.JComboBox<String> sizeBox;
+    public javax.swing.JLabel sizeLbl;
+    public javax.swing.JComboBox<String> typeBox;
+    public javax.swing.JLabel typesLbl;
     // End of variables declaration//GEN-END:variables
 }

@@ -27,18 +27,18 @@ public class FormOrderDetails extends javax.swing.JFrame {
         this.client = client;
         this.order = order;
         this.payment = payment;
-        this.controller = new RestaurantController(this);
-        this.controller.initializeOrderFormWithPayment();
-        this.controller.updateOrderDetailsFormLanguage();
+        controller = new RestaurantController(this);
+        controller.initializeOrderFormWithPayment();
+        controller.updateOrderDetailsFormLanguage();
     }
     
     public FormOrderDetails(Client client, Order order) {
         initComponents();
         this.client = client;
         this.order = order;
-        this.controller = new RestaurantController(this);
-        this.controller.initializeOrderFormWithOrder();
-        this.controller.updateOrderDetailsFormLanguage();
+        controller = new RestaurantController(this);
+        controller.initializeOrderFormWithOrder();
+        controller.updateOrderDetailsFormLanguage();
     }
 
     /**

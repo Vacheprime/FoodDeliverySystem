@@ -5,6 +5,7 @@
 package com.expressswallows.view;
 
 import com.expressswallows.Main;
+import com.expressswallows.controller.EmployeeMainMenuController;
 import com.expressswallows.model.restaurant.Restaurant;
 import com.expressswallows.model.restaurant.users.Employee;
 import com.expressswallows.utils.DatabaseConnectionUtils;
@@ -20,19 +21,20 @@ import javax.swing.JOptionPane;
  */
 public class FormEmployeeMainMenu extends javax.swing.JFrame {
 
-    List<Restaurant> restaurants;
-    Employee employee;
+    public EmployeeMainMenuController controller;
+    public Employee employee;
     ImageIcon restaurant = new ImageIcon("..\\FoodDeliverySystem\\src\\main\\resources\\images\\restaurants.jpg");
     ImageIcon rest2 = new ImageIcon("..\\FoodDeliverySystem\\src\\main\\resources\\images\\rest2.jpg");
     ImageIcon rest3 = new ImageIcon("..\\FoodDeliverySystem\\src\\main\\resources\\images\\rest3.jpg");
     ImageIcon rest4 = new ImageIcon("..\\FoodDeliverySystem\\src\\main\\resources\\images\\rest4.jpg");
-    
 
     /**
      * Creates new form FormEmployeeMainMenu
      */
     public FormEmployeeMainMenu(Employee employee) {
         initComponents();
+        this.controller = new EmployeeMainMenuController(this);
+        this.employee = employee;
         rest1Lbl.setText("");
         rest1Lbl.setIcon(restaurant);
         rest2Lbl.setText("");
@@ -41,14 +43,7 @@ public class FormEmployeeMainMenu extends javax.swing.JFrame {
         rest3Lbl.setIcon(rest3);
         rest4Lbl.setText("");
         rest4Lbl.setIcon(rest4);
-        update();
-        try(var database = DatabaseConnectionUtils.getInstance()) {
-            this.restaurants = database.fetchRestaurantLocations();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
+        controller.updateLanguage();
     }
 
     /**
@@ -165,20 +160,24 @@ public class FormEmployeeMainMenu extends javax.swing.JFrame {
                                 .addComponent(rest2Lbl, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(56, 56, 56)
-                                .addComponent(allRestLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(31, 31, 31)
+                                .addGap(18, 18, 18)
+                                .addComponent(allRestLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
                                 .addComponent(langBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(allRestLbl)
-                    .addComponent(logoutBtn)
-                    .addComponent(langBtn))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(allRestLbl)
+                            .addComponent(logoutBtn)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(langBtn)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(30, 30, 30)
@@ -223,86 +222,44 @@ public class FormEmployeeMainMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void update() {
-        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
-        logoutBtn.setText(rb.getString("logout"));
-        langBtn.setText(rb.getString("lang"));
-        allRestLbl.setText(rb.getString("allrest"));
-
-    }
-    
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
-        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
-        String message = rb.getString("logmes");
-        String title = rb.getString("select");
-        
-        int a = JOptionPane.showConfirmDialog(null, message, title,JOptionPane.YES_NO_OPTION);
-        if(a == 0){
-            this.dispose();
-            new FormLogin().setVisible(true);
-        }
+        controller.logout();
     }//GEN-LAST:event_logoutBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
         Utils.switchLanguage();
-        update();
+        controller.updateLanguage();
     }//GEN-LAST:event_langBtnActionPerformed
 
     private void view1BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view1BtnActionPerformed
-
-        try(var database = DatabaseConnectionUtils.getInstance()) {
-            Restaurant restaurant1 = database.fetchRestaurantLocations().get(0);
-            this.dispose();
-            new FormRestaurantDetails(restaurant1,employee).setVisible(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        controller.openRest1();
     }//GEN-LAST:event_view1BtnActionPerformed
 
     private void view2BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view2BtnActionPerformed
-        try(var database = DatabaseConnectionUtils.getInstance()) {
-            Restaurant restaurant1 = database.fetchRestaurantLocations().get(1);
-            this.dispose();
-            new FormRestaurantDetails(restaurant1,employee).setVisible(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        controller.openRest2();
     }//GEN-LAST:event_view2BtnActionPerformed
 
     private void view3BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view3BtnActionPerformed
-        try(var database = DatabaseConnectionUtils.getInstance()) {
-            Restaurant restaurant1 = database.fetchRestaurantLocations().get(2);
-            this.dispose();
-            new FormRestaurantDetails(restaurant1,employee).setVisible(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        controller.openRest3();
     }//GEN-LAST:event_view3BtnActionPerformed
 
     private void view4BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_view4BtnActionPerformed
-        try(var database = DatabaseConnectionUtils.getInstance()) {
-            Restaurant restaurant1 = database.fetchRestaurantLocations().get(3);
-            this.dispose();
-            new FormRestaurantDetails(restaurant1,employee).setVisible(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        controller.openRest4();
     }//GEN-LAST:event_view4BtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel allRestLbl;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton langBtn;
-    private javax.swing.JButton logoutBtn;
-    private javax.swing.JLabel rest1Lbl;
-    private javax.swing.JLabel rest2Lbl;
-    private javax.swing.JLabel rest3Lbl;
-    private javax.swing.JLabel rest4Lbl;
-    private javax.swing.JButton view1Btn;
-    private javax.swing.JButton view2Btn;
-    private javax.swing.JButton view3Btn;
-    private javax.swing.JButton view4Btn;
+    public javax.swing.JLabel allRestLbl;
+    public javax.swing.JPanel jPanel1;
+    public javax.swing.JScrollPane jScrollPane1;
+    public javax.swing.JButton langBtn;
+    public javax.swing.JButton logoutBtn;
+    public javax.swing.JLabel rest1Lbl;
+    public javax.swing.JLabel rest2Lbl;
+    public javax.swing.JLabel rest3Lbl;
+    public javax.swing.JLabel rest4Lbl;
+    public javax.swing.JButton view1Btn;
+    public javax.swing.JButton view2Btn;
+    public javax.swing.JButton view3Btn;
+    public javax.swing.JButton view4Btn;
     // End of variables declaration//GEN-END:variables
 }

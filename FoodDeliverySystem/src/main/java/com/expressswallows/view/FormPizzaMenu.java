@@ -4,6 +4,7 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.controller.PizzaMenuController;
 import com.expressswallows.model.menu.factories.FoodFactoryCreator;
 import com.expressswallows.model.menu.factories.HotdogFactory;
 import com.expressswallows.model.menu.factories.PizzaFactory;
@@ -22,14 +23,15 @@ import java.util.ResourceBundle;
  */
 public class FormPizzaMenu extends javax.swing.JFrame {
 
-    Client client;
-    Order order;
+    public PizzaMenuController controller;
+    public Client client;
+    public Order order;
     ImageIcon cheeseImg = new ImageIcon("..\\FoodDeliverySystem\\src\\main\\resources\\images\\cheese.jpg");
     ImageIcon pepperoniImg = new ImageIcon("..\\FoodDeliverySystem\\src\\main\\resources\\images\\pepperoni.jpg");
     ImageIcon alldressImg = new ImageIcon("..\\FoodDeliverySystem\\src\\main\\resources\\images\\alldress.jpg");
-    private final double PRICECHEEESE = 10.99;
-    private final double PRICEPEP = 17.99;
-    private final double PRICEAD = 22.99;
+    public final double PRICECHEEESE = 10.99;
+    public final double PRICEPEP = 17.99;
+    public final double PRICEAD = 22.99;
 
     /**
      * Creates new form frmPizzaMenu
@@ -38,13 +40,14 @@ public class FormPizzaMenu extends javax.swing.JFrame {
         initComponents();
         this.client = client;
         this.order = order;
+        this.controller = new PizzaMenuController(this);
         cheeseLblImg.setText("");
         cheeseLblImg.setIcon(cheeseImg);
         pepperoniLblImg.setText("");
         pepperoniLblImg.setIcon(pepperoniImg);
         alldressLblImg.setText("");
         alldressLblImg.setIcon(alldressImg);
-        update();
+        controller.updateLanguage();
     }
 
     /**
@@ -218,98 +221,43 @@ public class FormPizzaMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void update() {
-        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
-        backBtn.setText(rb.getString("back"));
-        langBtn.setText(rb.getString("lang"));
-        pizzaMenuLbl.setText(rb.getString("pizzamenu"));
-        cheeseLbl.setText(rb.getString("cheese"));
-        alldressLbl.setText(rb.getString("alldress"));
-        alldressBtn.setText(rb.getString("addtocart"));
-        pepperoniBtn.setText(rb.getString("addtocart"));
-        cheeseBtn.setText(rb.getString("addtocart"));
-        priceADLbl.setText(rb.getString("price"));
-        priceCheeseLbl.setText(rb.getString("price"));
-        pricePepLbl.setText(rb.getString("price"));
-
-        if (Utils.currentLocale.getLanguage().equals("en")) {
-            priceCheeseLbl.setText(rb.getString("price") + "$" + PRICECHEEESE);
-            pricePepLbl.setText(rb.getString("price") + "$" + PRICEPEP);
-            priceADLbl.setText(rb.getString("price") + "$" + PRICEAD);
-        } else if (Utils.currentLocale.getLanguage().equals("fr")) {
-            priceCheeseLbl.setText(rb.getString("price") + PRICECHEEESE + "$");
-            pricePepLbl.setText(rb.getString("price") + PRICEPEP + "$");
-            priceADLbl.setText(rb.getString("price") + PRICEAD + "$");
-        }
-
-
-    }
-
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
-        this.dispose();
-        new FormClientMainMenu(client, order).setVisible(true);
+        controller.backButtonClicked();
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
         Utils.switchLanguage();
-        update();
+        controller.updateLanguage();
 
     }//GEN-LAST:event_langBtnActionPerformed
 
     private void cheeseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cheeseBtnActionPerformed
-        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
-        String message = rb.getString("cheeseMes");
-        String title = rb.getString("pizzaTitle");
-        
-        String choice = "CheesePizza";
-        FoodFactoryCreator creator = new FoodFactoryCreator();
-        PizzaFactory factory = (PizzaFactory) creator.getFoodFactory("Pizza");
-        Pizza pizza = factory.createPizza(choice);
-        order.addFoodToOrder(pizza);
-        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
+        controller.cheesePizza();
     }//GEN-LAST:event_cheeseBtnActionPerformed
 
     private void pepperoniBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pepperoniBtnActionPerformed
-        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
-        String message = rb.getString("pepMes");
-        String title = rb.getString("pizzaTitle");
-        
-        String choice = "PepperoniPizza";
-        FoodFactoryCreator creator = new FoodFactoryCreator();
-        PizzaFactory factory = (PizzaFactory) creator.getFoodFactory("Pizza");
-        Pizza pizza = factory.createPizza(choice);
-        order.addFoodToOrder(pizza);
-        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
+        controller.pepperoniPizza();
     }//GEN-LAST:event_pepperoniBtnActionPerformed
 
     private void alldressBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alldressBtnActionPerformed
-        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
-        String message = rb.getString("alldMes");
-        String title = rb.getString("pizzaTitle");
-        
-        String choice = "AlldressedPizza";
-        FoodFactoryCreator creator = new FoodFactoryCreator();
-        PizzaFactory factory = (PizzaFactory) creator.getFoodFactory("Pizza");
-        Pizza pizza = factory.createPizza(choice);
-        order.addFoodToOrder(pizza);
-        JOptionPane.showMessageDialog(null, "Successfully added All Dressed to your cart.", "Pizza Added", JOptionPane.INFORMATION_MESSAGE);
+        controller.allDressedPizza();
     }//GEN-LAST:event_alldressBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton alldressBtn;
-    private javax.swing.JLabel alldressLbl;
-    private javax.swing.JLabel alldressLblImg;
-    private javax.swing.JButton backBtn;
-    private javax.swing.JButton cheeseBtn;
-    private javax.swing.JLabel cheeseLbl;
-    private javax.swing.JLabel cheeseLblImg;
-    private javax.swing.JButton langBtn;
-    private javax.swing.JButton pepperoniBtn;
-    private javax.swing.JLabel pepperoniLbl;
-    private javax.swing.JLabel pepperoniLblImg;
-    private javax.swing.JLabel pizzaMenuLbl;
-    private javax.swing.JLabel priceADLbl;
-    private javax.swing.JLabel priceCheeseLbl;
-    private javax.swing.JLabel pricePepLbl;
+    public javax.swing.JButton alldressBtn;
+    public javax.swing.JLabel alldressLbl;
+    public javax.swing.JLabel alldressLblImg;
+    public javax.swing.JButton backBtn;
+    public javax.swing.JButton cheeseBtn;
+    public javax.swing.JLabel cheeseLbl;
+    public javax.swing.JLabel cheeseLblImg;
+    public javax.swing.JButton langBtn;
+    public javax.swing.JButton pepperoniBtn;
+    public javax.swing.JLabel pepperoniLbl;
+    public javax.swing.JLabel pepperoniLblImg;
+    public javax.swing.JLabel pizzaMenuLbl;
+    public javax.swing.JLabel priceADLbl;
+    public javax.swing.JLabel priceCheeseLbl;
+    public javax.swing.JLabel pricePepLbl;
     // End of variables declaration//GEN-END:variables
 }

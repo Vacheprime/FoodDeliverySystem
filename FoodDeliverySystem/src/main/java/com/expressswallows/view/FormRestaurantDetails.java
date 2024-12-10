@@ -4,6 +4,7 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.controller.RestaurantDetailsController;
 import com.expressswallows.model.restaurant.Restaurant;
 import com.expressswallows.model.restaurant.users.Employee;
 import com.expressswallows.utils.Utils;
@@ -16,17 +17,20 @@ import java.util.ResourceBundle;
  */
 public class FormRestaurantDetails extends javax.swing.JFrame {
 
+    public RestaurantDetailsController controller;
+    public Restaurant restaurant;
+    public Employee employee;
     /**
      * Creates new form FormRestaurentDetails
      */
-    Restaurant restaurant;
-    Employee employee;
+
     public FormRestaurantDetails(Restaurant restaurant, Employee employee) {
         
         initComponents();
         this.restaurant = restaurant;
         this.employee = employee;
-        update();
+        this.controller = new RestaurantDetailsController(this);
+        controller.updateLanguage();
     }
 
     /**
@@ -119,35 +123,24 @@ public class FormRestaurantDetails extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void update() {
-        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
-        titleLbl.setText(rb.getString("restdet"));
-        nameLbl.setText(rb.getString("name") + restaurant.getName());
-        locationLbl.setText(rb.getString("location") + restaurant.getLocation().toString());
-        langBtn.setText(rb.getString("lang"));
-        balanceLbl.setText(rb.getString("balance") + restaurant.getBalance());
-        numOrdersLbl.setText(rb.getString("numorders"));
-    }
-
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
-        this.dispose();
-        new FormEmployeeMainMenu(employee).setVisible(true);
+        controller.backButtonClicked();
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
         Utils.switchLanguage();
-        update();
+        controller.updateLanguage();
     }//GEN-LAST:event_langBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton backBtn;
-    private javax.swing.JLabel balanceLbl;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton langBtn;
-    private javax.swing.JLabel locationLbl;
-    private javax.swing.JLabel nameLbl;
-    private javax.swing.JLabel numOrdersLbl;
-    private javax.swing.JLabel titleLbl;
+    public javax.swing.JButton backBtn;
+    public javax.swing.JLabel balanceLbl;
+    public javax.swing.JButton jButton1;
+    public javax.swing.JButton langBtn;
+    public javax.swing.JLabel locationLbl;
+    public javax.swing.JLabel nameLbl;
+    public javax.swing.JLabel numOrdersLbl;
+    public javax.swing.JLabel titleLbl;
     // End of variables declaration//GEN-END:variables
 }
