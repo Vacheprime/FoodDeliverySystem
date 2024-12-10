@@ -6,6 +6,7 @@ package com.expressswallows.view;
 
 import com.expressswallows.Main;
 import com.expressswallows.controller.RestaurantController;
+import com.expressswallows.exceptions.DatabaseException;
 import com.expressswallows.model.menu.fooditems.Food;
 import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.Payment;
@@ -66,15 +67,17 @@ public class FormOrderDetails extends javax.swing.JFrame {
         initComponents();
         this.client = client;
         this.order = order;
-        orderListTA.setText(foodList(order));
-        try(var database = DatabaseConnectionUtils.getInstance()) {
-            this.restaurant = RestaurantController.findRestaurant(order, database.fetchRestaurantLocations());
-        } catch (Exception e) {
+
+        try (var database = DatabaseConnectionUtils.getInstance()) {
+            this.restaurant = database.fetchRestaurantLocations().stream().filter(r -> r.getRestaurantId() == order.getRestaurantId()).findFirst().get();
+        } catch (DatabaseException e) {
             e.printStackTrace();
         }
 
-        update();
+        orderListTA.setText(foodList(order));
 
+
+        update();
     }
 
     /**
@@ -183,7 +186,7 @@ public class FormOrderDetails extends javax.swing.JFrame {
         ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
         langBtn.setText(rb.getString("lang"));
         backBtn.setText(rb.getString("back"));
-        
+
         if (Utils.currentLocale.getLanguage().equals("en")) {
             orderLbl.setText(rb.getString("order") + order.getOrderId());
             etaLbl.setText(rb.getString("eta") + RestaurantController.getTotalTime(order,restaurant));

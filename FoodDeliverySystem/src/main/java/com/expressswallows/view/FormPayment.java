@@ -4,6 +4,7 @@
  */
 package com.expressswallows.view;
 
+import com.expressswallows.controller.RestaurantController;
 import com.expressswallows.exceptions.DatabaseException;
 import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.Payment;
@@ -21,9 +22,11 @@ import java.util.ResourceBundle;
  * @author shahi
  */
 public class FormPayment extends javax.swing.JFrame {
-    Client client;
-    Order order;
-    double price = 0;
+    public Client client;
+    public Order order;
+    public double price = 0;
+    public RestaurantController controller;
+
     /**
      * Creates new form FormPayment
      */
@@ -32,9 +35,9 @@ public class FormPayment extends javax.swing.JFrame {
         this.client = client;
         this.order = order;
         this.price = order.calculateTotalPrice();
+        this.controller = new RestaurantController(this);
         totalLbl.setText("Price:" + price);
-
-        update();
+        controller.updateFormPaymentLanguage();
     }
 
     /**
@@ -160,75 +163,30 @@ public class FormPayment extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void update(){
-        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
-        backBtn.setText(rb.getString("back"));
-        langBtn.setText(rb.getString("lang"));
-        cardnumberLbl.setText(rb.getString("cardnum"));
-        expirydateLbl.setText(rb.getString("expiry"));
-
-        if (Utils.currentLocale.getLanguage().equals("en")) {
-            totalLbl.setText(rb.getString("amount") + "$" + price);
-        } else if (Utils.currentLocale.getLanguage().equals("fr")) {
-            totalLbl.setText(rb.getString("amount")+ price + "$");
-        }
-
-        confirmBtn.setText(rb.getString("confirm"));
-        paymentLbl.setText(rb.getString("payment"));
-    }
-
-
     private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
-        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
-        String message = rb.getString("payFail");
-        String title = rb.getString("er");
-
-        //var database = DatabaseUtilsConnection.getInstance();
-
-        if (!checkPayment()) {
-            JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        Payment payment = new Payment(price, client);
-        this.dispose();
-        new FormOrderDetails(client, order, payment).setVisible(true);
+        controller.payOrder();
     }//GEN-LAST:event_confirmBtnActionPerformed
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
-        this.dispose();
-        new FormViewCart(client, order).setVisible(true);
+        controller.returnToCart();
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void langBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_langBtnActionPerformed
         Utils.switchLanguage();
-        update();
+        controller.updateFormPaymentLanguage();
     }//GEN-LAST:event_langBtnActionPerformed
 
-    private boolean checkPayment() {
-
-        String cardnum = cardnumberTB.getText();
-        String cvv = cvvTB.getText();
-        String expirydate = expirydateTB.getText();
-
-        if (!Utils.validateCreditCard(cardnum, cvv, expirydate)) {
-            return false;
-        }
-        return true;
-    }
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton backBtn;
-    private javax.swing.JLabel cardnumberLbl;
-    private javax.swing.JTextField cardnumberTB;
-    private javax.swing.JButton confirmBtn;
-    private javax.swing.JLabel cvvLbl;
-    private javax.swing.JTextField cvvTB;
-    private javax.swing.JLabel expirydateLbl;
-    private javax.swing.JTextField expirydateTB;
-    private javax.swing.JButton langBtn;
-    private javax.swing.JLabel paymentLbl;
-    private javax.swing.JLabel totalLbl;
+    public javax.swing.JButton backBtn;
+    public javax.swing.JLabel cardnumberLbl;
+    public javax.swing.JTextField cardnumberTB;
+    public javax.swing.JButton confirmBtn;
+    public javax.swing.JLabel cvvLbl;
+    public javax.swing.JTextField cvvTB;
+    public javax.swing.JLabel expirydateLbl;
+    public javax.swing.JTextField expirydateTB;
+    public javax.swing.JButton langBtn;
+    public javax.swing.JLabel paymentLbl;
+    public javax.swing.JLabel totalLbl;
     // End of variables declaration//GEN-END:variables
 }
