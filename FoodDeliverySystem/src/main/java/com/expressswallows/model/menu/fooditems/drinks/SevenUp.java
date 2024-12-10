@@ -17,7 +17,7 @@ public class SevenUp extends Drink {
 
     @Override
     public String getDatabaseType() {
-        return "DRINK:SEVENUP";
+        return "DRINK:SEVENUP:"+getSize();
     }
 
     /**

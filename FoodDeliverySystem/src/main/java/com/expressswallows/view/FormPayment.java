@@ -177,13 +177,10 @@ public class FormPayment extends javax.swing.JFrame {
         paymentLbl.setText(rb.getString("payment"));
     }
 
-
     private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
         ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
         String message = rb.getString("payFail");
         String title = rb.getString("er");
-
-        //var database = DatabaseUtilsConnection.getInstance();
 
         if (!checkPayment()) {
             JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
