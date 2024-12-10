@@ -72,6 +72,28 @@ public class OrderProcessingController {
     }
 
     /**
+     * Get the list of restaurants loaded from the database.
+     * @return the list of restaurants loaded from the database.
+     */
+    public List<Restaurant> getRestaurants() {
+        return restaurants;
+    }
+
+    /**
+     * Get the restaurant loaded from the database with the specified ID.
+     * @return the restaurant loaded from the database with the specified ID.
+     * Null if the restaurant was not found.
+     */
+    public Restaurant getRestaurantById(int restaurantId) {
+        for (Restaurant restaurant : restaurants) {
+            if (restaurant.getRestaurantId() == restaurantId) {
+                return restaurant;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Runnable that indefinitely fetches orders inserted into the
      * restaurant and processes them.
      */
@@ -101,10 +123,16 @@ public class OrderProcessingController {
                     e.printStackTrace();
                     continue;
                 }
+                // Only continue if the task is not null
+                if (task == null) {
+                    continue;
+                }
+                System.out.println("Processing order: " + task.getOrder() + " TIME: " + task.getEstimatedRemainingTime());
                 // Execute the task
                 task.process();
                 // Finish the order
                 restaurant.finishCurrentOrder();
+                System.out.println("Order processed!");
             }
         }
     }

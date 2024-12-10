@@ -28,7 +28,6 @@ public class FormOrderDetails extends javax.swing.JFrame {
         this.payment = payment;
         this.controller = new RestaurantController(this);
         this.controller.initializeOrderFormWithPayment();
-        this.controller.updateOrderDetailsFormLanguage();
     }
     
     public FormOrderDetails(Client client, Order order) {
@@ -37,7 +36,6 @@ public class FormOrderDetails extends javax.swing.JFrame {
         this.order = order;
         this.controller = new RestaurantController(this);
         this.controller.initializeOrderFormWithOrder();
-        this.controller.updateOrderDetailsFormLanguage();
     }
 
     /**
@@ -106,18 +104,18 @@ public class FormOrderDetails extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                         .addComponent(orderLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(langBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(32, 32, 32)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(locationAssignedLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
                                 .addComponent(statusLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(etaLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
+                            .addComponent(etaLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -143,22 +141,7 @@ public class FormOrderDetails extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void update() {
-        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
-        langBtn.setText(rb.getString("lang"));
-        backBtn.setText(rb.getString("back"));
-        
-        if (Utils.currentLocale.getLanguage().equals("en")) {
-            orderLbl.setText(rb.getString("order") + order.getOrderId());
-            etaLbl.setText(rb.getString("eta") + restaurant.getCurrentOrderTask().getEstimatedRemainingTime(order));
-            locationAssignedLbl.setText(rb.getString("locationassigned") + restaurant.toString());
-            statusLbl.setText(rb.getString("status") + order.getStatus());
-        } else if (Utils.currentLocale.getLanguage().equals("fr")) {
-            orderLbl.setText(rb.getString("order") + order.getOrderId());
-            etaLbl.setText(rb.getString("eta") + restaurant.getCurrentOrderTask().getEstimatedRemainingTime(order));
-            locationAssignedLbl.setText(rb.getString("locationassigned") + restaurant.toString());
-            statusLbl.setText(rb.getString("status") + order.getStatus());
-        }
-
+        controller.updateOrderDetailsFormLanguage();
     }
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed

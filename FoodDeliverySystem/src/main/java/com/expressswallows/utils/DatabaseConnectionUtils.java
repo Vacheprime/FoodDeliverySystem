@@ -467,6 +467,9 @@ public class DatabaseConnectionUtils implements AutoCloseable {
                     Order order = new Order(rs.getInt("RestaurantID"), fetchClientById(clientId));
                     // Set the order ID
                     order.setOrderId(rs.getInt("OrderID"));
+                    // Set the order date time
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                    order.setOrderDateTime(LocalDateTime.parse(rs.getString("OrderTime"), formatter));
                     // Add the foods
                     List<Food> foods = fetchOrderFoods(order.getOrderId());
                     for (Food f : foods) {
@@ -862,7 +865,7 @@ public class DatabaseConnectionUtils implements AutoCloseable {
                                 ClientID INTEGER NOT NULL,
                                 RestaurantID INTEGER NOT NULL,
                                 CONSTRAINT chk_OrderTime CHECK (OrderTime LIKE '____-__-__ __:__:__'),
-                                CONSTRAINT chk_Status CHECK (Status IN ('IN_PROGRESS', 'DELIVERING', 'DELIVERED')),
+                                CONSTRAINT chk_Status CHECK (Status IN ('IN_QUEUE', 'IN_PROGRESS', 'DELIVERING', 'ARRIVED')),
                                 CONSTRAINT fk_ClientID FOREIGN KEY (ClientID) REFERENCES client(ClientID),
                                 CONSTRAINT fk_RestaurantID FOREIGN KEY (RestaurantID) REFERENCES restaurant(RestaurantID)
                            );

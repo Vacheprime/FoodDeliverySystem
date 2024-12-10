@@ -40,7 +40,7 @@ public class Order {
         if (orderedBy == null || assignedTo == null) {
             throw new IllegalArgumentException("The arguments cannot be null.");
         }
-        this.status = Status.IN_PROGRESS;
+        this.status = Status.IN_QUEUE;
         this.orderId = -1;
         this.foods = new ArrayList<>();
         this.orderedBy = orderedBy;
@@ -53,7 +53,7 @@ public class Order {
         if (orderedBy == null) {
             throw new IllegalArgumentException("The arguments cannot be null.");
         }
-        this.status = Status.IN_PROGRESS;
+        this.status = Status.IN_QUEUE;
         this.orderId = -1;
         this.foods = new ArrayList<>();
         this.orderedBy = orderedBy;
@@ -69,7 +69,7 @@ public class Order {
      * @param orderedBy
      */
     public Order(Client orderedBy) {
-        this.status = Status.IN_PROGRESS;
+        this.status = Status.IN_QUEUE;
         this.orderId = -1;
         this.foods = new ArrayList<>();
         this.orderedBy = orderedBy;
@@ -201,7 +201,7 @@ public class Order {
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Order order)) return false;
-        return restaurantId == order.restaurantId && Objects.equals(foods, order.foods) && Objects.equals(orderedBy, order.orderedBy) && Objects.equals(orderDateTime, order.orderDateTime) && status == order.status;
+        return orderId == order.orderId && restaurantId == order.restaurantId && Objects.equals(foods, order.foods) && Objects.equals(orderedBy, order.orderedBy);
     }
 
     @Override
