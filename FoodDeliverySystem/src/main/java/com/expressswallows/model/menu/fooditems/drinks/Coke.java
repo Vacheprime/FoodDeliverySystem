@@ -17,7 +17,7 @@ public class Coke extends Drink {
 
     @Override
     public String getDatabaseType() {
-        return "DRINK:COKE";
+        return "DRINK:COKE:"+getSize();
     }
 
     /**
