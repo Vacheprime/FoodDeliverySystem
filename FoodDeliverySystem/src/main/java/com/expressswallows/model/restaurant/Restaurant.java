@@ -123,11 +123,14 @@ public class Restaurant {
      * This method is synchronized and can be used by
      * multiple threads.
      */
-    public synchronized void addOrder(Order order) throws InterruptedException {
+    public void addOrder(Order order) throws InterruptedException {
         if (order == null) {
             throw new IllegalArgumentException("Order cannot be null");
         }
-        order.setOrderDateTime(LocalDateTime.now()); // Set the date and time the order was placed
+        // Don't set the order date time if it was set by the database
+        if (order.getOrderDateTime() == null) {
+            order.setOrderDateTime(LocalDateTime.now()); // Set the date and time the order was placed
+        }
         orderTaskQueue.put(new OrderProcessTask(order, this));
     }
 
@@ -135,7 +138,7 @@ public class Restaurant {
      * Get the next restaurant's order to be processed.
      * @return the order completed.
      */
-    public synchronized OrderProcessTask processNextOrder() throws InterruptedException {
+    public OrderProcessTask processNextOrder() throws InterruptedException {
         this.currentOrderTask = orderTaskQueue.take();
         this.currentOrderTask.setStartTime(LocalTime.now()); // Set the start time
         return currentOrderTask;
@@ -286,16 +289,17 @@ public class Restaurant {
          */
         public void process() {
             try {
-                long queueTime = RestaurantController.getQueueTime(restaurant) * 60 * 1000;
-                Thread.sleep(queueTime);
+                // Set status to cooking
                 order.setStatus(Order.Status.IN_PROGRESS);
-
-                long cookTime = order.calculateTotalCookTime() * 60 * 1000;
+                // Wait for cooking to finish
+                long cookTime = (long) order.calculateTotalCookTime() * 60 * 1000;
                 Thread.sleep(cookTime);
+                // Set status to delivering
                 order.setStatus(Order.Status.DELIVERING);
-
-                long deliveryTime = RestaurantController.getDeliveryTime(order, restaurant) * 60 * 1000;
+                // Wait for delivery
+                long deliveryTime = (long) RestaurantController.getDeliveryTime(order, restaurant) * 60 * 1000;
                 Thread.sleep(deliveryTime);
+                // Set status to arrived
                 order.setStatus(Order.Status.ARRIVED);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e.getMessage());
