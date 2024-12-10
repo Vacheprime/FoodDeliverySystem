@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
  * @author shahi
  */
 public class Restaurant {
-    public static double DELIVERY_TIME_PER_KM = 0.2; // Three minutes per km
+    public static double DELIVERY_TIME_PER_KM = 0.1;
     private int restaurantId;
     private Address location;
     private String name;
@@ -136,11 +136,9 @@ public class Restaurant {
      * @return the order completed.
      */
     public synchronized OrderProcessTask processNextOrder() throws InterruptedException {
-        if (currentOrderTask.getOrder().getStatus() == Order.Status.ARRIVED) {
-            this.currentOrderTask = orderTaskQueue.take();
-            return currentOrderTask;
-        }
-        return null;
+        this.currentOrderTask = orderTaskQueue.take();
+        this.currentOrderTask.setStartTime(LocalTime.now()); // Set the start time
+        return currentOrderTask;
     }
 
     /**
@@ -241,6 +239,15 @@ public class Restaurant {
         }
 
         /**
+         * Set the start time of the OrderProcess.
+         *
+         * @param startTime the new start time of the OrderProcess.
+         */
+        public void setStartTime(LocalTime startTime) {
+            this.startTime = startTime;
+        }
+
+        /**
          * Get the estimated amount of minutes remaining until
          * completion of the order.
          *
@@ -248,24 +255,37 @@ public class Restaurant {
          */
         public int getEstimatedRemainingTime() {
             if (startTime == null) {
-                return Integer.MAX_VALUE;
+                int totalTime = 0;
+                // Get the totalTime of the current order task
+                // Since it may be null due do concurrent access, make sure it isn't before accessing
+                if (restaurant.getCurrentOrderTask() != null) {
+                    totalTime += restaurant.getCurrentOrderTask().getEstimatedRemainingTime();
+                }
+                // Loop over all orders in the queue
+                for (OrderProcessTask task : restaurant.getOrderTaskQueue()) {
+                    // If the current order has been reached, stop
+                    if (task.getOrder().equals(order)) {
+                        break;
+                    }
+                    // Append the process time of the order to the total time
+                    totalTime += RestaurantController.getTotalProcessTime(task.getOrder(), restaurant);
+                }
+                // Append the process time of this order to the total time and return
+                return totalTime + RestaurantController.getTotalProcessTime(order, restaurant);
+            } else {
+                //
+                LocalTime currentTime = LocalTime.now();
+                int minutesPassed = (int) Duration.between(startTime, currentTime).toMinutes();
+                int processTime = RestaurantController.getTotalProcessTime(order, restaurant);
+                return processTime - minutesPassed;
             }
-    
-            LocalTime currentTime = LocalTime.now();
-            int minutesPassed = (int) Duration.between(startTime, currentTime).toMinutes();
-            int processTime = RestaurantController.getTotalProcessTime(order, restaurant);
-            return processTime - minutesPassed;
         }
 
         /**
          * Process the order.
          */
         public void process() {
-            // Set the current time
-            this.startTime = LocalTime.now();
             try {
-                this.startTime = LocalTime.now();
-
                 long queueTime = RestaurantController.getQueueTime(restaurant) * 60 * 1000;
                 Thread.sleep(queueTime);
                 order.setStatus(Order.Status.IN_PROGRESS);
