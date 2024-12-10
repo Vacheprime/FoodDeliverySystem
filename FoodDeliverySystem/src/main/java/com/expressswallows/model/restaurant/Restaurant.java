@@ -7,9 +7,13 @@ import com.expressswallows.model.restaurant.users.Address;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Restaurant class is used to represent a restaurant location.
@@ -49,6 +53,14 @@ public class Restaurant {
         this.restaurantId = restaurantId;
     }
 
+    public OrderProcessTask getCurrentOrderTask() {
+        return currentOrderTask;
+    }
+
+    public void setCurrentOrderTask(OrderProcessTask currentOrderTask) {
+        this.currentOrderTask = currentOrderTask;
+    }
+    
     /**
      * Getter for the location.
      * @return the location of the restaurant.
@@ -124,7 +136,7 @@ public class Restaurant {
      * @return the order completed.
      */
     public synchronized OrderProcessTask processNextOrder() throws InterruptedException {
-        if (currentOrderTask.getOrder().getStatus() == Order.Status.DELIVERED) {
+        if (currentOrderTask.getOrder().getStatus() == Order.Status.ARRIVED) {
             this.currentOrderTask = orderTaskQueue.take();
             return currentOrderTask;
         }
@@ -196,38 +208,36 @@ public class Restaurant {
          */
         public int getEstimatedRemainingTime(Order order) {
             if (startTime == null) {
-                return Integer.MAX_VALUE; // The remaining time is undefined
+                return Integer.MAX_VALUE;
             }
-            // Find the time difference in minutes between the start
-            // and current time
+    
             LocalTime currentTime = LocalTime.now();
             int minutesPassed = (int) Duration.between(startTime, currentTime).toMinutes();
-            // Get the total process time
             int processTime = RestaurantController.getTotalProcessTime(order, restaurant);
             return processTime - minutesPassed;
         }
 
         /**
-         * Process the order.
-         */
+        * Process the order.
+        */
         @Override
         public void run() {
-            // Set the current time
-            this.startTime = LocalTime.now();
             try {
-                // Prepare the items
-                for (Food f : order.getFoods()) {
-                    f.prepare();
-                }
-                // Wait for cook time
-                Thread.sleep((long) order.calculateTotalCookTime() * 60 * 1000);
-                // Update to delivering
+                this.startTime = LocalTime.now();
+
+                long queueTime = RestaurantController.getQueueTime(restaurant) * 60 * 1000;
+                Thread.sleep(queueTime);
+                order.setStatus(Order.Status.IN_PROGRESS);
+
+                long cookTime = order.calculateTotalCookTime() * 60 * 1000;
+                Thread.sleep(cookTime);
                 order.setStatus(Order.Status.DELIVERING);
-                Thread.sleep((long) RestaurantController.getDeliveryTime(order, restaurant) * 60 * 1000);
-                // Update to delivered
-                order.setStatus(Order.Status.DELIVERED);
+
+                long deliveryTime = RestaurantController.getDeliveryTime(order, restaurant) * 60 * 1000;
+                Thread.sleep(deliveryTime);
+                order.setStatus(Order.Status.ARRIVED);
             } catch (InterruptedException e) {
-                throw new RuntimeException("Order process was interrupted: " + e.getMessage());
+                throw new RuntimeException(e.getMessage());
             }
         }
     }
