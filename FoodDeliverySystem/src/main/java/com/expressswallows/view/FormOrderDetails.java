@@ -6,6 +6,7 @@ package com.expressswallows.view;
 
 import com.expressswallows.Main;
 import com.expressswallows.controller.RestaurantController;
+import com.expressswallows.exceptions.DatabaseException;
 import com.expressswallows.model.menu.fooditems.Food;
 import com.expressswallows.model.restaurant.Order;
 import com.expressswallows.model.restaurant.Payment;
@@ -66,13 +67,13 @@ public class FormOrderDetails extends javax.swing.JFrame {
         initComponents();
         this.client = client;
         this.order = order;
-        orderListTA.setText(foodList(order));
-        Restaurant.OrderProcessTask task = new Restaurant.OrderProcessTask(order, restaurant);
-        try(var database = DatabaseConnectionUtils.getInstance()) {
-            this.restaurant = RestaurantController.findRestaurant(order, database.fetchRestaurantLocations());
-        } catch (Exception e) {
+        try (var database = DatabaseConnectionUtils.getInstance()) {
+            this.restaurant = database.fetchRestaurantLocations().stream().filter(r -> r.getRestaurantId() == order.getRestaurantId()).findFirst().get();
+        } catch (DatabaseException e) {
             e.printStackTrace();
         }
+        orderListTA.setText(foodList(order));
+
 
         update();
 
