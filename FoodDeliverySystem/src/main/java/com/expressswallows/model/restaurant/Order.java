@@ -201,7 +201,7 @@ public class Order {
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Order order)) return false;
-        return orderId == order.orderId && restaurantId == order.restaurantId && Objects.equals(foods, order.foods) && Objects.equals(orderedBy, order.orderedBy) && Objects.equals(orderDateTime, order.orderDateTime);
+        return orderId == order.orderId && restaurantId == order.restaurantId && Objects.equals(foods, order.foods) && Objects.equals(orderedBy, order.orderedBy);
     }
 
     @Override
