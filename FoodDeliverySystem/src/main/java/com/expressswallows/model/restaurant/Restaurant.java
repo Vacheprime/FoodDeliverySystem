@@ -36,22 +36,42 @@ public class Restaurant {
         this.orderTaskQueue = new LinkedBlockingQueue<>();
     }
 
+    /**
+     * Getter for the restaurant's blocking queue.
+     * @return the restaurant's blocking queue.
+     */
     public BlockingQueue<OrderProcessTask> getOrderTaskQueue() {
         return orderTaskQueue;
     }
 
+    /**
+     * Getter for restaurant's ID.
+     * @return the restaurant ID.
+     */
     public int getRestaurantId() {
         return restaurantId;
     }
 
+    /**
+     * Setter for the restaurant's ID.
+     * @param restaurantId the restaurant's ID.
+     */
     public void setRestaurantId(int restaurantId) {
         this.restaurantId = restaurantId;
     }
 
+    /**
+     * Getter for the restaurant's current process task.
+     * @return the restaurant's current process task.
+     */
     public OrderProcessTask getCurrentOrderTask() {
         return currentOrderTask;
     }
 
+    /**
+     * Setter for the restaurant's current process task.
+     * @param currentOrderTask the new current process task.
+     */
     public void setCurrentOrderTask(OrderProcessTask currentOrderTask) {
         this.currentOrderTask = currentOrderTask;
     }
@@ -279,15 +299,21 @@ public class Restaurant {
             }
         }
 
+        /**
+         * Update the status of the current order.
+         * @param status the new status of the current order
+         */
         private void updateStatus(Order.Status status) {
             // Synchronize db access
             DatabaseConnectionUtils.dbLock.lock();
             try {
+                // Set the order's status to the new status
+                order.setStatus(status);
                 // Update the status in the database
                 try (DatabaseConnectionUtils db = DatabaseConnectionUtils.getInstance()) {
                     db.updateOrderStatus(order.getOrderId(), status);
                 } catch (DatabaseException e) {
-                    e.printStackTrace();
+                    throw new RuntimeException("Error: could not access database: " + e.getMessage());
                 }
             } finally {
                 DatabaseConnectionUtils.dbLock.unlock();
@@ -299,23 +325,17 @@ public class Restaurant {
          */
         public void process() {
             try {
-                // Set status to cooking
-                order.setStatus(Order.Status.IN_PROGRESS);
-                // Update the status in the database
+                // Update the status to in progress
                 updateStatus(Order.Status.IN_PROGRESS);
                 // Wait for cooking to finish
                 long cookTime = (long) order.calculateTotalCookTime() * 60 * 1000;
                 Thread.sleep(cookTime);
-                // Set status to delivering
-                order.setStatus(Order.Status.DELIVERING);
-                // Update the status in the database
+                // Update the status to delivering
                 updateStatus(Order.Status.DELIVERING);
                 // Wait for delivery
                 long deliveryTime = (long) RestaurantController.getDeliveryTime(order, restaurant) * 60 * 1000;
                 Thread.sleep(deliveryTime);
-                // Set status to arrived
-                order.setStatus(Order.Status.ARRIVED);
-                // Update the status in the database
+                // Update the status to arrived
                 updateStatus(Order.Status.ARRIVED);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e.getMessage());

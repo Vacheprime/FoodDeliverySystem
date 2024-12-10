@@ -22,10 +22,18 @@ public class RestaurantController {
     private FormPayment paymentForm;
     private FormOrderDetails orderDetailsForm;
 
+    /**
+     * Constructor for a restaurant controller used to manage payment forms.
+     * @param paymentForm the payment form to manage.
+     */
     public RestaurantController(FormPayment paymentForm) {
         this.paymentForm = paymentForm;
     }
 
+    /**
+     * Constructor for a restaurant controller used to manage order detail forms.
+     * @param orderDetailsForm the order detail form to manage.
+     */
     public RestaurantController(FormOrderDetails orderDetailsForm) {
         this.orderDetailsForm = orderDetailsForm;
     }
@@ -34,20 +42,22 @@ public class RestaurantController {
      * Switch the language of the FormPayment.
      */
     public void updateFormPaymentLanguage() {
+        // Load the resource bundle
         ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
+        // Set the text on the form
         paymentForm.backBtn.setText(rb.getString("back"));
         paymentForm.langBtn.setText(rb.getString("lang"));
         paymentForm.cardnumberLbl.setText(rb.getString("cardnum"));
         paymentForm.expirydateLbl.setText(rb.getString("expiry"));
-
-        if (Utils.currentLocale.getLanguage().equals("en")) {
-            paymentForm.totalLbl.setText(rb.getString("amount") + "$" + paymentForm.price);
-        } else if (Utils.currentLocale.getLanguage().equals("fr")) {
-            paymentForm.totalLbl.setText(rb.getString("amount")+ paymentForm.price + "$");
-        }
-
         paymentForm.confirmBtn.setText(rb.getString("confirm"));
         paymentForm.paymentLbl.setText(rb.getString("payment"));
+
+        // Format the currency according to the language
+        if (Utils.currentLocale.getLanguage().equals("en")) {
+            paymentForm.totalLbl.setText(rb.getString("amount") + "$ " + paymentForm.price);
+        } else if (Utils.currentLocale.getLanguage().equals("fr")) {
+            paymentForm.totalLbl.setText(rb.getString("amount")+ paymentForm.price + " $");
+        }
     }
 
     /**
@@ -55,29 +65,28 @@ public class RestaurantController {
      * @return a boolean indicating whether the payment information is correct.
      */
     private boolean checkPayment() {
+        // Get the user input
         String cardnum = paymentForm.cardnumberTB.getText();
         String cvv = paymentForm.cvvTB.getText();
         String expirydate = paymentForm.expirydateTB.getText();
 
-        if (!Utils.validateCreditCard(cardnum, cvv, expirydate)) {
-            return false;
-        }
-        return true;
+        // Validate the card information
+        return Utils.validateCreditCard(cardnum, cvv, expirydate);
     }
 
     /**
      * Pay for an order in the payment form.
      */
     public void payOrder() {
-        ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
-        String message = rb.getString("payFail");
-        String title = rb.getString("er");
-
+        // Display an error message box if the payment information is incorrect
         if (!checkPayment()) {
+            ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
+            String message = rb.getString("payFail");
+            String title = rb.getString("er");
             JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
             return;
         }
-
+        // Create the payment and pass it to the form order details form.
         Payment payment = new Payment(paymentForm.price, paymentForm.client);
         paymentForm.dispose();
         new FormOrderDetails(paymentForm.client, paymentForm.order, payment).setVisible(true);
@@ -144,7 +153,7 @@ public class RestaurantController {
         // Display the UI
         updateOrderDetailsFormLanguage();
         // Continuously update the UI
-        OrderDetailsRefreshThread refreshThread = new OrderDetailsRefreshThread(orderDetailsForm);
+        OrderDetailsRefreshThread refreshThread = new OrderDetailsRefreshThread();
         refreshThread.start();
     }
 
@@ -161,7 +170,7 @@ public class RestaurantController {
         // Display the UI
         updateOrderDetailsFormLanguage();
         // Continuously update the UI
-        OrderDetailsRefreshThread refreshThread = new OrderDetailsRefreshThread(orderDetailsForm);
+        OrderDetailsRefreshThread refreshThread = new OrderDetailsRefreshThread();
         refreshThread.start();
     }
 
@@ -197,6 +206,9 @@ public class RestaurantController {
         orderDetailsForm.statusLbl.setText(rb.getString("status") + " " + orderDetailsForm.order.getStatus());
     }
 
+    /**
+     * Update the order details of a form.
+     */
     public void updateOrderDetails() {
         // Determine remaining time
         int remainingTime = 0;
@@ -208,7 +220,10 @@ public class RestaurantController {
             OrderProcessingController processingController = OrderProcessingController.getInstance();
             Restaurant assignedRestaurant = processingController.getRestaurantById(orderDetailsForm.order.getRestaurantId());
             OrderProcessTask processTask = assignedRestaurant.findTaskWithOrder(orderDetailsForm.order);
-            remainingTime = processTask.getEstimatedRemainingTime();
+            if (processTask != null) {
+                remainingTime = processTask.getEstimatedRemainingTime();
+            }
+
         }
         // Set the text of the form
         ResourceBundle rb = ResourceBundle.getBundle("messages", Utils.currentLocale);
@@ -295,14 +310,23 @@ public class RestaurantController {
         return bestRestaurant;
     }
 
+    /**
+     * Daemon thread used to continuously update the order details form
+     * using the updateDetails method.
+     */
     private class OrderDetailsRefreshThread extends Thread {
-        private FormOrderDetails orderDetailsForm;
 
-        public OrderDetailsRefreshThread(FormOrderDetails orderDetailsForm) {
-            this.orderDetailsForm = orderDetailsForm;
+        /**
+         * Set this thread as a daemon so that it exits once the main thread is closed.
+         */
+        public OrderDetailsRefreshThread() {
             this.setDaemon(true);
         }
 
+        /**
+         * Update the detail information of an order every
+         * second.
+         */
         @Override
         public void run() {
             while (true) {
