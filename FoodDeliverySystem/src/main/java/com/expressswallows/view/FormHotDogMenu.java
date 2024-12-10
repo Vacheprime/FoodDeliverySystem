@@ -23,8 +23,8 @@ public class FormHotDogMenu extends javax.swing.JFrame {
 
     Client client;
     Order order;
-    ImageIcon glizzyImg = new ImageIcon("FoodDeliverySystem/glizzy.jpg");
-    ImageIcon millimeter = new ImageIcon("FoodDeliverySystem/millimeter.jpg");
+    ImageIcon glizzyImg = new ImageIcon("..\\FoodDeliverySystem\\src\\main\\resources\\images\\glizzy.jpg");
+    ImageIcon millimeter = new ImageIcon("..\\FoodDeliverySystem\\src\\main\\resources\\images\\millimeter.jpg");
     private final double PRICEGG = 7.99;
     private final double PRICEMD = 3.99;
 

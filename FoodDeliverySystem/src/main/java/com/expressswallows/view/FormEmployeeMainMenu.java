@@ -22,10 +22,10 @@ public class FormEmployeeMainMenu extends javax.swing.JFrame {
 
     List<Restaurant> restaurants;
     Employee employee;
-    ImageIcon restaurant = new ImageIcon("FoodDeliverySystem/restaurants.jpg");
-    ImageIcon rest2 = new ImageIcon("FoodDeliverySystem/rest2.jpg");
-    ImageIcon rest3 = new ImageIcon("FoodDeliverySystem/rest3.jpg");
-    ImageIcon rest4 = new ImageIcon("FoodDeliverySystem/rest4.jpg");
+    ImageIcon restaurant = new ImageIcon("..\\FoodDeliverySystem\\src\\main\\resources\\images\\restaurants.jpg");
+    ImageIcon rest2 = new ImageIcon("..\\FoodDeliverySystem\\src\\main\\resources\\images\\rest2.jpg");
+    ImageIcon rest3 = new ImageIcon("..\\FoodDeliverySystem\\src\\main\\resources\\images\\rest3.jpg");
+    ImageIcon rest4 = new ImageIcon("..\\FoodDeliverySystem\\src\\main\\resources\\images\\rest4.jpg");
     
 
     /**

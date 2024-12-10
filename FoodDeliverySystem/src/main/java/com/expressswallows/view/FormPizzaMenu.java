@@ -24,9 +24,9 @@ public class FormPizzaMenu extends javax.swing.JFrame {
 
     Client client;
     Order order;
-    ImageIcon cheeseImg = new ImageIcon("FoodDeliverySystem/cheese.jpg");
-    ImageIcon pepperoniImg = new ImageIcon("FoodDeliverySystem/pepperoni.jpg");
-    ImageIcon alldressImg = new ImageIcon("FoodDeliverySystem/alldress.jpg");
+    ImageIcon cheeseImg = new ImageIcon("..\\FoodDeliverySystem\\src\\main\\resources\\images\\cheese.jpg");
+    ImageIcon pepperoniImg = new ImageIcon("..\\FoodDeliverySystem\\src\\main\\resources\\images\\pepperoni.jpg");
+    ImageIcon alldressImg = new ImageIcon("..\\FoodDeliverySystem\\src\\main\\resources\\images\\alldress.jpg");
     private final double PRICECHEEESE = 10.99;
     private final double PRICEPEP = 17.99;
     private final double PRICEAD = 22.99;
