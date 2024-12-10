@@ -382,8 +382,6 @@ public class DatabaseConnectionUtils implements AutoCloseable {
         return restaurant;
     }
 
-    // TODO: TEST WITH ALL FOODS
-    // TODO: DON'T USE FACTORY, MANUALLY SET VALUES FROM QUERY
     /**
      * Fetch the list of foods contained in an order.
      * @param orderID the order ID of the order.
